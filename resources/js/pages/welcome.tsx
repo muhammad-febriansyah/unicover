@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
 import {
     Navbar,
     NavBody,
@@ -26,6 +26,7 @@ import {
     Calendar,
     MapPin,
     Phone,
+    Mail,
     Clock,
     Instagram,
     Facebook,
@@ -35,6 +36,14 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
     return (
         <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
             <path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.4 5.1 5.2-1.4A10 10 0 1 0 12 2z" />
+        </svg>
+    );
+}
+
+function TiktokIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+            <path d="M16.6 5.82c-.9-.98-1.4-2.26-1.4-3.57h-3.15v13.94c0 1.55-1.26 2.81-2.81 2.81a2.81 2.81 0 0 1 0-5.62c.28 0 .55.04.81.12V9.62a6.02 6.02 0 0 0-.81-.06 5.97 5.97 0 1 0 5.97 5.97V9.4a8.16 8.16 0 0 0 4.79 1.53V7.79a4.83 4.83 0 0 1-3.4-1.97z" />
         </svg>
     );
 }
@@ -88,6 +97,7 @@ interface SiteSettings {
     facebook: string | null;
     tiktok: string | null;
     footer_text: string | null;
+    google_maps_embed: string | null;
 }
 
 interface Props {
@@ -136,7 +146,8 @@ export default function Welcome({ settings, categories, products, articles }: Pr
     const socialLinks = [
         settings?.instagram ? { icon: Instagram, href: `https://instagram.com/${settings.instagram}` } : null,
         settings?.facebook ? { icon: Facebook, href: `https://facebook.com/${settings.facebook}` } : null,
-    ].filter(Boolean) as { icon: typeof Instagram; href: string }[];
+        settings?.tiktok ? { icon: TiktokIcon, href: `https://tiktok.com/@${settings.tiktok}` } : null,
+    ].filter(Boolean) as { icon: ComponentType<{ size?: number }>; href: string }[];
 
     const heroProduct = products.find((p) => p.images.length > 0);
     const heroImage = heroProduct?.images.find((img) => img.is_primary) ?? heroProduct?.images[0];
@@ -576,9 +587,77 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                     </div>
                 </section>
 
+                {/* KONTAK */}
+                <section id="kontak" className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+                    <div className="mx-auto mb-11 max-w-[600px] text-center">
+                        <span className="text-sm font-semibold tracking-wide text-[#2547F9]">HUBUNGI KAMI</span>
+                        <h2 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight">Kami Siap Membantu Anda</h2>
+                        <p className="mt-3 text-[15px] text-gray-500">
+                            Kunjungi lokasi kami atau hubungi langsung via WhatsApp untuk konsultasi produk.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_1fr]">
+                        {settings?.google_maps_embed ? (
+                            <div
+                                className="aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-gray-200 shadow-[0_10px_30px_rgba(17,24,39,.05)] [&_iframe]:size-full"
+                                dangerouslySetInnerHTML={{ __html: settings.google_maps_embed }}
+                            />
+                        ) : (
+                            <div className="flex aspect-[4/3] w-full items-center justify-center rounded-[24px] border border-gray-200 bg-[#F9FAFB] text-sm text-gray-400">
+                                Peta lokasi belum diatur
+                            </div>
+                        )}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            {settings?.address && (
+                                <div className="rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.04)]">
+                                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#EEF1FF]">
+                                        <MapPin size={20} className="text-[#2547F9]" strokeWidth={1.9} />
+                                    </span>
+                                    <h3 className="mt-3.5 text-[15px] font-semibold">Alamat</h3>
+                                    <p className="mt-1 text-sm leading-relaxed text-gray-500">{settings.address}</p>
+                                </div>
+                            )}
+                            {waNumber && (
+                                <a
+                                    href={waGeneral}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.04)] hover:border-[#2547F9]"
+                                >
+                                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#EEF1FF]">
+                                        <Phone size={20} className="text-[#2547F9]" strokeWidth={1.9} />
+                                    </span>
+                                    <h3 className="mt-3.5 text-[15px] font-semibold">WhatsApp</h3>
+                                    <p className="mt-1 text-sm leading-relaxed text-gray-500">+{waNumber}</p>
+                                </a>
+                            )}
+                            {settings?.email && (
+                                <a
+                                    href={`mailto:${settings.email}`}
+                                    className="rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.04)] hover:border-[#2547F9]"
+                                >
+                                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#EEF1FF]">
+                                        <Mail size={20} className="text-[#2547F9]" strokeWidth={1.9} />
+                                    </span>
+                                    <h3 className="mt-3.5 text-[15px] font-semibold">Email</h3>
+                                    <p className="mt-1 text-sm leading-relaxed break-all text-gray-500">{settings.email}</p>
+                                </a>
+                            )}
+                            <div className="rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.04)]">
+                                <span className="flex size-11 items-center justify-center rounded-xl bg-[#EEF1FF]">
+                                    <Clock size={20} className="text-[#2547F9]" strokeWidth={1.9} />
+                                </span>
+                                <h3 className="mt-3.5 text-[15px] font-semibold">Jam Operasional</h3>
+                                <p className="mt-1 text-sm leading-relaxed text-gray-500">Senin–Sabtu, 08.00–20.00 WIB</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* FOOTER */}
-                <footer id="kontak" className="bg-[#0F1115] text-[#cbd5e1]">
-                    <div className="mx-auto grid max-w-6xl grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 px-6 pt-14 md:pt-18">
+                <footer className="relative overflow-hidden bg-white text-[#475569]">
+                    <div className="pointer-events-none absolute -top-1/2 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,rgba(37,71,249,.16),transparent_70%)] blur-[60px]" />
+                    <div className="relative mx-auto grid max-w-6xl grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 px-6 pt-14 md:pt-18">
                         <div className="max-w-[300px]">
                             <div className="mb-4 flex items-center">
                                 {settings?.logo_path ? (
@@ -589,7 +668,7 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                                     </span>
                                 )}
                             </div>
-                            <p className="text-sm leading-relaxed text-[#94a3b8]">
+                            <p className="text-sm leading-relaxed text-[#64748b]">
                                 {settings?.tagline ?? 'Spesialis cover mobil custom presisi untuk semua tipe kendaraan di Indonesia.'}
                             </p>
                             {socialLinks.length > 0 && (
@@ -600,7 +679,7 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                                             href={s.href}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="flex size-[38px] items-center justify-center rounded-xl bg-[#1c2027] text-[#cbd5e1] hover:bg-[#2547F9] hover:text-white"
+                                            className="flex size-[38px] items-center justify-center rounded-xl border border-gray-200 bg-white text-[#475569] hover:border-[#2547F9] hover:bg-[#2547F9] hover:text-white"
                                         >
                                             <s.icon size={18} />
                                         </a>
@@ -609,50 +688,50 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                             )}
                         </div>
                         <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-white">Menu</h4>
+                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Menu</h4>
                             <div className="flex flex-col gap-3 text-sm">
                                 {navLinks.map((link) => (
-                                    <a key={link.href} href={link.href} className="text-[#94a3b8] hover:text-white">
+                                    <a key={link.href} href={link.href} className="text-[#64748b] hover:text-[#2547F9]">
                                         {link.label}
                                     </a>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-white">Kontak</h4>
-                            <div className="flex flex-col gap-3.5 text-sm leading-relaxed text-[#94a3b8]">
+                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Kontak</h4>
+                            <div className="flex flex-col gap-3.5 text-sm leading-relaxed text-[#64748b]">
                                 {settings?.address && (
                                     <div className="flex gap-2.5">
-                                        <MapPin size={18} className="mt-0.5 shrink-0 text-[#6b8cff]" strokeWidth={1.8} />
+                                        <MapPin size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />
                                         {settings.address}
                                     </div>
                                 )}
                                 {waNumber && (
-                                    <a href={waGeneral} target="_blank" rel="noreferrer" className="flex gap-2.5 text-[#94a3b8] hover:text-white">
-                                        <Phone size={18} className="mt-0.5 shrink-0 text-[#6b8cff]" strokeWidth={1.8} />+{waNumber}
+                                    <a href={waGeneral} target="_blank" rel="noreferrer" className="flex gap-2.5 text-[#64748b] hover:text-[#2547F9]">
+                                        <Phone size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />+{waNumber}
                                     </a>
                                 )}
                                 <div className="flex gap-2.5">
-                                    <Clock size={18} className="mt-0.5 shrink-0 text-[#6b8cff]" strokeWidth={1.8} />
+                                    <Clock size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />
                                     Senin–Sabtu, 08.00–20.00 WIB
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-white">Pesan Cepat</h4>
-                            <p className="mb-4 text-sm leading-relaxed text-[#94a3b8]">Chat kami sekarang untuk konsultasi gratis &amp; penawaran terbaik.</p>
+                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Pesan Cepat</h4>
+                            <p className="mb-4 text-sm leading-relaxed text-[#64748b]">Chat kami sekarang untuk konsultasi gratis &amp; penawaran terbaik.</p>
                             <a
                                 href={waGeneral}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-xl bg-[#2547F9] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a35c9]"
+                                className="inline-flex items-center gap-2 rounded-xl bg-[#2547F9] px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(37,71,249,.22)] hover:bg-[#1a35c9]"
                             >
                                 <WhatsAppIcon size={18} />
                                 WhatsApp Kami
                             </a>
                         </div>
                     </div>
-                    <div className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-[#1c2027] px-6 py-7 text-[13px] text-[#64748b]">
+                    <div className="relative mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-gray-200 px-6 py-7 text-[13px] text-[#94a3b8]">
                         <span>{settings?.footer_text ?? `© ${new Date().getFullYear()} ${brandName}. Semua hak dilindungi.`}</span>
                         <span>Dibuat dengan ❤ untuk pecinta otomotif Indonesia</span>
                     </div>
