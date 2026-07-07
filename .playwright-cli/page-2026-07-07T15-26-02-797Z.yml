@@ -1,0 +1,293 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Kelola Produk" [level=1] [ref=e114]
+              - paragraph [ref=e115]: 9 produk terdaftar
+            - link "Tambah Produk" [ref=e116] [cursor=pointer]:
+              - /url: /admin/products/create
+              - img [ref=e117]
+              - text: Tambah Produk
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - generic [ref=e120]:
+                - img [ref=e121]
+                - textbox "Cari nama produk..." [ref=e124]
+              - combobox [ref=e125] [cursor=pointer]:
+                - option "Semua Kategori" [selected]
+                - option "Cover Mobil"
+                - option "Cover Ban Mobil"
+            - table [ref=e128]:
+              - rowgroup [ref=e129]:
+                - row "Produk Kategori Harga Stok Status Aksi" [ref=e130]:
+                  - columnheader "Produk" [ref=e131]:
+                    - button "Produk" [ref=e132]:
+                      - text: Produk
+                      - img [ref=e133]
+                  - columnheader "Kategori" [ref=e136]
+                  - columnheader "Harga" [ref=e137]:
+                    - generic [ref=e138]: Harga
+                  - columnheader "Stok" [ref=e139]:
+                    - generic [ref=e140]: Stok
+                  - columnheader "Status" [ref=e141]
+                  - columnheader "Aksi" [ref=e142]:
+                    - generic [ref=e143]: Aksi
+              - rowgroup [ref=e144]:
+                - row "C Cover Mobil Premium All-Weather CM-001 Cover Mobil Rp 1157272.22 Tersedia Aktif" [ref=e145]:
+                  - cell "C Cover Mobil Premium All-Weather CM-001" [ref=e146]:
+                    - generic [ref=e147]:
+                      - generic [ref=e148]: C
+                      - generic [ref=e149]:
+                        - generic [ref=e150]: Cover Mobil Premium All-Weather
+                        - generic [ref=e151]: CM-001
+                  - cell "Cover Mobil" [ref=e152]:
+                    - generic [ref=e153]: Cover Mobil
+                  - cell "Rp 1157272.22" [ref=e154]:
+                    - generic [ref=e155]: Rp 1157272.22
+                  - cell "Tersedia" [ref=e156]:
+                    - generic [ref=e157]: Tersedia
+                  - cell "Aktif" [ref=e158]:
+                    - generic [ref=e159]: Aktif
+                  - cell [ref=e161]:
+                    - generic [ref=e162]:
+                      - link "Edit" [ref=e163] [cursor=pointer]:
+                        - /url: /admin/products/1/edit
+                        - img [ref=e164]
+                      - button "Hapus" [ref=e167]:
+                        - img [ref=e168]
+                - row "C Cover Ban Mobil Waterproof CB-001 Cover Ban Mobil Rp 184933.52 Tersedia Aktif" [ref=e171]:
+                  - cell "C Cover Ban Mobil Waterproof CB-001" [ref=e172]:
+                    - generic [ref=e173]:
+                      - generic [ref=e174]: C
+                      - generic [ref=e175]:
+                        - generic [ref=e176]: Cover Ban Mobil Waterproof
+                        - generic [ref=e177]: CB-001
+                  - cell "Cover Ban Mobil" [ref=e178]:
+                    - generic [ref=e179]: Cover Ban Mobil
+                  - cell "Rp 184933.52" [ref=e180]:
+                    - generic [ref=e181]: Rp 184933.52
+                  - cell "Tersedia" [ref=e182]:
+                    - generic [ref=e183]: Tersedia
+                  - cell "Aktif" [ref=e184]:
+                    - generic [ref=e185]: Aktif
+                  - cell [ref=e187]:
+                    - generic [ref=e188]:
+                      - link "Edit" [ref=e189] [cursor=pointer]:
+                        - /url: /admin/products/6/edit
+                        - img [ref=e190]
+                      - button "Hapus" [ref=e193]:
+                        - img [ref=e194]
+                - row "C Cover Mobil Semi-Outdoor CM-002 Cover Mobil Rp 474876.23 Tersedia Aktif" [ref=e197]:
+                  - cell "C Cover Mobil Semi-Outdoor CM-002" [ref=e198]:
+                    - generic [ref=e199]:
+                      - generic [ref=e200]: C
+                      - generic [ref=e201]:
+                        - generic [ref=e202]: Cover Mobil Semi-Outdoor
+                        - generic [ref=e203]: CM-002
+                  - cell "Cover Mobil" [ref=e204]:
+                    - generic [ref=e205]: Cover Mobil
+                  - cell "Rp 474876.23" [ref=e206]:
+                    - generic [ref=e207]: Rp 474876.23
+                  - cell "Tersedia" [ref=e208]:
+                    - generic [ref=e209]: Tersedia
+                  - cell "Aktif" [ref=e210]:
+                    - generic [ref=e211]: Aktif
+                  - cell [ref=e213]:
+                    - generic [ref=e214]:
+                      - link "Edit" [ref=e215] [cursor=pointer]:
+                        - /url: /admin/products/2/edit
+                        - img [ref=e216]
+                      - button "Hapus" [ref=e219]:
+                        - img [ref=e220]
+                - row "C Cover Ban Mobil UV Shield CB-002 Cover Ban Mobil Rp 388213.39 Tersedia Aktif" [ref=e223]:
+                  - cell "C Cover Ban Mobil UV Shield CB-002" [ref=e224]:
+                    - generic [ref=e225]:
+                      - generic [ref=e226]: C
+                      - generic [ref=e227]:
+                        - generic [ref=e228]: Cover Ban Mobil UV Shield
+                        - generic [ref=e229]: CB-002
+                  - cell "Cover Ban Mobil" [ref=e230]:
+                    - generic [ref=e231]: Cover Ban Mobil
+                  - cell "Rp 388213.39" [ref=e232]:
+                    - generic [ref=e233]: Rp 388213.39
+                  - cell "Tersedia" [ref=e234]:
+                    - generic [ref=e235]: Tersedia
+                  - cell "Aktif" [ref=e236]:
+                    - generic [ref=e237]: Aktif
+                  - cell [ref=e239]:
+                    - generic [ref=e240]:
+                      - link "Edit" [ref=e241] [cursor=pointer]:
+                        - /url: /admin/products/7/edit
+                        - img [ref=e242]
+                      - button "Hapus" [ref=e245]:
+                        - img [ref=e246]
+                - row "C Cover Mobil Indoor Soft Touch CM-003 Cover Mobil Rp 813085.07 Tersedia Aktif" [ref=e249]:
+                  - cell "C Cover Mobil Indoor Soft Touch CM-003" [ref=e250]:
+                    - generic [ref=e251]:
+                      - generic [ref=e252]: C
+                      - generic [ref=e253]:
+                        - generic [ref=e254]: Cover Mobil Indoor Soft Touch
+                        - generic [ref=e255]: CM-003
+                  - cell "Cover Mobil" [ref=e256]:
+                    - generic [ref=e257]: Cover Mobil
+                  - cell "Rp 813085.07" [ref=e258]:
+                    - generic [ref=e259]: Rp 813085.07
+                  - cell "Tersedia" [ref=e260]:
+                    - generic [ref=e261]: Tersedia
+                  - cell "Aktif" [ref=e262]:
+                    - generic [ref=e263]: Aktif
+                  - cell [ref=e265]:
+                    - generic [ref=e266]:
+                      - link "Edit" [ref=e267] [cursor=pointer]:
+                        - /url: /admin/products/3/edit
+                        - img [ref=e268]
+                      - button "Hapus" [ref=e271]:
+                        - img [ref=e272]
+                - row "C Cover Ban Mobil Premium Leather Look CB-003 Cover Ban Mobil Rp 217362.94 Tersedia Aktif" [ref=e275]:
+                  - cell "C Cover Ban Mobil Premium Leather Look CB-003" [ref=e276]:
+                    - generic [ref=e277]:
+                      - generic [ref=e278]: C
+                      - generic [ref=e279]:
+                        - generic [ref=e280]: Cover Ban Mobil Premium Leather Look
+                        - generic [ref=e281]: CB-003
+                  - cell "Cover Ban Mobil" [ref=e282]:
+                    - generic [ref=e283]: Cover Ban Mobil
+                  - cell "Rp 217362.94" [ref=e284]:
+                    - generic [ref=e285]: Rp 217362.94
+                  - cell "Tersedia" [ref=e286]:
+                    - generic [ref=e287]: Tersedia
+                  - cell "Aktif" [ref=e288]:
+                    - generic [ref=e289]: Aktif
+                  - cell [ref=e291]:
+                    - generic [ref=e292]:
+                      - link "Edit" [ref=e293] [cursor=pointer]:
+                        - /url: /admin/products/8/edit
+                        - img [ref=e294]
+                      - button "Hapus" [ref=e297]:
+                        - img [ref=e298]
+                - row "C Cover Mobil SUV Heavy Duty CM-004 Cover Mobil Rp 873868.53 Preorder Aktif" [ref=e301]:
+                  - cell "C Cover Mobil SUV Heavy Duty CM-004" [ref=e302]:
+                    - generic [ref=e303]:
+                      - generic [ref=e304]: C
+                      - generic [ref=e305]:
+                        - generic [ref=e306]: Cover Mobil SUV Heavy Duty
+                        - generic [ref=e307]: CM-004
+                  - cell "Cover Mobil" [ref=e308]:
+                    - generic [ref=e309]: Cover Mobil
+                  - cell "Rp 873868.53" [ref=e310]:
+                    - generic [ref=e311]: Rp 873868.53
+                  - cell "Preorder" [ref=e312]:
+                    - generic [ref=e313]: Preorder
+                  - cell "Aktif" [ref=e314]:
+                    - generic [ref=e315]: Aktif
+                  - cell [ref=e317]:
+                    - generic [ref=e318]:
+                      - link "Edit" [ref=e319] [cursor=pointer]:
+                        - /url: /admin/products/4/edit
+                        - img [ref=e320]
+                      - button "Hapus" [ref=e323]:
+                        - img [ref=e324]
+                - row "C Cover Ban Mobil Racing Style CB-004 Cover Ban Mobil Rp 415101.53 Tersedia Aktif" [ref=e327]:
+                  - cell "C Cover Ban Mobil Racing Style CB-004" [ref=e328]:
+                    - generic [ref=e329]:
+                      - generic [ref=e330]: C
+                      - generic [ref=e331]:
+                        - generic [ref=e332]: Cover Ban Mobil Racing Style
+                        - generic [ref=e333]: CB-004
+                  - cell "Cover Ban Mobil" [ref=e334]:
+                    - generic [ref=e335]: Cover Ban Mobil
+                  - cell "Rp 415101.53" [ref=e336]:
+                    - generic [ref=e337]: Rp 415101.53
+                  - cell "Tersedia" [ref=e338]:
+                    - generic [ref=e339]: Tersedia
+                  - cell "Aktif" [ref=e340]:
+                    - generic [ref=e341]: Aktif
+                  - cell [ref=e343]:
+                    - generic [ref=e344]:
+                      - link "Edit" [ref=e345] [cursor=pointer]:
+                        - /url: /admin/products/9/edit
+                        - img [ref=e346]
+                      - button "Hapus" [ref=e349]:
+                        - img [ref=e350]
+                - row "C Cover Mobil Sedan Sporty Fit CM-005 Cover Mobil Rp 1434832.75 Tersedia Aktif" [ref=e353]:
+                  - cell "C Cover Mobil Sedan Sporty Fit CM-005" [ref=e354]:
+                    - generic [ref=e355]:
+                      - generic [ref=e356]: C
+                      - generic [ref=e357]:
+                        - generic [ref=e358]: Cover Mobil Sedan Sporty Fit
+                        - generic [ref=e359]: CM-005
+                  - cell "Cover Mobil" [ref=e360]:
+                    - generic [ref=e361]: Cover Mobil
+                  - cell "Rp 1434832.75" [ref=e362]:
+                    - generic [ref=e363]: Rp 1434832.75
+                  - cell "Tersedia" [ref=e364]:
+                    - generic [ref=e365]: Tersedia
+                  - cell "Aktif" [ref=e366]:
+                    - generic [ref=e367]: Aktif
+                  - cell [ref=e369]:
+                    - generic [ref=e370]:
+                      - link "Edit" [ref=e371] [cursor=pointer]:
+                        - /url: /admin/products/5/edit
+                        - img [ref=e372]
+                      - button "Hapus" [ref=e375]:
+                        - img [ref=e376]
+            - generic [ref=e379]:
+              - generic [ref=e380]: Menampilkan 1-9 dari 9
+              - link "1" [ref=e382] [cursor=pointer]:
+                - /url: /admin/products?page=1
+  - region "Notifications alt+T"

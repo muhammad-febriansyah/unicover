@@ -1,0 +1,93 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kategori Produk" [ref=e59] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e60]
+          - generic [ref=e62]: Kategori Produk
+        - link "Kelola Artikel" [ref=e63] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e64]
+          - generic [ref=e67]: Kelola Artikel
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Pengaturan Toko" [level=1] [ref=e114]
+              - paragraph [ref=e115]: Kelola identitas toko dan konfigurasi.
+            - button "Simpan Perubahan" [ref=e116] [cursor=pointer]:
+              - img [ref=e117]
+              - text: Simpan Perubahan
+          - generic [ref=e122]:
+            - tablist [ref=e123]:
+              - tab "Identitas Toko" [selected] [ref=e124]
+              - tab "WhatsApp" [ref=e125]
+              - tab "Kontak" [ref=e126]
+              - tab "Sosial Media" [ref=e127]
+            - tabpanel "Identitas Toko" [ref=e128]:
+              - generic [ref=e129]:
+                - generic [ref=e130]: Identitas Toko
+                - generic [ref=e131]: Informasi yang tampil di seluruh website.
+                - generic [ref=e132]:
+                  - generic [ref=e133]:
+                    - generic [ref=e134]: Nama Toko *
+                    - textbox [ref=e135]: Unicover
+                  - generic [ref=e136]:
+                    - generic [ref=e137]:
+                      - generic [ref=e138]: Tagline
+                      - textbox "Tagline toko..." [ref=e139]: Custom Automotive Covers – Presisi & Estetika
+                    - generic [ref=e140]:
+                      - generic [ref=e141]: Teks Footer
+                      - textbox "Teks di footer..." [ref=e142]: © 2026 Unicover. All rights reserved.
+                  - generic [ref=e143]:
+                    - generic [ref=e144]:
+                      - generic [ref=e145]: Hero Heading
+                      - textbox "Judul hero..." [ref=e146]: Lindungi Kendaraan Anda dengan Style
+                    - generic [ref=e147]:
+                      - generic [ref=e148]: Hero Subheading
+                      - textbox "Sub-judul hero..." [ref=e149]: Cover mobil & cover ban custom berkualitas premium untuk segala tipe kendaraan
+  - region "Notifications alt+T"

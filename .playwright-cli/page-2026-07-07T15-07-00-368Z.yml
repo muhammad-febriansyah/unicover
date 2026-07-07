@@ -1,0 +1,271 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e463]:
+          - generic [ref=e464]: Unicover
+          - generic [ref=e465]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e466]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e471]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e474]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e477]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e479]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e484]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e486]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e489]: Pengaturan Toko
+      - generic [ref=e491]:
+        - generic [ref=e492]:
+          - img [ref=e494]
+          - generic [ref=e496]: Checkout via WA
+        - generic [ref=e497]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [active] [ref=e498] [cursor=pointer]:
+          - img [ref=e499]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Selamat datang, Admin 👋" [level=1] [ref=e114]
+              - paragraph [ref=e115]: Selasa, 7 Juli 2026
+            - generic [ref=e116]:
+              - link "Produk Baru" [ref=e117] [cursor=pointer]:
+                - /url: /admin/products/create
+                - img [ref=e118]
+                - text: Produk Baru
+              - link "Artikel Baru" [ref=e119] [cursor=pointer]:
+                - /url: /admin/articles/create
+                - img [ref=e120]
+                - text: Artikel Baru
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - generic [ref=e123]:
+                - img [ref=e125]
+                - generic [ref=e129]:
+                  - img [ref=e130]
+                  - text: 9 aktif
+              - generic [ref=e133]: "9"
+              - generic [ref=e134]: Total Produk
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e138]
+                - generic [ref=e141]:
+                  - img [ref=e142]
+                  - text: 100%
+              - generic [ref=e145]: "9"
+              - generic [ref=e146]: Produk Aktif
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - img [ref=e150]
+                - generic [ref=e152]: ditampilkan
+              - generic [ref=e153]: "5"
+              - generic [ref=e154]: Produk Unggulan
+            - generic [ref=e155]:
+              - generic [ref=e156]:
+                - img [ref=e158]
+                - generic [ref=e162]: 2 aktif
+              - generic [ref=e163]: "2"
+              - generic [ref=e164]: Kategori Produk
+          - generic [ref=e165]:
+            - generic [ref=e166]:
+              - generic [ref=e167]:
+                - img [ref=e169]
+                - generic [ref=e172]:
+                  - img [ref=e173]
+                  - text: 0 draft
+              - generic [ref=e176]: "3"
+              - generic [ref=e177]: Artikel Terbit
+            - generic [ref=e178]:
+              - img [ref=e181]
+              - generic [ref=e184]: "3"
+              - generic [ref=e185]: Total Artikel
+            - generic [ref=e186]:
+              - img [ref=e189]
+              - generic [ref=e193]: "14"
+              - generic [ref=e194]: Total Gambar
+            - generic [ref=e195]:
+              - img [ref=e198]
+              - generic [ref=e202]: "11"
+              - generic [ref=e203]: Tag
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - generic [ref=e207]:
+                  - img [ref=e209]
+                  - heading "Produk Terbaru" [level=2] [ref=e213]
+                - link "Lihat semua" [ref=e214] [cursor=pointer]:
+                  - /url: /admin/products
+                  - text: Lihat semua
+                  - img [ref=e215]
+              - generic [ref=e217]:
+                - generic [ref=e218]:
+                  - generic [ref=e220]:
+                    - generic [ref=e221]: Cover Mobil Premium All-Weather
+                    - generic [ref=e222]:
+                      - generic [ref=e223]: Cover Mobil
+                      - generic [ref=e224]: •
+                      - generic [ref=e225]: Rp903.614
+                  - generic [ref=e226]:
+                    - generic [ref=e227]: Aktif
+                    - generic [ref=e229]: Tersedia
+                - generic [ref=e230]:
+                  - generic [ref=e232]:
+                    - generic [ref=e233]: Cover Mobil Semi-Outdoor
+                    - generic [ref=e234]:
+                      - generic [ref=e235]: Cover Mobil
+                      - generic [ref=e236]: •
+                      - generic [ref=e237]: Rp192.306
+                  - generic [ref=e238]:
+                    - generic [ref=e239]: Aktif
+                    - generic [ref=e241]: Tersedia
+                - generic [ref=e242]:
+                  - generic [ref=e244]:
+                    - generic [ref=e245]: Cover Mobil Indoor Soft Touch
+                    - generic [ref=e246]:
+                      - generic [ref=e247]: Cover Mobil
+                      - generic [ref=e248]: •
+                      - generic [ref=e249]: Rp813.085
+                  - generic [ref=e250]:
+                    - generic [ref=e251]: Aktif
+                    - generic [ref=e253]: Tersedia
+                - generic [ref=e254]:
+                  - generic [ref=e256]:
+                    - generic [ref=e257]: Cover Mobil SUV Heavy Duty
+                    - generic [ref=e258]:
+                      - generic [ref=e259]: Cover Mobil
+                      - generic [ref=e260]: •
+                      - generic [ref=e261]: Rp873.869
+                  - generic [ref=e262]:
+                    - generic [ref=e263]: Aktif
+                    - generic [ref=e265]: Tersedia
+                - generic [ref=e266]:
+                  - generic [ref=e268]:
+                    - generic [ref=e269]: Cover Mobil Sedan Sporty Fit
+                    - generic [ref=e270]:
+                      - generic [ref=e271]: Cover Mobil
+                      - generic [ref=e272]: •
+                      - generic [ref=e273]: Rp1.434.833
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: Aktif
+                    - generic [ref=e277]: Tersedia
+            - generic [ref=e278]:
+              - generic [ref=e279]:
+                - generic [ref=e280]:
+                  - img [ref=e282]
+                  - heading "Artikel Terbaru" [level=2] [ref=e285]
+                - link "Lihat semua" [ref=e286] [cursor=pointer]:
+                  - /url: /admin/articles
+                  - text: Lihat semua
+                  - img [ref=e287]
+              - generic [ref=e289]:
+                - generic [ref=e290]:
+                  - img [ref=e292]
+                  - generic [ref=e295]:
+                    - generic [ref=e296]: Mengapa Cover Mobil Custom Lebih Baik daripada Cover Universal
+                    - generic [ref=e297]:
+                      - generic [ref=e298]: Tips & Trik Otomotif
+                      - generic [ref=e299]: •
+                      - generic [ref=e300]:
+                        - img [ref=e301]
+                        - text: 1 jam yang lalu
+                  - generic [ref=e305]: Terbit
+                - generic [ref=e307]:
+                  - img [ref=e309]
+                  - generic [ref=e312]:
+                    - generic [ref=e313]: 5 Tips Memilih Cover Ban Mobil yang Tepat
+                    - generic [ref=e314]:
+                      - generic [ref=e315]: Tips & Trik Otomotif
+                      - generic [ref=e316]: •
+                      - generic [ref=e317]:
+                        - img [ref=e318]
+                        - text: 1 jam yang lalu
+                  - generic [ref=e322]: Terbit
+                - generic [ref=e324]:
+                  - img [ref=e326]
+                  - generic [ref=e329]:
+                    - generic [ref=e330]: "Tren Custom Otomotif 2026: Personalisasi Jadi Raja"
+                    - generic [ref=e331]:
+                      - generic [ref=e332]: Tips & Trik Otomotif
+                      - generic [ref=e333]: •
+                      - generic [ref=e334]:
+                        - img [ref=e335]
+                        - text: 1 jam yang lalu
+                  - generic [ref=e339]: Terbit
+          - generic [ref=e341]:
+            - generic [ref=e342]:
+              - generic [ref=e343]:
+                - img [ref=e345]
+                - heading "Distribusi Produk per Kategori" [level=2] [ref=e349]
+              - generic [ref=e350]:
+                - generic [ref=e352]:
+                  - generic [ref=e353]: Cover Mobil
+                  - generic [ref=e354]: "5"
+                - generic [ref=e358]:
+                  - generic [ref=e359]: Cover Ban Mobil
+                  - generic [ref=e360]: "4"
+            - generic [ref=e363]:
+              - generic [ref=e364]:
+                - img [ref=e366]
+                - heading "Distribusi Artikel per Kategori" [level=2] [ref=e369]
+              - generic [ref=e370]:
+                - generic [ref=e372]:
+                  - generic [ref=e373]: Tips & Trik Otomotif
+                  - generic [ref=e374]: "3"
+                - generic [ref=e378]:
+                  - generic [ref=e379]: Review Produk
+                  - generic [ref=e380]: "0"
+                - generic [ref=e383]:
+                  - generic [ref=e384]: Inspirasi Custom
+                  - generic [ref=e385]: "0"
+                - generic [ref=e388]:
+                  - generic [ref=e389]: Berita & Event
+                  - generic [ref=e390]: "0"
+          - generic [ref=e392]:
+            - link "Kelola Produk" [ref=e393] [cursor=pointer]:
+              - /url: /admin/products
+              - img [ref=e395]
+              - text: Kelola Produk
+            - link "Kelola Artikel" [ref=e399] [cursor=pointer]:
+              - /url: /admin/articles
+              - img [ref=e401]
+              - text: Kelola Artikel
+            - link "Kategori" [ref=e404] [cursor=pointer]:
+              - /url: /admin/categories
+              - img [ref=e406]
+              - text: Kategori
+            - link "Pengaturan" [ref=e410] [cursor=pointer]:
+              - /url: /admin/settings
+              - img [ref=e412]
+              - text: Pengaturan
+  - region "Notifications alt+T"

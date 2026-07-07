@@ -1,0 +1,329 @@
+- generic:
+  - generic:
+    - generic:
+      - complementary:
+        - generic:
+          - generic:
+            - img
+          - generic:
+            - generic: Unicover
+            - generic: Admin Panel
+        - generic:
+          - generic: Menu Utama
+          - link:
+            - /url: /admin
+            - img
+            - generic: Dashboard
+          - link:
+            - /url: /admin/products
+            - img
+            - generic: Kelola Produk
+          - link:
+            - /url: /admin/articles
+            - img
+            - generic: Kelola Artikel
+          - link:
+            - /url: /admin/categories
+            - img
+            - generic: Kategori Produk
+          - link:
+            - /url: /admin/article-categories
+            - img
+            - generic: Kategori Artikel
+          - link:
+            - /url: /admin/tags
+            - img
+            - generic: Tag
+          - link:
+            - /url: /admin/settings
+            - img
+            - generic: Pengaturan Toko
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: Checkout via WA
+            - generic: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+      - generic:
+        - banner:
+          - button:
+            - img
+          - generic:
+            - img
+            - textbox:
+              - /placeholder: Cari produk, artikel...
+          - generic:
+            - button:
+              - generic: AU
+              - generic:
+                - generic: Admin Unicover
+                - generic: Admin
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - heading [level=1]: Kelola Produk
+                - paragraph: 9 produk terdaftar
+              - link:
+                - /url: /admin/products/create
+                - img
+                - text: Tambah Produk
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - textbox:
+                    - /placeholder: Cari nama produk...
+                - combobox
+              - generic:
+                - generic:
+                  - table:
+                    - rowgroup:
+                      - row:
+                        - columnheader:
+                          - button:
+                            - text: Produk
+                            - img
+                        - columnheader: Kategori
+                        - columnheader:
+                          - generic: Harga
+                        - columnheader:
+                          - generic: Stok
+                        - columnheader: Status
+                        - columnheader:
+                          - generic: Aksi
+                    - rowgroup:
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Mobil Premium All-Weather
+                              - generic: CM-001
+                        - cell:
+                          - generic: Cover Mobil
+                        - cell:
+                          - generic: Rp 1157272.22
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/1/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Ban Mobil Waterproof
+                              - generic: CB-001
+                        - cell:
+                          - generic: Cover Ban Mobil
+                        - cell:
+                          - generic: Rp 184933.52
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/6/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Mobil Semi-Outdoor
+                              - generic: CM-002
+                        - cell:
+                          - generic: Cover Mobil
+                        - cell:
+                          - generic: Rp 474876.23
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/2/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Ban Mobil UV Shield
+                              - generic: CB-002
+                        - cell:
+                          - generic: Cover Ban Mobil
+                        - cell:
+                          - generic: Rp 388213.39
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/7/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Mobil Indoor Soft Touch
+                              - generic: CM-003
+                        - cell:
+                          - generic: Cover Mobil
+                        - cell:
+                          - generic: Rp 813085.07
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/3/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Ban Mobil Premium Leather Look
+                              - generic: CB-003
+                        - cell:
+                          - generic: Cover Ban Mobil
+                        - cell:
+                          - generic: Rp 217362.94
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/8/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Mobil SUV Heavy Duty
+                              - generic: CM-004
+                        - cell:
+                          - generic: Cover Mobil
+                        - cell:
+                          - generic: Rp 873868.53
+                        - cell:
+                          - generic: Preorder
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/4/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Ban Mobil Racing Style
+                              - generic: CB-004
+                        - cell:
+                          - generic: Cover Ban Mobil
+                        - cell:
+                          - generic: Rp 415101.53
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/9/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic:
+                              - generic: Cover Mobil Sedan Sporty Fit
+                              - generic: CM-005
+                        - cell:
+                          - generic: Cover Mobil
+                        - cell:
+                          - generic: Rp 1434832.75
+                        - cell:
+                          - generic: Tersedia
+                        - cell:
+                          - generic: Aktif
+                        - cell:
+                          - generic:
+                            - link:
+                              - /url: /admin/products/5/edit
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+              - generic:
+                - generic: Menampilkan 1-9 dari 9
+                - generic:
+                  - link:
+                    - /url: /admin/products?page=1
+                    - text: "1"
+    - region "Notifications alt+T"
+  - alertdialog "Hapus Produk?" [ref=e384]:
+    - generic [ref=e385]:
+      - heading "Hapus Produk?" [level=2] [ref=e386]
+      - paragraph [ref=e387]:
+        - text: Produk
+        - strong [ref=e388]: Cover Mobil Premium All-Weather
+        - text: akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.
+    - generic [ref=e389]:
+      - button "Batal" [active] [ref=e390]
+      - button "Hapus" [ref=e391]

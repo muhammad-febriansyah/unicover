@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Poppins',system-ui,sans-serif;background:#F5F6F8;color:#0F172A;-webkit-font-smoothing:antialiased}
+  a{color:#2547F9;text-decoration:none}
+  a:hover{color:#1A36CC}
+  input,textarea,select,button{font-family:inherit}
+  input:focus,textarea:focus,select:focus{outline:none}
+  ::placeholder{color:#94A3B8}
+  .cm-nav:hover{background:#F3F4F8}
+  .cm-row:hover{background:#F8FAFC}
+  .cm-icobtn:hover{background:#F1F5F9}
+  .cm-pbtn:hover{background:#1A36CC}
+  .cm-ghost:hover{background:#F1F5F9}
+  .cm-card{transition:box-shadow .18s ease,transform .18s ease}
+  .cm-card:hover{box-shadow:0 6px 22px -8px rgba(16,24,40,.16),0 1px 3px rgba(16,24,40,.05);transform:translateY(-2px)}
+  aside{transition:width .22s ease}
+  .cm-collapsed .cm-brandtext,.cm-collapsed .cm-seclabel,.cm-collapsed .cm-navlabel,.cm-collapsed .cm-promo{display:none}
+  .cm-collapsed .cm-nav{justify-content:center;padding-left:0;padding-right:0;gap:0}
+  .cm-scroll::-webkit-scrollbar{width:8px;height:8px}
+  .cm-scroll::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:8px}
+  @keyframes cm-toast-in{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+  @keyframes cm-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div style="display:flex;min-height:100vh">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="{{ asideClass }}" style="{{ sidebarStyle }}">
+    <div style="display:flex;align-items:center;gap:11px;padding:22px 20px 24px">
+      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#4E6BFF,#2547F9);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 2px 6px -1px rgba(37,71,249,.45)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-4l2-5h9l4 5h2a2 2 0 0 1 2 2v2h-2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+      </div>
+      <div class="cm-brandtext" style="line-height:1.1">
+        <div style="font-weight:700;font-size:15px;color:#0F172A;letter-spacing:-.2px">CoverPro</div>
+        <div style="font-size:11px;color:#94A3B8;font-weight:500;margin-top:2px">Admin Panel</div>
+      </div>
+    </div>
+
+    <div style="padding:0 12px">
+      <div class="cm-seclabel" style="font-size:10px;font-weight:600;letter-spacing:1px;color:#94A3B8;padding:6px 12px 10px;text-transform:uppercase">Menu Utama</div>
+      <button class="cm-nav" onClick="{{ goDashboard }}" style="{{ navDashStyle }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        <span class="cm-navlabel">Dashboard</span>
+      </button>
+      <button class="cm-nav" onClick="{{ goProducts }}" style="{{ navProdStyle }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V21H3V8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        <span class="cm-navlabel">Kelola Produk</span>
+      </button>
+      <button class="cm-nav" onClick="{{ goArticles }}" style="{{ navArtStyle }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+        <span class="cm-navlabel">Kelola Artikel</span>
+      </button>
+      <button class="cm-nav" onClick="{{ goSettings }}" style="{{ navSetStyle }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span class="cm-navlabel">Pengaturan Toko</span>
+      </button>
+    </div>
+
+    <div style="margin-top:auto;padding:16px 12px 20px">
+      <div class="cm-promo" style="background:#F5F7FF;border:1px solid #E4E8FC;border-radius:12px;padding:14px 15px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+          <div style="width:30px;height:30px;border-radius:8px;background:#25D366;display:flex;align-items:center;justify-content:center;flex:none">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3A2.8 2.8 0 0 0 6.3 12a4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.4 1 2.4.6 2.9.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:600;color:#1E293B">Checkout via WA</div>
+        </div>
+        <div style="font-size:11px;color:#64748B;line-height:1.5">Semua pesanan diteruskan otomatis ke WhatsApp toko.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+
+    <!-- TOPBAR -->
+    <header style="height:66px;background:#fff;border-bottom:1px solid #ECEDF1;display:flex;align-items:center;gap:16px;padding:0 26px;position:sticky;top:0;z-index:20">
+      <button class="cm-icobtn" onClick="{{ toggleSidebar }}" title="Sembunyikan / tampilkan menu" style="width:40px;height:40px;border-radius:10px;border:1px solid #ECEDF1;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;color:#475569">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      </button>
+      <div style="flex:1;max-width:420px;position:relative">
+        <svg style="position:absolute;left:13px;top:50%;transform:translateY(-50%)" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Cari produk, pesanan, artikel..." style="width:100%;height:40px;padding:0 14px 0 38px;border:1px solid #E8EAF1;border-radius:10px;background:#F8FAFC;font-size:13.5px;color:#0F172A" />
+      </div>
+      <div style="flex:1"></div>
+      <button class="cm-icobtn" style="position:relative;width:40px;height:40px;border-radius:10px;border:1px solid #ECEDF1;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span style="position:absolute;top:7px;right:8px;width:8px;height:8px;background:#EF4444;border-radius:50%;border:2px solid #fff"></span>
+      </button>
+      <div style="width:1px;height:28px;background:#ECEDF1"></div>
+      <div style="display:flex;align-items:center;gap:11px;cursor:pointer">
+        <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#4E6BFF,#2547F9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex:none">RA</div>
+        <div style="line-height:1.2">
+          <div style="font-size:13px;font-weight:600;color:#0F172A">Rani Admin</div>
+          <div style="font-size:11px;color:#64748B">Super Admin</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="cm-scroll" style="flex:1;overflow:auto;padding:28px 30px 60px">
+
+      <!-- ========= DASHBOARD ========= -->
+      <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+      <div style="animation:cm-fade .3s ease">
+        <div style="margin-bottom:24px">
+          <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.4px">Dashboard</h1>
+          <p style="margin:5px 0 0;font-size:13.5px;color:#64748B">Ringkasan performa toko cover mobil Anda hari ini.</p>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px">
+          <sc-for list="{{ statCards }}" as="c" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:19px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)" class="cm-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <div style="width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:{{ c.iconBg }};color:{{ c.iconColor }}" data-cm-ico="{{ c.icon }}">
+                  <span style="display:none">{{ c.icon }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:3px;font-size:12px;font-weight:600;color:{{ c.trendColor }}">
+                  <span>{{ c.trend }}</span>
+                </div>
+              </div>
+              <div style="font-size:27px;font-weight:700;letter-spacing:-.5px;line-height:1">{{ c.value }}</div>
+              <div style="font-size:12.5px;color:#64748B;margin-top:6px;font-weight:500">{{ c.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- CHART + SIDE -->
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-bottom:22px">
+          <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px">
+              <div>
+                <div style="font-size:15px;font-weight:600">Pesanan 7 Hari Terakhir</div>
+                <div style="font-size:12.5px;color:#64748B;margin-top:3px">Total <span style="color:#2547F9;font-weight:600">123 pesanan</span> minggu ini</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:#16A34A;background:#F0FDF4;border:1px solid #DCFCE7;padding:5px 10px;border-radius:8px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                +18%
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:14px;height:190px;padding-top:10px">
+              <sc-for list="{{ chartBars }}" as="b" hint-placeholder-count="7">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;height:100%;justify-content:flex-end">
+                  <div style="font-size:11px;font-weight:600;color:#334155">{{ b.value }}</div>
+                  <div style="width:100%;border-radius:7px 7px 3px 3px;transition:height .4s;background:{{ b.barBg }};height:{{ b.heightPct }}%"></div>
+                  <div style="font-size:11.5px;color:#94A3B8;font-weight:500">{{ b.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10);display:flex;flex-direction:column">
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">Status Pesanan</div>
+            <div style="font-size:12.5px;color:#64748B;margin-bottom:20px">Distribusi minggu ini</div>
+            <sc-for list="{{ statusBreakdown }}" as="s" hint-placeholder-count="4">
+              <div style="margin-bottom:16px">
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:7px">
+                  <span style="font-weight:500;color:#334155">{{ s.label }}</span>
+                  <span style="font-weight:600;color:#0F172A">{{ s.count }}</span>
+                </div>
+                <div style="height:7px;background:#F1F5F9;border-radius:6px;overflow:hidden">
+                  <div style="height:100%;border-radius:6px;background:{{ s.color }};width:{{ s.pct }}%"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- RECENT WA ORDERS -->
+        <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10);overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:19px 24px;border-bottom:1px solid #EEF1F4">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:30px;height:30px;border-radius:8px;background:#25D366;display:flex;align-items:center;justify-content:center">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3A2.8 2.8 0 0 0 6.3 12a4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.4 1 2.4.6 2.9.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z"/></svg>
+              </div>
+              <div style="font-size:15px;font-weight:600">Pesanan WhatsApp Terbaru</div>
+            </div>
+            <button class="cm-ghost" style="font-size:12.5px;font-weight:500;color:#2547F9;background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:8px">Lihat semua</button>
+          </div>
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="background:#FAFBFC">
+                <th style="text-align:left;padding:12px 24px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Pembeli</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Produk</th>
+                <th style="text-align:right;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Total</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Status</th>
+                <th style="text-align:right;padding:12px 24px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Waktu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ orders }}" as="o" hint-placeholder-count="6">
+                <tr class="cm-row" style="border-top:1px solid #F1F5F9">
+                  <td style="padding:14px 24px">
+                    <div style="display:flex;align-items:center;gap:11px">
+                      <div style="width:34px;height:34px;border-radius:9px;background:{{ o.avaBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none">{{ o.initials }}</div>
+                      <div style="font-size:13.5px;font-weight:500;color:#0F172A">{{ o.buyer }}</div>
+                    </div>
+                  </td>
+                  <td style="padding:14px 16px;font-size:13px;color:#475569">{{ o.product }}</td>
+                  <td style="padding:14px 16px;font-size:13px;font-weight:600;color:#0F172A;text-align:right;white-space:nowrap">{{ o.totalStr }}</td>
+                  <td style="padding:14px 16px">
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;color:{{ o.statusColor }};background:{{ o.statusBg }}">
+                      <span style="width:6px;height:6px;border-radius:50%;background:{{ o.statusColor }}"></span>{{ o.status }}
+                    </span>
+                  </td>
+                  <td style="padding:14px 24px;font-size:12.5px;color:#94A3B8;text-align:right;white-space:nowrap">{{ o.time }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ========= KELOLA PRODUK ========= -->
+      <sc-if value="{{ isProducts }}" hint-placeholder-val="{{ true }}">
+      <div style="animation:cm-fade .3s ease">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:22px;gap:16px;flex-wrap:wrap">
+          <div>
+            <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.4px">Kelola Produk</h1>
+            <p style="margin:5px 0 0;font-size:13.5px;color:#64748B">{{ productCountLabel }}</p>
+          </div>
+          <button class="cm-pbtn" onClick="{{ goAddProduct }}" style="display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;background:#2547F9;color:#fff;border:none;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 6px -1px rgba(37,71,249,.24)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Produk
+          </button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #EEF1F4;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px;position:relative">
+              <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%)" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="Cari nama produk..." style="width:100%;height:40px;padding:0 14px 0 36px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13px" />
+            </div>
+            <select value="{{ catFilter }}" onChange="{{ onCat }}" style="height:40px;padding:0 32px 0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13px;font-weight:500;color:#334155;cursor:pointer;appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 fill=%22none%22 stroke=%22%2394A3B8%22 stroke-width=%222%22><polyline points=%223 5 7 9 11 5%22/></svg>');background-repeat:no-repeat;background-position:right 12px center">
+              <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="5">
+                <option value="{{ cat }}">{{ cat }}</option>
+              </sc-for>
+            </select>
+          </div>
+
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="background:#FAFBFC">
+                <th style="text-align:left;padding:12px 20px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Produk</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Kategori</th>
+                <th style="text-align:right;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Harga</th>
+                <th style="text-align:center;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Stok</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Status</th>
+                <th style="text-align:right;padding:12px 20px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ productsView }}" as="p" hint-placeholder-count="7">
+                <tr class="cm-row" style="border-top:1px solid #F1F5F9">
+                  <td style="padding:13px 20px">
+                    <div style="display:flex;align-items:center;gap:13px">
+                      <div style="width:46px;height:46px;border-radius:10px;background:{{ p.thumbBg }};display:flex;align-items:center;justify-content:center;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:.92"><path d="M5 17H3v-4l2-5h9l4 5h2a2 2 0 0 1 2 2v2h-2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                      </div>
+                      <div style="min-width:0">
+                        <div style="font-size:13.5px;font-weight:600;color:#0F172A;line-height:1.3">{{ p.name }}</div>
+                        <div style="font-size:11.5px;color:#94A3B8;margin-top:2px">{{ p.sku }}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="padding:13px 16px">
+                    <span style="font-size:12px;font-weight:500;color:#475569;background:#F1F5F9;padding:4px 10px;border-radius:7px">{{ p.category }}</span>
+                  </td>
+                  <td style="padding:13px 16px;text-align:right;font-size:13.5px;font-weight:600;color:#0F172A;white-space:nowrap">{{ p.priceStr }}</td>
+                  <td style="padding:13px 16px;text-align:center">
+                    <span style="font-size:13px;font-weight:600;color:{{ p.stockColor }}">{{ p.stockLabel }}</span>
+                  </td>
+                  <td style="padding:13px 16px">
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;color:{{ p.statusColor }};background:{{ p.statusBg }}">
+                      <span style="width:6px;height:6px;border-radius:50%;background:{{ p.statusColor }}"></span>{{ p.status }}
+                    </span>
+                  </td>
+                  <td style="padding:13px 20px">
+                    <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+                      <button class="cm-icobtn" onClick="{{ p.onEdit }}" title="Edit" style="width:34px;height:34px;border-radius:8px;border:1px solid #ECEDF1;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#475569">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+                      </button>
+                      <button class="cm-icobtn" onClick="{{ p.onDelete }}" title="Hapus" style="width:34px;height:34px;border-radius:8px;border:1px solid #FEE2E2;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#EF4444">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+
+          <sc-if value="{{ noProducts }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:50px 20px;text-align:center;color:#94A3B8">
+              <div style="font-size:14px;font-weight:500">Tidak ada produk yang cocok</div>
+              <div style="font-size:12.5px;margin-top:4px">Coba ubah kata kunci atau filter kategori.</div>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid #EEF1F4">
+            <div style="font-size:12.5px;color:#94A3B8">{{ paginationLabel }}</div>
+            <div style="display:flex;gap:6px">
+              <button class="cm-ghost" style="height:34px;padding:0 12px;border:1px solid #ECEDF1;background:#fff;border-radius:8px;font-size:12.5px;font-weight:500;color:#94A3B8;cursor:not-allowed">Sebelumnya</button>
+              <button style="height:34px;width:34px;border:1px solid #2547F9;background:#2547F9;color:#fff;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer">1</button>
+              <button class="cm-ghost" style="height:34px;padding:0 12px;border:1px solid #ECEDF1;background:#fff;border-radius:8px;font-size:12.5px;font-weight:500;color:#334155;cursor:pointer">Berikutnya</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ========= TAMBAH / EDIT PRODUK ========= -->
+      <sc-if value="{{ isProductForm }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:cm-fade .3s ease;max-width:1080px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <button class="cm-icobtn" onClick="{{ goProducts }}" style="width:36px;height:36px;border-radius:9px;border:1px solid #ECEDF1;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#475569">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </button>
+          <span style="font-size:12.5px;color:#94A3B8">Kelola Produk / <span style="color:#334155;font-weight:500">{{ formTitle }}</span></span>
+        </div>
+        <h1 style="margin:0 0 24px;font-size:23px;font-weight:700;letter-spacing:-.4px">{{ formTitle }}</h1>
+
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:start">
+          <!-- LEFT COLUMN -->
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <!-- Info dasar -->
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:18px">Informasi Produk</div>
+              <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Nama Produk</label>
+              <input value="{{ form.name }}" onChange="{{ onFormName }}" placeholder="cth. Cover Mobil Premium Toyota Fortuner" style="width:100%;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px;margin-bottom:18px" />
+
+              <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Deskripsi</label>
+              <div style="border:1px solid #E8EAF1;border-radius:9px;overflow:hidden;background:#F8FAFC">
+                <div style="display:flex;align-items:center;gap:2px;padding:7px 8px;border-bottom:1px solid #E9EDF2;background:#fff">
+                  <button style="width:30px;height:30px;border:none;background:none;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px;color:#475569" class="cm-ghost">B</button>
+                  <button style="width:30px;height:30px;border:none;background:none;border-radius:6px;cursor:pointer;font-style:italic;font-size:13px;color:#475569" class="cm-ghost">I</button>
+                  <button style="width:30px;height:30px;border:none;background:none;border-radius:6px;cursor:pointer;text-decoration:underline;font-size:13px;color:#475569" class="cm-ghost">U</button>
+                  <div style="width:1px;height:18px;background:#ECEDF1;margin:0 5px"></div>
+                  <button style="width:30px;height:30px;border:none;background:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569" class="cm-ghost"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
+                  <button style="width:30px;height:30px;border:none;background:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569" class="cm-ghost"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+                </div>
+                <textarea value="{{ form.desc }}" onChange="{{ onFormDesc }}" placeholder="Jelaskan bahan, keunggulan, garansi, dan cara perawatan produk..." style="width:100%;min-height:120px;padding:12px 14px;border:none;background:transparent;font-size:13.5px;line-height:1.6;resize:vertical;color:#0F172A"></textarea>
+              </div>
+            </div>
+
+            <!-- Foto -->
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:5px">Foto Produk</div>
+              <div style="font-size:12.5px;color:#64748B;margin-bottom:16px">Unggah hingga 6 foto. Foto pertama jadi thumbnail utama.</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+                <div style="aspect-ratio:1;border-radius:11px;background:linear-gradient(135deg,#4E6BFF,#2547F9);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:.9"><path d="M5 17H3v-4l2-5h9l4 5h2a2 2 0 0 1 2 2v2h-2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                  <span style="position:absolute;top:7px;left:7px;font-size:9.5px;font-weight:600;color:#fff;background:rgba(0,0,0,.35);padding:2px 7px;border-radius:5px">Utama</span>
+                </div>
+                <div style="aspect-ratio:1;border-radius:11px;background:linear-gradient(135deg,#5B7FB0,#3A5C8A);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <button class="cm-ghost" style="aspect-ratio:1;border-radius:11px;border:2px dashed #CBD5E1;background:#F8FAFC;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:#64748B">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span style="font-size:11px;font-weight:500">Tambah</span>
+                </button>
+                <button class="cm-ghost" style="aspect-ratio:1;border-radius:11px;border:2px dashed #CBD5E1;background:#F8FAFC;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:#64748B">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span style="font-size:11px;font-weight:500">Tambah</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Varian -->
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:5px">Varian Ukuran / Tipe</div>
+              <div style="font-size:12.5px;color:#64748B;margin-bottom:16px">Pilihan yang tampil di halaman produk sebelum checkout.</div>
+              <div style="display:flex;flex-wrap:wrap;gap:9px">
+                <sc-for list="{{ formVariants }}" as="v" hint-placeholder-count="3">
+                  <span style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:#2547F9;background:#EEF2FF;border:1px solid #D6DEFC;padding:7px 8px 7px 13px;border-radius:9px">
+                    {{ v.label }}
+                    <button onClick="{{ v.onRemove }}" style="width:18px;height:18px;border:none;background:rgba(37,71,249,.12);border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#2547F9">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </span>
+                </sc-for>
+                <input value="{{ variantDraft }}" onChange="{{ onVariantDraft }}" onKeyDown="{{ onVariantKey }}" placeholder="+ tambah varian, tekan Enter" style="flex:1;min-width:180px;height:36px;padding:0 12px;border:1px dashed #CBD5E1;border-radius:9px;background:#F8FAFC;font-size:12.5px" />
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:90px">
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:18px">Harga &amp; Stok</div>
+              <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Harga</label>
+              <div style="position:relative;margin-bottom:18px">
+                <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:13.5px;font-weight:600;color:#94A3B8">Rp</span>
+                <input value="{{ form.priceStr }}" onChange="{{ onFormPrice }}" inputmode="numeric" placeholder="0" style="width:100%;height:42px;padding:0 14px 0 40px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px;font-weight:600;color:#0F172A" />
+              </div>
+              <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Stok</label>
+              <input value="{{ form.stock }}" onChange="{{ onFormStock }}" inputmode="numeric" placeholder="0" style="width:100%;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px" />
+            </div>
+
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:18px">Kategori Mobil</div>
+              <select value="{{ form.category }}" onChange="{{ onFormCat }}" style="width:100%;height:42px;padding:0 32px 0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px;font-weight:500;color:#334155;cursor:pointer;appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 fill=%22none%22 stroke=%22%2394A3B8%22 stroke-width=%222%22><polyline points=%223 5 7 9 11 5%22/></svg>');background-repeat:no-repeat;background-position:right 12px center">
+                <sc-for list="{{ formCategories }}" as="fc" hint-placeholder-count="5">
+                  <option value="{{ fc }}">{{ fc }}</option>
+                </sc-for>
+              </select>
+            </div>
+
+            <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:22px 24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+              <div style="font-size:15px;font-weight:600;margin-bottom:16px">Status</div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div>
+                  <div style="font-size:13.5px;font-weight:500;color:#0F172A">{{ statusLabel }}</div>
+                  <div style="font-size:11.5px;color:#94A3B8;margin-top:2px">{{ statusHint }}</div>
+                </div>
+                <button onClick="{{ toggleStatus }}" style="width:46px;height:26px;border-radius:20px;border:none;cursor:pointer;position:relative;transition:background .2s;background:{{ toggleBg }}">
+                  <span style="position:absolute;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;left:{{ toggleLeft }}"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTION BAR -->
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:24px;padding-top:22px;border-top:1px solid #ECEDF1">
+          <button class="cm-ghost" onClick="{{ goProducts }}" style="height:44px;padding:0 22px;border:1px solid #E8EAF1;background:#fff;border-radius:10px;font-size:13.5px;font-weight:600;color:#475569;cursor:pointer">Batal</button>
+          <button class="cm-pbtn" onClick="{{ saveProduct }}" style="display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 26px;background:#2547F9;color:#fff;border:none;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 6px -1px rgba(37,71,249,.24)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Simpan Produk
+          </button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ========= KELOLA ARTIKEL ========= -->
+      <sc-if value="{{ isArticles }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:cm-fade .3s ease">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:22px;gap:16px;flex-wrap:wrap">
+          <div>
+            <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.4px">Kelola Artikel</h1>
+            <p style="margin:5px 0 0;font-size:13.5px;color:#64748B">{{ articleCountLabel }}</p>
+          </div>
+          <button class="cm-pbtn" onClick="{{ writeArticle }}" style="display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;background:#2547F9;color:#fff;border:none;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 6px -1px rgba(37,71,249,.24)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            Tulis Artikel Baru
+          </button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10);overflow:hidden">
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="background:#FAFBFC">
+                <th style="text-align:left;padding:12px 24px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Judul Artikel</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Penulis</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Kategori</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Tanggal</th>
+                <th style="text-align:left;padding:12px 16px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Status</th>
+                <th style="text-align:right;padding:12px 24px;font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ articlesView }}" as="a" hint-placeholder-count="5">
+                <tr class="cm-row" style="border-top:1px solid #F1F5F9">
+                  <td style="padding:15px 24px">
+                    <div style="display:flex;align-items:center;gap:13px">
+                      <div style="width:44px;height:44px;border-radius:10px;background:{{ a.thumbBg }};display:flex;align-items:center;justify-content:center;flex:none;color:#fff">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      </div>
+                      <div style="font-size:13.5px;font-weight:600;color:#0F172A;line-height:1.35;max-width:320px">{{ a.title }}</div>
+                    </div>
+                  </td>
+                  <td style="padding:15px 16px;font-size:13px;color:#475569">{{ a.author }}</td>
+                  <td style="padding:15px 16px"><span style="font-size:12px;font-weight:500;color:#475569;background:#F1F5F9;padding:4px 10px;border-radius:7px">{{ a.category }}</span></td>
+                  <td style="padding:15px 16px;font-size:12.5px;color:#64748B;white-space:nowrap">{{ a.date }}</td>
+                  <td style="padding:15px 16px">
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;color:{{ a.statusColor }};background:{{ a.statusBg }}">
+                      <span style="width:6px;height:6px;border-radius:50%;background:{{ a.statusColor }}"></span>{{ a.status }}
+                    </span>
+                  </td>
+                  <td style="padding:15px 24px">
+                    <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+                      <button class="cm-icobtn" onClick="{{ a.onEdit }}" title="Edit" style="width:34px;height:34px;border-radius:8px;border:1px solid #ECEDF1;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#475569">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+                      </button>
+                      <button class="cm-icobtn" onClick="{{ a.onDelete }}" title="Hapus" style="width:34px;height:34px;border-radius:8px;border:1px solid #FEE2E2;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#EF4444">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ========= PENGATURAN TOKO ========= -->
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:cm-fade .3s ease;max-width:820px">
+        <div style="margin-bottom:24px">
+          <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.4px">Pengaturan Toko</h1>
+          <p style="margin:5px 0 0;font-size:13.5px;color:#64748B">Kelola identitas toko dan konfigurasi checkout WhatsApp.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <!-- Identitas -->
+          <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">Identitas Toko</div>
+            <div style="font-size:12.5px;color:#64748B;margin-bottom:20px">Logo dan informasi yang tampil di seluruh website.</div>
+            <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
+              <div style="width:76px;height:76px;border-radius:16px;background:linear-gradient(135deg,#4E6BFF,#2547F9);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 4px 12px -3px rgba(37,71,249,.3)">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-4l2-5h9l4 5h2a2 2 0 0 1 2 2v2h-2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+              </div>
+              <div>
+                <div style="display:flex;gap:9px;margin-bottom:8px">
+                  <button class="cm-ghost" style="height:38px;padding:0 16px;border:1px solid #E8EAF1;background:#fff;border-radius:9px;font-size:12.5px;font-weight:600;color:#2547F9;cursor:pointer">Ganti Logo</button>
+                  <button class="cm-ghost" style="height:38px;padding:0 16px;border:1px solid #FEE2E2;background:#fff;border-radius:9px;font-size:12.5px;font-weight:600;color:#EF4444;cursor:pointer">Hapus</button>
+                </div>
+                <div style="font-size:11.5px;color:#94A3B8">PNG atau SVG, maks 2MB. Disarankan 512×512px.</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Nama Toko</label>
+                <input value="{{ settings.name }}" onChange="{{ onSetName }}" style="width:100%;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px" />
+              </div>
+              <div>
+                <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Slogan / Tagline</label>
+                <input value="{{ settings.tagline }}" onChange="{{ onSetTagline }}" style="width:100%;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px" />
+              </div>
+            </div>
+            <div style="margin-top:16px">
+              <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Deskripsi Toko</label>
+              <textarea value="{{ settings.desc }}" onChange="{{ onSetDesc }}" style="width:100%;min-height:80px;padding:12px 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px;line-height:1.6;resize:vertical"></textarea>
+            </div>
+          </div>
+
+          <!-- WhatsApp Checkout -->
+          <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+              <div style="width:28px;height:28px;border-radius:7px;background:#25D366;display:flex;align-items:center;justify-content:center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3A2.8 2.8 0 0 0 6.3 12a4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.4 1 2.4.6 2.9.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z"/></svg>
+              </div>
+              <div style="font-size:15px;font-weight:600">Checkout WhatsApp</div>
+            </div>
+            <div style="font-size:12.5px;color:#64748B;margin-bottom:20px">Nomor tujuan saat pembeli menekan tombol "Pesan via WhatsApp".</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Nomor WhatsApp</label>
+                <div style="position:relative">
+                  <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:13.5px;color:#64748B;font-weight:500">+62</span>
+                  <input value="{{ settings.wa }}" onChange="{{ onSetWa }}" style="width:100%;height:42px;padding:0 14px 0 46px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px;font-weight:500" />
+                </div>
+              </div>
+              <div>
+                <label style="display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:7px">Jam Operasional</label>
+                <input value="{{ settings.hours }}" onChange="{{ onSetHours }}" style="width:100%;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px" />
+              </div>
+            </div>
+            <div style="margin-top:16px;background:#F0FDF4;border:1px solid #DCFCE7;border-radius:10px;padding:13px 15px;display:flex;gap:11px;align-items:flex-start">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div style="font-size:12.5px;color:#15803D;line-height:1.5">Pratinjau pesan: <span style="font-weight:600">"Halo CoverPro Garage, saya ingin memesan [Nama Produk]..."</span></div>
+            </div>
+          </div>
+
+          <!-- Sosial media -->
+          <div style="background:#fff;border:1px solid #ECEDF1;border-radius:14px;padding:24px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 4px 14px -10px rgba(16,24,40,.10)">
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">Tautan Sosial Media</div>
+            <div style="font-size:12.5px;color:#64748B;margin-bottom:20px">Ditampilkan di footer website katalog.</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:13px">
+                  <div style="width:40px;height:40px;border-radius:10px;background:{{ s.bg }};display:flex;align-items:center;justify-content:center;flex:none;color:#fff" data-cm-social="{{ s.key }}">
+                    <span style="font-size:15px;font-weight:700">{{ s.mark }}</span>
+                  </div>
+                  <input value="{{ s.value }}" onChange="{{ s.onChange }}" placeholder="{{ s.placeholder }}" style="flex:1;height:42px;padding:0 14px;border:1px solid #E8EAF1;border-radius:9px;background:#F8FAFC;font-size:13.5px" />
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:4px">
+            <button class="cm-ghost" style="height:44px;padding:0 22px;border:1px solid #E8EAF1;background:#fff;border-radius:10px;font-size:13.5px;font-weight:600;color:#475569;cursor:pointer">Batalkan</button>
+            <button class="cm-pbtn" onClick="{{ saveSettings }}" style="display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 26px;background:#2547F9;color:#fff;border:none;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 2px 6px -1px rgba(37,71,249,.24)">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Simpan Perubahan
+            </button>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </main>
+  </div>
+
+  <!-- ============ TOASTS (Sonner style) ============ -->
+  <div style="position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:11px;z-index:100;width:360px;max-width:calc(100vw - 48px)">
+    <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid #ECEDF1;border-radius:12px;padding:14px 15px;box-shadow:0 8px 24px -6px rgba(16,24,40,.16),0 2px 6px -2px rgba(16,24,40,.08);animation:cm-toast-in .3s cubic-bezier(.22,1,.36,1)">
+        <div style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ t.iconBg }};color:{{ t.iconColor }}" data-cm-toast="{{ t.type }}">
+          <span style="font-weight:700;font-size:15px">{{ t.glyph }}</span>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600;color:#0F172A;line-height:1.35">{{ t.title }}</div>
+          <div style="font-size:12px;color:#64748B;margin-top:2px;line-height:1.4">{{ t.desc }}</div>
+        </div>
+        <button onClick="{{ t.onClose }}" style="width:22px;height:22px;border:none;background:none;cursor:pointer;color:#94A3B8;flex:none;display:flex;align-items:center;justify-content:center;border-radius:5px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    page: 'dashboard',
+    sidebarCollapsed: false,
+    query: '',
+    catFilter: 'Semua Kategori',
+    toasts: [],
+    editingId: null,
+    variantDraft: '',
+    form: { name:'', desc:'', priceStr:'', stock:'', category:'SUV', status:true, variants:['Standar','Premium'] },
+    settings: {
+      name: 'CoverPro Garage',
+      tagline: 'Cover Mobil Custom & Berkualitas',
+      desc: 'Toko cover mobil custom untuk semua tipe kendaraan. Bahan premium anti air, anti jamur, dan anti gores. Melayani pemesanan ke seluruh Indonesia.',
+      wa: '812-3456-7890',
+      hours: 'Senin–Sabtu, 08.00–18.00',
+      instagram: '@coverpro.garage',
+      facebook: 'CoverPro Garage Official',
+      tiktok: '@coverpro.id',
+    },
+    products: [
+      { id:1, name:'Cover Mobil Premium Toyota Fortuner', sku:'CVR-FRT-001', category:'SUV', price:650000, stock:24, status:'Aktif' },
+      { id:2, name:'Cover Anti Air Honda HR-V', sku:'CVR-HRV-002', category:'SUV', price:385000, stock:40, status:'Aktif' },
+      { id:3, name:'Cover Indoor Suede Pajero Sport', sku:'CVR-PJS-003', category:'SUV', price:850000, stock:8, status:'Aktif' },
+      { id:4, name:'Cover Mobil Standar Toyota Avanza', sku:'CVR-AVZ-004', category:'MPV', price:265000, stock:60, status:'Aktif' },
+      { id:5, name:'Cover Anti Jamur Suzuki Ertiga', sku:'CVR-ERT-005', category:'MPV', price:320000, stock:0, status:'Draft' },
+      { id:6, name:'Cover Premium Honda Brio', sku:'CVR-BRO-006', category:'Hatchback', price:250000, stock:35, status:'Aktif' },
+      { id:7, name:'Cover Outdoor Mitsubishi Xpander', sku:'CVR-XPD-007', category:'MPV', price:415000, stock:18, status:'Aktif' },
+      { id:8, name:'Cover Waterproof Toyota Innova Zenix', sku:'CVR-INV-008', category:'MPV', price:470000, stock:12, status:'Draft' },
+      { id:9, name:'Cover Indoor Wuling Almaz RS', sku:'CVR-ALM-009', category:'SUV', price:540000, stock:5, status:'Aktif' },
+    ],
+    articles: [
+      { id:1, title:'Tips Merawat Cat Mobil dengan Cover', author:'Rani Admin', category:'Perawatan', date:'2 Jul 2026', status:'Terbit' },
+      { id:2, title:'Cara Pilih Cover Anti Jamur untuk Musim Hujan', author:'Budi Setiawan', category:'Tips & Trik', date:'28 Jun 2026', status:'Terbit' },
+      { id:3, title:'5 Kesalahan Umum Saat Memasang Cover Mobil', author:'Rani Admin', category:'Panduan', date:'20 Jun 2026', status:'Draft' },
+      { id:4, title:'Cover Indoor vs Outdoor, Mana yang Tepat?', author:'Dedi Kurniawan', category:'Edukasi', date:'12 Jun 2026', status:'Terbit' },
+      { id:5, title:'Kenapa Mobil Perlu Cover Meski di Dalam Garasi', author:'Rani Admin', category:'Tips & Trik', date:'5 Jun 2026', status:'Terbit' },
+    ],
+    orders: [
+      { id:1, buyer:'Andi Pratama', product:'Cover Premium Fortuner', total:650000, status:'Baru', time:'5 menit lalu' },
+      { id:2, buyer:'Siti Nurhaliza', product:'Cover Anti Air HR-V', total:385000, status:'Diproses', time:'22 menit lalu' },
+      { id:3, buyer:'Budi Santoso', product:'Cover Indoor Pajero Sport', total:850000, status:'Baru', time:'1 jam lalu' },
+      { id:4, buyer:'Dewi Lestari', product:'Cover Standar Avanza', total:265000, status:'Selesai', time:'3 jam lalu' },
+      { id:5, buyer:'Rizky Ramadhan', product:'Cover Premium Brio', total:250000, status:'Diproses', time:'5 jam lalu' },
+      { id:6, buyer:'Maya Anggraini', product:'Cover Outdoor Xpander', total:415000, status:'Selesai', time:'Kemarin, 16.40' },
+    ],
+  };
+
+  rp(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
+  digits(s){ return String(s||'').replace(/\D/g,''); }
+  grp(s){ const d=this.digits(s); return d ? Number(d).toLocaleString('id-ID') : ''; }
+  catColor(c){ return {SUV:'linear-gradient(135deg,#4E6BFF,#2547F9)',MPV:'linear-gradient(135deg,#4B8DB0,#2C5E82)',Hatchback:'linear-gradient(135deg,#6B7F9E,#455876)',Sedan:'linear-gradient(135deg,#5A6C8C,#38455E)',Pickup:'linear-gradient(135deg,#8A6D5B,#5E4838)'}[c] || 'linear-gradient(135deg,#5B7FB0,#3A5C8A)'; }
+  avaColor(n){ const p=['#2547F9','#4B8DB0','#6B7F9E','#3D8A6B','#B08A4B','#8A5BAF']; let h=0; for(const ch of String(n)) h=(h+ch.charCodeAt(0))%p.length; return p[h]; }
+  initials(n){ return String(n).split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+
+  orderStatusStyle(s){ return {
+    Baru:{c:'#1D4ED8',b:'#EEF2FF'}, Diproses:{c:'#B45309',b:'#FEF3E2'},
+    Selesai:{c:'#15803D',b:'#F0FDF4'}, Batal:{c:'#DC2626',b:'#FEF2F2'}
+  }[s] || {c:'#64748B',b:'#F1F5F9'}; }
+
+  toast(title, desc, type='success'){
+    const id = Date.now()+Math.random();
+    const cfg = {
+      success:{glyph:'✓',iconBg:'#F0FDF4',iconColor:'#16A34A'},
+      info:{glyph:'i',iconBg:'#EEF2FF',iconColor:'#2547F9'},
+      error:{glyph:'✕',iconBg:'#FEF2F2',iconColor:'#DC2626'},
+    }[type];
+    const t = { id, title, desc, type, ...cfg, onClose:()=>this.dismiss(id) };
+    this.setState(s=>({ toasts:[...s.toasts, t] }));
+    setTimeout(()=>this.dismiss(id), 4200);
+  }
+  dismiss(id){ this.setState(s=>({ toasts:s.toasts.filter(t=>t.id!==id) })); }
+
+  toggleSidebar(){ this.setState(s=>({sidebarCollapsed:!s.sidebarCollapsed})); }
+  goDashboard(){ this.setState({page:'dashboard'}); }
+  goProducts(){ this.setState({page:'products'}); }
+  goArticles(){ this.setState({page:'articles'}); }
+  goSettings(){ this.setState({page:'settings'}); }
+
+  goAddProduct(){
+    this.setState({ page:'product-form', editingId:null, variantDraft:'',
+      form:{ name:'', desc:'', priceStr:'', stock:'', category:'SUV', status:true, variants:['Standar','Premium'] } });
+  }
+  editProduct(id){
+    const p = this.state.products.find(x=>x.id===id);
+    this.setState({ page:'product-form', editingId:id, variantDraft:'',
+      form:{ name:p.name, desc:'Cover mobil custom dengan bahan premium, anti air dan anti jamur. Jahitan rapi mengikuti lekuk bodi kendaraan.', priceStr:this.grp(p.price), stock:String(p.stock), category:p.category, status:p.status==='Aktif', variants:['Standar','Premium','Full Body'] } });
+  }
+  deleteProduct(id){
+    const p = this.state.products.find(x=>x.id===id);
+    this.setState(s=>({ products:s.products.filter(x=>x.id!==id) }));
+    this.toast('Produk dihapus', `"${p.name}" telah dihapus dari katalog.`, 'error');
+  }
+  saveProduct(){
+    const f = this.state.form;
+    if(!f.name.trim()){ this.toast('Nama produk wajib diisi', 'Lengkapi nama sebelum menyimpan.', 'error'); return; }
+    const price = Number(this.digits(f.priceStr))||0;
+    const stock = Number(this.digits(f.stock))||0;
+    const status = f.status ? 'Aktif' : 'Draft';
+    if(this.state.editingId){
+      this.setState(s=>({ products:s.products.map(p=>p.id===s.editingId?{...p, name:f.name, category:f.category, price, stock, status}:p), page:'products' }));
+      this.toast('Perubahan tersimpan', `"${f.name}" berhasil diperbarui.`, 'success');
+    } else {
+      const id = Math.max(0,...this.state.products.map(p=>p.id))+1;
+      const sku = 'CVR-NEW-'+String(id).padStart(3,'0');
+      this.setState(s=>({ products:[{id,name:f.name,sku,category:f.category,price,stock,status}, ...s.products], page:'products' }));
+      this.toast('Produk ditambahkan', `"${f.name}" berhasil masuk katalog.`, 'success');
+    }
+  }
+
+  writeArticle(){ this.toast('Editor artikel', 'Membuka editor artikel baru...', 'info'); }
+  editArticle(id){ const a=this.state.articles.find(x=>x.id===id); this.toast('Edit artikel', `Membuka "${a.title}".`, 'info'); }
+  deleteArticle(id){
+    const a=this.state.articles.find(x=>x.id===id);
+    this.setState(s=>({ articles:s.articles.filter(x=>x.id!==id) }));
+    this.toast('Artikel dihapus', `"${a.title}" telah dihapus.`, 'error');
+  }
+
+  saveSettings(){ this.toast('Pengaturan disimpan', 'Perubahan toko berhasil diterapkan.', 'success'); }
+
+  onSearch(e){ this.setState({query:e.target.value}); }
+  onCat(e){ this.setState({catFilter:e.target.value}); }
+  setForm(k,v){ this.setState(s=>({form:{...s.form,[k]:v}})); }
+  setSetting(k,v){ this.setState(s=>({settings:{...s.settings,[k]:v}})); }
+  addVariant(){
+    const v=this.state.variantDraft.trim();
+    if(!v) return;
+    this.setState(s=>({ form:{...s.form, variants:[...s.form.variants, v]}, variantDraft:'' }));
+  }
+  removeVariant(i){ this.setState(s=>({form:{...s.form, variants:s.form.variants.filter((_,ix)=>ix!==i)}})); }
+
+  navStyle(active){
+    const base = 'display:flex;align-items:center;gap:12px;width:100%;padding:11px 13px;margin-bottom:3px;border:none;border-radius:10px;font-size:13.5px;font-weight:500;cursor:pointer;text-align:left;transition:background .15s;font-family:inherit;';
+    return base + (active
+      ? 'background:linear-gradient(90deg,#3D5BFF,#2547F9);color:#fff;box-shadow:0 2px 8px -2px rgba(37,71,249,.38);font-weight:600;'
+      : 'background:transparent;color:#64748B;');
+  }
+
+  renderVals(){
+    const s = this.state;
+    const p = s.page;
+
+    // sidebar
+    const col = s.sidebarCollapsed;
+    const sidebarStyle = { width: col?'76px':'250px', flex:'none', background:'#FFFFFF', display:'flex', flexDirection:'column', position:'sticky', top:0, height:'100vh', boxShadow:'inset -1px 0 0 #ECEDF1', transition:'width .22s ease', overflow:'hidden' };
+
+    // products view
+    const q = s.query.trim().toLowerCase();
+    const cat = s.catFilter;
+    const filtered = s.products.filter(pr=>
+      (!q || pr.name.toLowerCase().includes(q)) &&
+      (cat==='Semua Kategori' || pr.category===cat)
+    );
+    const productsView = filtered.map(pr=>{
+      const st = pr.status==='Aktif' ? {c:'#15803D',b:'#F0FDF4'} : {c:'#64748B',b:'#F1F5F9'};
+      const stockColor = pr.stock===0 ? '#DC2626' : pr.stock<=10 ? '#B45309' : '#334155';
+      const stockLabel = pr.stock===0 ? 'Habis' : pr.stock+' pcs';
+      return { ...pr, priceStr:this.rp(pr.price), thumbBg:this.catColor(pr.category),
+        statusColor:st.c, statusBg:st.b, stockColor, stockLabel,
+        onEdit:()=>this.editProduct(pr.id), onDelete:()=>this.deleteProduct(pr.id) };
+    });
+
+    const articlesView = s.articles.map(a=>{
+      const st = a.status==='Terbit' ? {c:'#15803D',b:'#F0FDF4'} : {c:'#64748B',b:'#F1F5F9'};
+      return { ...a, statusColor:st.c, statusBg:st.b, thumbBg:this.avaColor(a.title),
+        onEdit:()=>this.editArticle(a.id), onDelete:()=>this.deleteArticle(a.id) };
+    });
+
+    const orders = s.orders.map(o=>{
+      const st=this.orderStatusStyle(o.status);
+      return { ...o, totalStr:this.rp(o.total), statusColor:st.c, statusBg:st.b,
+        initials:this.initials(o.buyer), avaBg:this.avaColor(o.buyer) };
+    });
+
+    // dashboard stats
+    const statCards = [
+      { label:'Total Produk', value:String(s.products.length), icon:'box', iconBg:'#EEF2FF', iconColor:'#2547F9', trend:'+3 baru', trendColor:'#16A34A' },
+      { label:'Pesanan Masuk (WA)', value:'128', icon:'wa', iconBg:'#F0FDF4', iconColor:'#16A34A', trend:'+18%', trendColor:'#16A34A' },
+      { label:'Artikel Terbit', value:String(s.articles.filter(a=>a.status==='Terbit').length), icon:'file', iconBg:'#F5F0FE', iconColor:'#7C3AED', trend:'2 draft', trendColor:'#94A3B8' },
+      { label:'Produk Aktif', value:String(s.products.filter(pr=>pr.status==='Aktif').length), icon:'check', iconBg:'#FEF6E7', iconColor:'#D97706', trend:'up to date', trendColor:'#94A3B8' },
+    ];
+    // draw icons into stat cards after render
+    const days=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+    const vals=[12,18,9,22,15,27,20];
+    const max=Math.max(...vals);
+    const chartBars = vals.map((v,i)=>({ label:days[i], value:v, heightPct:Math.round(v/max*100),
+      barBg: i===vals.length-1 ? 'linear-gradient(180deg,#4E6BFF,#2547F9)' : (v===max?'linear-gradient(180deg,#4E6BFF,#2547F9)':'#DCE6F5') }));
+
+    const statusBreakdown = [
+      { label:'Baru', count:14, pct:26, color:'#2547F9' },
+      { label:'Diproses', count:21, pct:39, color:'#D97706' },
+      { label:'Selesai', count:52, pct:96, color:'#16A34A' },
+      { label:'Dibatalkan', count:3, pct:6, color:'#DC2626' },
+    ];
+
+    const socials = [
+      { key:'ig', mark:'IG', bg:'linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)', value:s.settings.instagram, placeholder:'@username', onChange:e=>this.setSetting('instagram',e.target.value) },
+      { key:'fb', mark:'f', bg:'#1877F2', value:s.settings.facebook, placeholder:'Nama halaman', onChange:e=>this.setSetting('facebook',e.target.value) },
+      { key:'tt', mark:'TT', bg:'#010101', value:s.settings.tiktok, placeholder:'@username', onChange:e=>this.setSetting('tiktok',e.target.value) },
+    ];
+
+    return {
+      sidebarStyle, asideClass: col?'cm-collapsed':'', toggleSidebar:()=>this.toggleSidebar(),
+      isDashboard:p==='dashboard', isProducts:p==='products', isProductForm:p==='product-form',
+      isArticles:p==='articles', isSettings:p==='settings',
+      navDashStyle:this.navStyle(p==='dashboard'),
+      navProdStyle:this.navStyle(p==='products'||p==='product-form'),
+      navArtStyle:this.navStyle(p==='articles'),
+      navSetStyle:this.navStyle(p==='settings'),
+      goDashboard:()=>this.goDashboard(), goProducts:()=>this.goProducts(),
+      goArticles:()=>this.goArticles(), goSettings:()=>this.goSettings(),
+      goAddProduct:()=>this.goAddProduct(), writeArticle:()=>this.writeArticle(),
+      saveProduct:()=>this.saveProduct(), saveSettings:()=>this.saveSettings(),
+
+      statCards, chartBars, statusBreakdown, orders,
+
+      query:s.query, catFilter:s.catFilter, onSearch:e=>this.onSearch(e), onCat:e=>this.onCat(e),
+      categories:['Semua Kategori','SUV','MPV','Hatchback','Sedan','Pickup'],
+      formCategories:['SUV','MPV','Hatchback','Sedan','Pickup'],
+      productsView, noProducts:productsView.length===0,
+      productCountLabel:`${s.products.length} produk terdaftar · ${s.products.filter(x=>x.status==='Aktif').length} aktif`,
+      paginationLabel:`Menampilkan ${productsView.length} dari ${s.products.length} produk`,
+
+      articlesView, articleCountLabel:`${s.articles.length} artikel · ${s.articles.filter(a=>a.status==='Terbit').length} terbit`,
+
+      // form
+      form:s.form,
+      formTitle: s.editingId ? 'Edit Produk' : 'Tambah Produk',
+      statusLabel: s.form.status ? 'Produk Aktif' : 'Draft',
+      statusHint: s.form.status ? 'Tampil di katalog & bisa dipesan.' : 'Disembunyikan dari katalog publik.',
+      toggleBg: s.form.status ? '#2547F9' : '#CBD5E1',
+      toggleLeft: s.form.status ? '23px' : '3px',
+      variantDraft:s.variantDraft,
+      onFormName:e=>this.setForm('name',e.target.value),
+      onFormDesc:e=>this.setForm('desc',e.target.value),
+      onFormPrice:e=>this.setForm('priceStr', this.grp(e.target.value)),
+      onFormStock:e=>this.setForm('stock', this.digits(e.target.value)),
+      onFormCat:e=>this.setForm('category',e.target.value),
+      toggleStatus:()=>this.setForm('status',!s.form.status),
+      onVariantDraft:e=>this.setState({variantDraft:e.target.value}),
+      onVariantKey:e=>{ if(e.key==='Enter'){ e.preventDefault(); this.addVariant(); } },
+      formVariants: s.form.variants.map((v,i)=>({ label:v, onRemove:()=>this.removeVariant(i) })),
+
+      // settings
+      settings:s.settings, socials,
+      onSetName:e=>this.setSetting('name',e.target.value),
+      onSetTagline:e=>this.setSetting('tagline',e.target.value),
+      onSetDesc:e=>this.setSetting('desc',e.target.value),
+      onSetWa:e=>this.setSetting('wa',e.target.value),
+      onSetHours:e=>this.setSetting('hours',e.target.value),
+
+      toasts:s.toasts,
+    };
+  }
+
+  drawIcons(){
+    const root = this.el || document;
+    const paths = {
+      box:'<path d="M21 8V21H3V8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/>',
+      wa:'<path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/><path d="M8.5 8.5c.3 2 2 4 4 5"/>',
+      file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+      check:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+    };
+    (root.querySelectorAll ? root : document).querySelectorAll('[data-cm-ico]').forEach(el=>{
+      const k = el.getAttribute('data-cm-ico');
+      if(paths[k] && !el.querySelector('svg')){
+        el.innerHTML = `<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths[k]}</svg>`;
+      }
+    });
+  }
+  componentDidMount(){ this.drawIcons(); }
+  componentDidUpdate(){ this.drawIcons(); }
+}
+</script>
+</body>
+</html>

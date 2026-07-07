@@ -1,0 +1,141 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Kategori Artikel" [level=1] [ref=e114]
+              - paragraph [ref=e115]: 4 kategori
+            - button "Tambah Kategori" [ref=e116] [cursor=pointer]:
+              - img [ref=e117]
+              - text: Tambah Kategori
+          - table [ref=e121]:
+            - rowgroup [ref=e122]:
+              - row "Nama Slug Deskripsi Aksi" [ref=e123]:
+                - columnheader "Nama" [ref=e124]:
+                  - button "Nama" [ref=e125]:
+                    - text: Nama
+                    - img [ref=e126]
+                - columnheader "Slug" [ref=e129]
+                - columnheader "Deskripsi" [ref=e130]
+                - columnheader "Aksi" [ref=e131]:
+                  - generic [ref=e132]: Aksi
+            - rowgroup [ref=e133]:
+              - row "T Tips & Trik Otomotif tips-trik-otomotif Delectus vero cupiditate fugiat nihil. Edit Hapus" [ref=e134]:
+                - cell "T Tips & Trik Otomotif" [ref=e135]:
+                  - generic [ref=e136]:
+                    - generic [ref=e137]: T
+                    - generic [ref=e138]: Tips & Trik Otomotif
+                - cell "tips-trik-otomotif" [ref=e139]:
+                  - code [ref=e140]: tips-trik-otomotif
+                - cell "Delectus vero cupiditate fugiat nihil." [ref=e141]
+                - cell "Edit Hapus" [ref=e142]:
+                  - generic [ref=e143]:
+                    - button "Edit" [ref=e144]:
+                      - img [ref=e145]
+                      - text: Edit
+                    - button "Hapus" [ref=e148]:
+                      - img [ref=e149]
+                      - text: Hapus
+              - row "R Review Produk review-produk Esse rem earum ad voluptatem. Edit Hapus" [ref=e152]:
+                - cell "R Review Produk" [ref=e153]:
+                  - generic [ref=e154]:
+                    - generic [ref=e155]: R
+                    - generic [ref=e156]: Review Produk
+                - cell "review-produk" [ref=e157]:
+                  - code [ref=e158]: review-produk
+                - cell "Esse rem earum ad voluptatem." [ref=e159]
+                - cell "Edit Hapus" [ref=e160]:
+                  - generic [ref=e161]:
+                    - button "Edit" [ref=e162]:
+                      - img [ref=e163]
+                      - text: Edit
+                    - button "Hapus" [ref=e166]:
+                      - img [ref=e167]
+                      - text: Hapus
+              - row "I Inspirasi Custom inspirasi-custom Odit fuga quia nulla ducimus earum totam provident. Edit Hapus" [ref=e170]:
+                - cell "I Inspirasi Custom" [ref=e171]:
+                  - generic [ref=e172]:
+                    - generic [ref=e173]: I
+                    - generic [ref=e174]: Inspirasi Custom
+                - cell "inspirasi-custom" [ref=e175]:
+                  - code [ref=e176]: inspirasi-custom
+                - cell "Odit fuga quia nulla ducimus earum totam provident." [ref=e177]
+                - cell "Edit Hapus" [ref=e178]:
+                  - generic [ref=e179]:
+                    - button "Edit" [ref=e180]:
+                      - img [ref=e181]
+                      - text: Edit
+                    - button "Hapus" [ref=e184]:
+                      - img [ref=e185]
+                      - text: Hapus
+              - row "B Berita & Event berita-event - Edit Hapus" [ref=e188]:
+                - cell "B Berita & Event" [ref=e189]:
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: B
+                    - generic [ref=e192]: Berita & Event
+                - cell "berita-event" [ref=e193]:
+                  - code [ref=e194]: berita-event
+                - cell "-" [ref=e195]
+                - cell "Edit Hapus" [ref=e196]:
+                  - generic [ref=e197]:
+                    - button "Edit" [ref=e198]:
+                      - img [ref=e199]
+                      - text: Edit
+                    - button "Hapus" [ref=e202]:
+                      - img [ref=e203]
+                      - text: Hapus
+  - region "Notifications alt+T"

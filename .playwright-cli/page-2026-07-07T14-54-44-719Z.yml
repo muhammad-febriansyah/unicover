@@ -1,0 +1,131 @@
+- generic [ref=f2e2]:
+  - generic [ref=f2e34]:
+    - complementary [ref=f2e35]:
+      - generic [ref=f2e36]:
+        - img [ref=f2e38]
+        - generic [ref=f2e42]:
+          - generic [ref=f2e43]: Unicover
+          - generic [ref=f2e44]: Admin Panel
+      - generic [ref=f2e45]:
+        - generic [ref=f2e46]: Menu Utama
+        - link "Dashboard" [ref=f2e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=f2e48]
+          - text: Dashboard
+        - link "Kelola Produk" [ref=f2e53] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=f2e54]
+          - text: Kelola Produk
+        - link "Kelola Artikel" [ref=f2e57] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=f2e58]
+          - text: Kelola Artikel
+        - link "Pengaturan Toko" [ref=f2e61] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=f2e62]
+          - text: Pengaturan Toko
+      - generic [ref=f2e66]:
+        - generic [ref=f2e67]:
+          - img [ref=f2e69]
+          - generic [ref=f2e71]: Checkout via WA
+        - generic [ref=f2e72]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=f2e73]:
+      - banner [ref=f2e74]:
+        - generic [ref=f2e75]:
+          - img [ref=f2e76]
+          - textbox "Cari produk, artikel..." [ref=f2e79]
+        - generic [ref=f2e81]:
+          - generic [ref=f2e82]: AU
+          - generic [ref=f2e83]:
+            - generic [ref=f2e84]: Admin Unicover
+            - generic [ref=f2e85]: Admin
+          - button "Logout" [ref=f2e87] [cursor=pointer]
+      - main [ref=f2e88]:
+        - generic [ref=f2e89]:
+          - generic [ref=f2e90]:
+            - link [ref=f2e91] [cursor=pointer]:
+              - /url: /admin/products
+              - img [ref=f2e92]
+            - generic [ref=f2e94]: Kelola Produk / Tambah
+          - heading "Tambah Produk" [level=1] [ref=f2e95]
+          - generic [ref=f2e96]:
+            - generic [ref=f2e97]:
+              - generic [ref=f2e98]:
+                - generic [ref=f2e99]:
+                  - heading "Informasi Produk" [level=3] [ref=f2e100]
+                  - generic [ref=f2e101]:
+                    - generic [ref=f2e102]: Nama Produk*
+                    - textbox "cth. Cover Mobil Premium Toyota Fortuner" [ref=f2e103]
+                  - generic [ref=f2e104]:
+                    - generic [ref=f2e105]: Deskripsi
+                    - generic [ref=f2e106]:
+                      - generic [ref=f2e107]:
+                        - button "Bold" [ref=f2e108] [cursor=pointer]:
+                          - img [ref=f2e109]
+                        - button "Italic" [ref=f2e111] [cursor=pointer]:
+                          - img [ref=f2e112]
+                        - button "Underline" [ref=f2e114] [cursor=pointer]:
+                          - img [ref=f2e115]
+                        - button "Strikethrough" [ref=f2e117] [cursor=pointer]:
+                          - img [ref=f2e118]
+                        - button "Bullet List" [ref=f2e122] [cursor=pointer]:
+                          - img [ref=f2e123]
+                        - button "Ordered List" [ref=f2e124] [cursor=pointer]:
+                          - img [ref=f2e125]
+                        - button "Link" [ref=f2e129] [cursor=pointer]:
+                          - img [ref=f2e130]
+                      - paragraph [ref=f2e135]
+                - generic [ref=f2e136]:
+                  - heading "Foto Produk" [level=3] [ref=f2e137]
+                  - generic [ref=f2e138]: Unggah hingga 6 foto. Foto pertama jadi thumbnail utama.
+                  - button "Tambah" [ref=f2e141] [cursor=pointer]:
+                    - img [ref=f2e142]
+                    - generic [ref=f2e145]: Tambah
+              - generic [ref=f2e146]:
+                - generic [ref=f2e147]:
+                  - heading "Harga & Stok" [level=3] [ref=f2e148]
+                  - generic [ref=f2e149]:
+                    - generic [ref=f2e150]: Harga*
+                    - generic [ref=f2e151]:
+                      - generic [ref=f2e152]: Rp
+                      - textbox "0" [ref=f2e153]
+                  - generic [ref=f2e154]:
+                    - generic [ref=f2e155]: Harga Diskon
+                    - generic [ref=f2e156]:
+                      - generic [ref=f2e157]: Rp
+                      - textbox "0" [ref=f2e158]
+                  - generic [ref=f2e159]:
+                    - generic [ref=f2e160]: SKU
+                    - textbox "cth. CVR-FRT-001" [ref=f2e161]
+                  - generic [ref=f2e162]:
+                    - generic [ref=f2e163]: Status Stok*
+                    - combobox [ref=f2e164] [cursor=pointer]:
+                      - option "Tersedia" [selected]
+                      - option "Habis"
+                      - option "Preorder"
+                - generic [ref=f2e165]:
+                  - heading "Kategori" [level=3] [ref=f2e166]
+                  - generic [ref=f2e167]:
+                    - generic [ref=f2e168]: Kategori Produk*
+                    - combobox [ref=f2e169] [cursor=pointer]:
+                      - option "Cover Mobil" [selected]
+                      - option "Cover Ban Mobil"
+                - generic [ref=f2e170]:
+                  - heading "Status" [level=3] [ref=f2e171]
+                  - generic [ref=f2e172]:
+                    - generic [ref=f2e173]:
+                      - generic [ref=f2e174]: Aktif
+                      - generic [ref=f2e175]: Tampil di katalog & bisa dipesan.
+                    - button [ref=f2e176] [cursor=pointer]
+                  - generic [ref=f2e179]:
+                    - generic [ref=f2e180]:
+                      - generic [ref=f2e181]: Featured
+                      - generic [ref=f2e182]: Tampil di halaman utama.
+                    - button [ref=f2e183] [cursor=pointer]
+            - generic [ref=f2e185]:
+              - link "Batal" [ref=f2e186] [cursor=pointer]:
+                - /url: /admin/products
+              - button "Simpan Produk" [ref=f2e187] [cursor=pointer]:
+                - img [ref=f2e188]
+                - text: Simpan Produk
+  - region "Notifications alt+T"

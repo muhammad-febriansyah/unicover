@@ -1,0 +1,126 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Kategori Produk" [level=1] [ref=e114]
+              - paragraph [ref=e115]: 2 kategori
+            - button "Tambah Kategori" [active] [ref=e116] [cursor=pointer]:
+              - img [ref=e117]
+              - text: Tambah Kategori
+          - generic [ref=e170]:
+            - generic [ref=e171]:
+              - heading "Tambah Kategori" [level=3] [ref=e172]
+              - button [ref=e173] [cursor=pointer]:
+                - img [ref=e174]
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - generic [ref=e179]: Nama Kategori*
+                - textbox "cth. Cover Mobil" [ref=e180]
+              - generic [ref=e181]:
+                - generic [ref=e182]: Deskripsi
+                - textbox "Deskripsi singkat kategori..." [ref=e183]
+              - generic [ref=e184]:
+                - button "Simpan" [ref=e185] [cursor=pointer]:
+                  - img [ref=e186]
+                  - text: Simpan
+                - button "Batal" [ref=e190] [cursor=pointer]
+          - table [ref=e121]:
+            - rowgroup [ref=e122]:
+              - row "Nama Slug Deskripsi Aksi" [ref=e123]:
+                - columnheader "Nama" [ref=e124]:
+                  - button "Nama" [ref=e125]:
+                    - text: Nama
+                    - img [ref=e126]
+                - columnheader "Slug" [ref=e129]
+                - columnheader "Deskripsi" [ref=e130]
+                - columnheader "Aksi" [ref=e131]:
+                  - generic [ref=e132]: Aksi
+            - rowgroup [ref=e133]:
+              - row "C Cover Mobil cover-mobil Cover mobil custom untuk berbagai tipe kendaraan. Melindungi dari debu, goresan, dan cuaca. Edit Hapus" [ref=e134]:
+                - cell "C Cover Mobil" [ref=e135]:
+                  - generic [ref=e136]:
+                    - generic [ref=e137]: C
+                    - generic [ref=e138]: Cover Mobil
+                - cell "cover-mobil" [ref=e139]:
+                  - code [ref=e140]: cover-mobil
+                - cell "Cover mobil custom untuk berbagai tipe kendaraan. Melindungi dari debu, goresan, dan cuaca." [ref=e141]
+                - cell "Edit Hapus" [ref=e142]:
+                  - generic [ref=e143]:
+                    - button "Edit" [ref=e144]:
+                      - img [ref=e145]
+                      - text: Edit
+                    - button "Hapus" [ref=e148]:
+                      - img [ref=e149]
+                      - text: Hapus
+              - row "C Cover Ban Mobil cover-ban-mobil Cover ban mobil custom dengan material berkualitas. Anti air, anti UV, dan tahan lama. Edit Hapus" [ref=e152]:
+                - cell "C Cover Ban Mobil" [ref=e153]:
+                  - generic [ref=e154]:
+                    - generic [ref=e155]: C
+                    - generic [ref=e156]: Cover Ban Mobil
+                - cell "cover-ban-mobil" [ref=e157]:
+                  - code [ref=e158]: cover-ban-mobil
+                - cell "Cover ban mobil custom dengan material berkualitas. Anti air, anti UV, dan tahan lama." [ref=e159]
+                - cell "Edit Hapus" [ref=e160]:
+                  - generic [ref=e161]:
+                    - button "Edit" [ref=e162]:
+                      - img [ref=e163]
+                      - text: Edit
+                    - button "Hapus" [ref=e166]:
+                      - img [ref=e167]
+                      - text: Hapus
+  - region "Notifications alt+T"

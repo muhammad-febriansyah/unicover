@@ -1,0 +1,69 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - text: Dashboard
+        - link "Kelola Produk" [ref=e53] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e54]
+          - text: Kelola Produk
+        - link "Kelola Artikel" [ref=e57] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e58]
+          - text: Kelola Artikel
+        - link "Pengaturan Toko" [ref=e61] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e62]
+          - text: Pengaturan Toko
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - img [ref=e69]
+          - generic [ref=e71]: Checkout via WA
+        - generic [ref=e72]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e73]:
+      - banner [ref=e74]:
+        - generic [ref=e75]:
+          - img [ref=e76]
+          - textbox "Cari produk, artikel..." [ref=e79]
+        - generic [ref=e81]:
+          - generic [ref=e82]: AU
+          - generic [ref=e83]:
+            - generic [ref=e84]: Admin Unicover
+            - generic [ref=e85]: Admin
+          - button "Logout" [ref=e86] [cursor=pointer]
+      - main [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - heading "Dashboard" [level=1] [ref=e90]
+            - paragraph [ref=e91]: Ringkasan performa toko cover mobil Anda.
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - img [ref=e96]
+                - generic [ref=e100]: +3 baru
+              - generic [ref=e101]: "9"
+              - generic [ref=e102]: Total Produk
+            - generic [ref=e103]:
+              - generic [ref=e104]:
+                - img [ref=e106]
+                - generic [ref=e109]: up to date
+              - generic [ref=e110]: "9"
+              - generic [ref=e111]: Produk Aktif
+            - generic [ref=e112]:
+              - img [ref=e115]
+              - generic [ref=e120]: "2"
+              - generic [ref=e121]: Kategori
+            - generic [ref=e122]:
+              - img [ref=e125]
+              - generic [ref=e129]: "3"
+              - generic [ref=e130]: Artikel Terbit
+  - region "Notifications alt+T"

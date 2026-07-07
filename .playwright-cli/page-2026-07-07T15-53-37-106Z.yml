@@ -1,0 +1,241 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Tag Artikel" [level=1] [ref=e114]
+              - paragraph [ref=e115]: 11 tag
+            - button "Tambah Tag" [ref=e116] [cursor=pointer]:
+              - img [ref=e117]
+              - text: Tambah Tag
+          - table [ref=e121]:
+            - rowgroup [ref=e122]:
+              - row "Nama Slug Aksi" [ref=e123]:
+                - columnheader "Nama" [ref=e124]:
+                  - button "Nama" [ref=e125]:
+                    - text: Nama
+                    - img [ref=e126]
+                - columnheader "Slug" [ref=e129]
+                - columnheader "Aksi" [ref=e130]:
+                  - generic [ref=e131]: Aksi
+            - rowgroup [ref=e132]:
+              - row "a aksesoris mobil aksesoris-mobil Edit Hapus" [ref=e133]:
+                - cell "a aksesoris mobil" [ref=e134]:
+                  - generic [ref=e135]:
+                    - generic [ref=e136]: a
+                    - generic [ref=e137]: aksesoris mobil
+                - cell "aksesoris-mobil" [ref=e138]:
+                  - code [ref=e139]: aksesoris-mobil
+                - cell "Edit Hapus" [ref=e140]:
+                  - generic [ref=e141]:
+                    - button "Edit" [ref=e142]:
+                      - img [ref=e143]
+                      - text: Edit
+                    - button "Hapus" [ref=e146]:
+                      - img [ref=e147]
+                      - text: Hapus
+              - row "a anti air anti-air Edit Hapus" [ref=e150]:
+                - cell "a anti air" [ref=e151]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: a
+                    - generic [ref=e154]: anti air
+                - cell "anti-air" [ref=e155]:
+                  - code [ref=e156]: anti-air
+                - cell "Edit Hapus" [ref=e157]:
+                  - generic [ref=e158]:
+                    - button "Edit" [ref=e159]:
+                      - img [ref=e160]
+                      - text: Edit
+                    - button "Hapus" [ref=e163]:
+                      - img [ref=e164]
+                      - text: Hapus
+              - row "a anti UV anti-uv Edit Hapus" [ref=e167]:
+                - cell "a anti UV" [ref=e168]:
+                  - generic [ref=e169]:
+                    - generic [ref=e170]: a
+                    - generic [ref=e171]: anti UV
+                - cell "anti-uv" [ref=e172]:
+                  - code [ref=e173]: anti-uv
+                - cell "Edit Hapus" [ref=e174]:
+                  - generic [ref=e175]:
+                    - button "Edit" [ref=e176]:
+                      - img [ref=e177]
+                      - text: Edit
+                    - button "Hapus" [ref=e180]:
+                      - img [ref=e181]
+                      - text: Hapus
+              - row "c cover ban cover-ban Edit Hapus" [ref=e184]:
+                - cell "c cover ban" [ref=e185]:
+                  - generic [ref=e186]:
+                    - generic [ref=e187]: c
+                    - generic [ref=e188]: cover ban
+                - cell "cover-ban" [ref=e189]:
+                  - code [ref=e190]: cover-ban
+                - cell "Edit Hapus" [ref=e191]:
+                  - generic [ref=e192]:
+                    - button "Edit" [ref=e193]:
+                      - img [ref=e194]
+                      - text: Edit
+                    - button "Hapus" [ref=e197]:
+                      - img [ref=e198]
+                      - text: Hapus
+              - row "c cover mobil cover-mobil Edit Hapus" [ref=e201]:
+                - cell "c cover mobil" [ref=e202]:
+                  - generic [ref=e203]:
+                    - generic [ref=e204]: c
+                    - generic [ref=e205]: cover mobil
+                - cell "cover-mobil" [ref=e206]:
+                  - code [ref=e207]: cover-mobil
+                - cell "Edit Hapus" [ref=e208]:
+                  - generic [ref=e209]:
+                    - button "Edit" [ref=e210]:
+                      - img [ref=e211]
+                      - text: Edit
+                    - button "Hapus" [ref=e214]:
+                      - img [ref=e215]
+                      - text: Hapus
+              - row "c custom otomotif custom-otomotif Edit Hapus" [ref=e218]:
+                - cell "c custom otomotif" [ref=e219]:
+                  - generic [ref=e220]:
+                    - generic [ref=e221]: c
+                    - generic [ref=e222]: custom otomotif
+                - cell "custom-otomotif" [ref=e223]:
+                  - code [ref=e224]: custom-otomotif
+                - cell "Edit Hapus" [ref=e225]:
+                  - generic [ref=e226]:
+                    - button "Edit" [ref=e227]:
+                      - img [ref=e228]
+                      - text: Edit
+                    - button "Hapus" [ref=e231]:
+                      - img [ref=e232]
+                      - text: Hapus
+              - row "g gaya hidup gaya-hidup Edit Hapus" [ref=e235]:
+                - cell "g gaya hidup" [ref=e236]:
+                  - generic [ref=e237]:
+                    - generic [ref=e238]: g
+                    - generic [ref=e239]: gaya hidup
+                - cell "gaya-hidup" [ref=e240]:
+                  - code [ref=e241]: gaya-hidup
+                - cell "Edit Hapus" [ref=e242]:
+                  - generic [ref=e243]:
+                    - button "Edit" [ref=e244]:
+                      - img [ref=e245]
+                      - text: Edit
+                    - button "Hapus" [ref=e248]:
+                      - img [ref=e249]
+                      - text: Hapus
+              - row "m material premium material-premium Edit Hapus" [ref=e252]:
+                - cell "m material premium" [ref=e253]:
+                  - generic [ref=e254]:
+                    - generic [ref=e255]: m
+                    - generic [ref=e256]: material premium
+                - cell "material-premium" [ref=e257]:
+                  - code [ref=e258]: material-premium
+                - cell "Edit Hapus" [ref=e259]:
+                  - generic [ref=e260]:
+                    - button "Edit" [ref=e261]:
+                      - img [ref=e262]
+                      - text: Edit
+                    - button "Hapus" [ref=e265]:
+                      - img [ref=e266]
+                      - text: Hapus
+              - row "m modifikasi modifikasi Edit Hapus" [ref=e269]:
+                - cell "m modifikasi" [ref=e270]:
+                  - generic [ref=e271]:
+                    - generic [ref=e272]: m
+                    - generic [ref=e273]: modifikasi
+                - cell "modifikasi" [ref=e274]:
+                  - code [ref=e275]: modifikasi
+                - cell "Edit Hapus" [ref=e276]:
+                  - generic [ref=e277]:
+                    - button "Edit" [ref=e278]:
+                      - img [ref=e279]
+                      - text: Edit
+                    - button "Hapus" [ref=e282]:
+                      - img [ref=e283]
+                      - text: Hapus
+              - row "p perawatan mobil perawatan-mobil Edit Hapus" [ref=e286]:
+                - cell "p perawatan mobil" [ref=e287]:
+                  - generic [ref=e288]:
+                    - generic [ref=e289]: p
+                    - generic [ref=e290]: perawatan mobil
+                - cell "perawatan-mobil" [ref=e291]:
+                  - code [ref=e292]: perawatan-mobil
+                - cell "Edit Hapus" [ref=e293]:
+                  - generic [ref=e294]:
+                    - button "Edit" [ref=e295]:
+                      - img [ref=e296]
+                      - text: Edit
+                    - button "Hapus" [ref=e299]:
+                      - img [ref=e300]
+                      - text: Hapus
+              - row "p proteksi kendaraan proteksi-kendaraan Edit Hapus" [ref=e303]:
+                - cell "p proteksi kendaraan" [ref=e304]:
+                  - generic [ref=e305]:
+                    - generic [ref=e306]: p
+                    - generic [ref=e307]: proteksi kendaraan
+                - cell "proteksi-kendaraan" [ref=e308]:
+                  - code [ref=e309]: proteksi-kendaraan
+                - cell "Edit Hapus" [ref=e310]:
+                  - generic [ref=e311]:
+                    - button "Edit" [ref=e312]:
+                      - img [ref=e313]
+                      - text: Edit
+                    - button "Hapus" [ref=e316]:
+                      - img [ref=e317]
+                      - text: Hapus
+  - region "Notifications alt+T"

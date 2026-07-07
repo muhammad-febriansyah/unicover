@@ -1,0 +1,164 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Kelola Artikel" [level=1] [ref=e114]
+              - paragraph [ref=e115]: 3 artikel
+            - link "Tulis Artikel Baru" [ref=e116] [cursor=pointer]:
+              - /url: /admin/articles/create
+              - img [ref=e117]
+              - text: Tulis Artikel Baru
+          - generic [ref=e118]:
+            - table [ref=e121]:
+              - rowgroup [ref=e122]:
+                - row "Judul Penulis Kategori Tanggal Status Aksi" [ref=e123]:
+                  - columnheader "Judul" [ref=e124]:
+                    - button "Judul" [ref=e125]:
+                      - text: Judul
+                      - img [ref=e126]
+                  - columnheader "Penulis" [ref=e129]
+                  - columnheader "Kategori" [ref=e130]
+                  - columnheader "Tanggal" [ref=e131]:
+                    - generic [ref=e132]: Tanggal
+                  - columnheader "Status" [ref=e133]
+                  - columnheader "Aksi" [ref=e134]:
+                    - generic [ref=e135]: Aksi
+              - rowgroup [ref=e136]:
+                - row "Mengapa Cover Mobil Custom Lebih Baik daripada Cover Universal Admin Unicover - 7 Jul 2026 Terbit Detail Edit Hapus" [ref=e137]:
+                  - cell "Mengapa Cover Mobil Custom Lebih Baik daripada Cover Universal" [ref=e138]:
+                    - generic [ref=e139]:
+                      - img [ref=e141]
+                      - link "Mengapa Cover Mobil Custom Lebih Baik daripada Cover Universal" [ref=e145] [cursor=pointer]:
+                        - /url: /admin/articles/1
+                  - cell "Admin Unicover" [ref=e146]
+                  - cell "-" [ref=e147]:
+                    - generic [ref=e148]: "-"
+                  - cell "7 Jul 2026" [ref=e149]:
+                    - generic [ref=e150]: 7 Jul 2026
+                  - cell "Terbit" [ref=e151]:
+                    - generic [ref=e152]: Terbit
+                  - cell "Detail Edit Hapus" [ref=e154]:
+                    - generic [ref=e155]:
+                      - link "Detail" [ref=e156] [cursor=pointer]:
+                        - /url: /admin/articles/1
+                        - img [ref=e157]
+                        - text: Detail
+                      - link "Edit" [ref=e160] [cursor=pointer]:
+                        - /url: /admin/articles/1/edit
+                        - img [ref=e161]
+                        - text: Edit
+                      - button "Hapus" [ref=e164]:
+                        - img [ref=e165]
+                        - text: Hapus
+                - row "5 Tips Memilih Cover Ban Mobil yang Tepat Admin Unicover - 7 Jul 2026 Terbit Detail Edit Hapus" [ref=e168]:
+                  - cell "5 Tips Memilih Cover Ban Mobil yang Tepat" [ref=e169]:
+                    - generic [ref=e170]:
+                      - img [ref=e172]
+                      - link "5 Tips Memilih Cover Ban Mobil yang Tepat" [ref=e176] [cursor=pointer]:
+                        - /url: /admin/articles/2
+                  - cell "Admin Unicover" [ref=e177]
+                  - cell "-" [ref=e178]:
+                    - generic [ref=e179]: "-"
+                  - cell "7 Jul 2026" [ref=e180]:
+                    - generic [ref=e181]: 7 Jul 2026
+                  - cell "Terbit" [ref=e182]:
+                    - generic [ref=e183]: Terbit
+                  - cell "Detail Edit Hapus" [ref=e185]:
+                    - generic [ref=e186]:
+                      - link "Detail" [ref=e187] [cursor=pointer]:
+                        - /url: /admin/articles/2
+                        - img [ref=e188]
+                        - text: Detail
+                      - link "Edit" [ref=e191] [cursor=pointer]:
+                        - /url: /admin/articles/2/edit
+                        - img [ref=e192]
+                        - text: Edit
+                      - button "Hapus" [ref=e195]:
+                        - img [ref=e196]
+                        - text: Hapus
+                - 'row "Tren Custom Otomotif 2026: Personalisasi Jadi Raja Admin Unicover - 7 Jul 2026 Terbit Detail Edit Hapus" [ref=e199]':
+                  - 'cell "Tren Custom Otomotif 2026: Personalisasi Jadi Raja" [ref=e200]':
+                    - generic [ref=e201]:
+                      - img [ref=e203]
+                      - 'link "Tren Custom Otomotif 2026: Personalisasi Jadi Raja" [ref=e207] [cursor=pointer]':
+                        - /url: /admin/articles/3
+                  - cell "Admin Unicover" [ref=e208]
+                  - cell "-" [ref=e209]:
+                    - generic [ref=e210]: "-"
+                  - cell "7 Jul 2026" [ref=e211]:
+                    - generic [ref=e212]: 7 Jul 2026
+                  - cell "Terbit" [ref=e213]:
+                    - generic [ref=e214]: Terbit
+                  - cell "Detail Edit Hapus" [ref=e216]:
+                    - generic [ref=e217]:
+                      - link "Detail" [ref=e218] [cursor=pointer]:
+                        - /url: /admin/articles/3
+                        - img [ref=e219]
+                        - text: Detail
+                      - link "Edit" [ref=e222] [cursor=pointer]:
+                        - /url: /admin/articles/3/edit
+                        - img [ref=e223]
+                        - text: Edit
+                      - button "Hapus" [ref=e226]:
+                        - img [ref=e227]
+                        - text: Hapus
+            - generic [ref=e230]:
+              - generic [ref=e231]: Menampilkan 1-3 dari 3
+              - link "1" [ref=e233] [cursor=pointer]:
+                - /url: /admin/articles?page=1
+  - region "Notifications alt+T"

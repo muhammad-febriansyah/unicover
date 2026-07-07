@@ -1,0 +1,7 @@
+[     125ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://localhost:8000/_boost/browser-logs @ http://localhost:8000/login:50
+[     154ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8000/login:109
+[    6023ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8000/storage/products/cover-mobil-1-1.jpg:0
+[    6024ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8000/storage/products/cover-mobil-2-1.jpg:0
+[    6028ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8000/storage/products/cover-mobil-3-1.jpg:0
+[    6032ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8000/storage/products/cover-mobil-4-1.jpg:0
+[    6036ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8000/storage/products/cover-mobil-5-1.jpg:0

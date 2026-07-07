@@ -1,0 +1,112 @@
+- generic [ref=e2]:
+  - generic [ref=e34]:
+    - complementary [ref=e35]:
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Unicover
+          - generic [ref=e44]: Admin Panel
+      - generic [ref=e45]:
+        - generic [ref=e46]: Menu Utama
+        - link "Dashboard" [ref=e47] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e48]
+          - generic [ref=e53]: Dashboard
+        - link "Kelola Produk" [ref=e54] [cursor=pointer]:
+          - /url: /admin/products
+          - img [ref=e55]
+          - generic [ref=e58]: Kelola Produk
+        - link "Kelola Artikel" [ref=e59] [cursor=pointer]:
+          - /url: /admin/articles
+          - img [ref=e60]
+          - generic [ref=e63]: Kelola Artikel
+        - link "Kategori Produk" [ref=e64] [cursor=pointer]:
+          - /url: /admin/categories
+          - img [ref=e65]
+          - generic [ref=e67]: Kategori Produk
+        - link "Kategori Artikel" [ref=e68] [cursor=pointer]:
+          - /url: /admin/article-categories
+          - img [ref=e69]
+          - generic [ref=e74]: Kategori Artikel
+        - link "Tag" [ref=e75] [cursor=pointer]:
+          - /url: /admin/tags
+          - img [ref=e76]
+          - generic [ref=e78]: Tag
+        - link "Pengaturan Toko" [ref=e79] [cursor=pointer]:
+          - /url: /admin/settings
+          - img [ref=e80]
+          - generic [ref=e83]: Pengaturan Toko
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img [ref=e88]
+          - generic [ref=e90]: Checkout via WA
+        - generic [ref=e91]: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+    - generic [ref=e92]:
+      - banner [ref=e93]:
+        - button "Tutup sidebar" [ref=e94] [cursor=pointer]:
+          - img [ref=e95]
+        - generic [ref=e98]:
+          - img [ref=e99]
+          - textbox "Cari produk, artikel..." [ref=e102]
+        - button "AU Admin Unicover Admin" [ref=e105] [cursor=pointer]:
+          - generic [ref=e106]: AU
+          - generic [ref=e107]:
+            - generic [ref=e108]: Admin Unicover
+            - generic [ref=e109]: Admin
+      - main [ref=e110]:
+        - generic [ref=e435]:
+          - generic [ref=e436]:
+            - generic [ref=e437]:
+              - link "Kembali" [ref=e438] [cursor=pointer]:
+                - /url: /admin/products
+                - img [ref=e439]
+                - text: Kembali
+              - generic [ref=e441]:
+                - heading "Cover Mobil Premium All-Weather" [level=1] [ref=e442]
+                - paragraph [ref=e443]: "SKU: CM-001 • Slug: cover-mobil-premium-all-weather"
+            - generic [ref=e444]:
+              - link "Edit Produk" [ref=e445] [cursor=pointer]:
+                - /url: /admin/products/1/edit
+                - img [ref=e446]
+                - text: Edit Produk
+              - button "Hapus" [ref=e449]:
+                - img [ref=e450]
+                - text: Hapus
+          - generic [ref=e453]:
+            - generic [ref=e454]:
+              - heading "Gambar Produk" [level=2] [ref=e457]
+              - generic [ref=e462]:
+                - heading "Deskripsi" [level=2] [ref=e464]
+                - generic [ref=e466]: Non accusamus voluptas odio esse. Et blanditiis ipsam rerum et porro laboriosam. Odio delectus natus ducimus qui id eum. Aut voluptatem consequatur minus veritatis vel in excepturi. Esse enim veritatis quaerat sapiente modi. Natus et esse pariatur blanditiis sunt. Est modi ut in suscipit quisquam molestiae quia. Deserunt cum pariatur perferendis sit labore. Perspiciatis rerum nisi sapiente mollitia molestias ut magni. Provident placeat cupiditate culpa animi sint et ea ullam. Consequatur pariatur aliquid voluptatem exercitationem quos. Id ut aut veritatis nobis. Aut ipsum voluptatem veniam quos eius esse.
+            - generic [ref=e467]:
+              - generic [ref=e468]:
+                - generic [ref=e469]:
+                  - img [ref=e471]
+                  - generic [ref=e473]: Harga
+                - generic [ref=e474]: Rp 1.157.272
+              - generic [ref=e475]:
+                - generic [ref=e476]:
+                  - img [ref=e478]
+                  - generic [ref=e481]: Stok
+                - generic [ref=e482]: Tersedia
+              - generic [ref=e484]:
+                - generic [ref=e485]:
+                  - img [ref=e487]
+                  - generic [ref=e489]: Status
+                - generic [ref=e490]:
+                  - generic [ref=e491]: Aktif
+                  - generic [ref=e493]:
+                    - img [ref=e494]
+                    - text: Unggulan
+              - generic [ref=e496]:
+                - generic [ref=e497]:
+                  - img [ref=e499]
+                  - generic [ref=e502]: Kategori
+                - link "Cover Mobil" [ref=e503] [cursor=pointer]:
+                  - /url: /admin/products?category=1
+                  - text: Cover Mobil
+                  - img [ref=e504]
+              - generic [ref=e508]:
+                - generic [ref=e509]: "Dibuat: 7 Juli 2026 pukul 20.48"
+                - generic [ref=e510]: "Diperbarui: 7 Juli 2026 pukul 20.48"
+  - region "Notifications alt+T"

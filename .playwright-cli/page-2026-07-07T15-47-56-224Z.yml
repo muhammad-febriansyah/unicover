@@ -1,0 +1,147 @@
+- generic:
+  - generic:
+    - generic:
+      - complementary:
+        - generic:
+          - generic:
+            - img
+          - generic:
+            - generic: Unicover
+            - generic: Admin Panel
+        - generic:
+          - generic: Menu Utama
+          - link:
+            - /url: /admin
+            - img
+            - generic: Dashboard
+          - link:
+            - /url: /admin/products
+            - img
+            - generic: Kelola Produk
+          - link:
+            - /url: /admin/articles
+            - img
+            - generic: Kelola Artikel
+          - link:
+            - /url: /admin/categories
+            - img
+            - generic: Kategori Produk
+          - link:
+            - /url: /admin/article-categories
+            - img
+            - generic: Kategori Artikel
+          - link:
+            - /url: /admin/tags
+            - img
+            - generic: Tag
+          - link:
+            - /url: /admin/settings
+            - img
+            - generic: Pengaturan Toko
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: Checkout via WA
+            - generic: Semua pesanan diteruskan otomatis ke WhatsApp toko.
+      - generic:
+        - banner:
+          - button:
+            - img
+          - generic:
+            - img
+            - textbox:
+              - /placeholder: Cari produk, artikel...
+          - generic:
+            - button:
+              - generic: AU
+              - generic:
+                - generic: Admin Unicover
+                - generic: Admin
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - heading [level=1]: Kategori Produk
+                - paragraph: 2 kategori
+              - button:
+                - img
+                - text: Tambah Kategori
+            - generic:
+              - generic:
+                - heading [level=3]: Tambah Kategori
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - generic: Nama Kategori*
+                  - textbox:
+                    - /placeholder: cth. Cover Mobil
+                - generic:
+                  - generic: Deskripsi
+                  - textbox:
+                    - /placeholder: Deskripsi singkat kategori...
+                - generic:
+                  - button:
+                    - img
+                    - text: Simpan
+                  - button: Batal
+            - generic:
+              - generic:
+                - generic:
+                  - table:
+                    - rowgroup:
+                      - row:
+                        - columnheader:
+                          - button:
+                            - text: Nama
+                            - img
+                        - columnheader: Slug
+                        - columnheader: Deskripsi
+                        - columnheader:
+                          - generic: Aksi
+                    - rowgroup:
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic: Cover Mobil
+                        - cell:
+                          - code: cover-mobil
+                        - cell: Cover mobil custom untuk berbagai tipe kendaraan. Melindungi dari debu, goresan, dan cuaca.
+                        - cell:
+                          - generic:
+                            - button:
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+                      - row:
+                        - cell:
+                          - generic:
+                            - generic: C
+                            - generic: Cover Ban Mobil
+                        - cell:
+                          - code: cover-ban-mobil
+                        - cell: Cover ban mobil custom dengan material berkualitas. Anti air, anti UV, dan tahan lama.
+                        - cell:
+                          - generic:
+                            - button:
+                              - img
+                              - text: Edit
+                            - button:
+                              - img
+                              - text: Hapus
+    - region "Notifications alt+T"
+  - alertdialog "Hapus Kategori?" [ref=e192]:
+    - generic [ref=e193]:
+      - heading "Hapus Kategori?" [level=2] [ref=e194]
+      - paragraph [ref=e195]:
+        - text: Kategori
+        - strong [ref=e196]: Cover Mobil
+        - text: akan dihapus secara permanen. Produk yang menggunakan kategori ini mungkin terpengaruh.
+    - generic [ref=e197]:
+      - button "Batal" [active] [ref=e198]
+      - button "Hapus" [ref=e199]

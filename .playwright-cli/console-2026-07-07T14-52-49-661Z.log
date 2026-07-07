@@ -1,0 +1,35 @@
+[     408ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://localhost:8000/_boost/browser-logs @ http://localhost:8000/login:50
+[     447ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8000/login:109
+[   47260ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:8000/login:109
+[   47262ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://localhost:8000/login:109
+[   47287ms] TypeError: Cannot read properties of null (reading 'useRef')
+    at exports.useRef (http://[::1]:5173/node_modules/.vite/deps/@tiptap_react.js?v=adea0932:746:30)
+    at useEditor (http://[::1]:5173/node_modules/.vite/deps/@tiptap_react.js?v=adea0932:2120:52)
+    at RichTextEditor (http://[::1]:5173/resources/js/components/rich-text-editor.tsx?t=1783435553446:88:19)
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:19518:12)
+    at renderWithHooks (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:10865:19)
+    at updateFunctionComponent (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:12221:16)
+    at beginWork (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:12792:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:7503:66)
+    at performUnitOfWork (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:15081:92)
+    at workLoopSync (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=adea0932:14977:37)
+[   47263ms] [WARNING] %s
+
+%s
+ An error occurred in the <RichTextEditor> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://localhost:8000/login:109
+[   85270ms] [ERROR] WebSocket connection to 'ws://[::1]:5173/?token=2dmGKQLNsEdL' failed:  @ http://[::1]:5173/@vite/client:864
+[   85271ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:8000/login:109
+[   85373ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8000/_boost/browser-logs:0
+[   85373ms] [ERROR] Failed to send logs: TypeError: Failed to fetch
+    at flushLogs (http://localhost:8000/login:87:9) @ http://localhost:8000/login:95
+[   99146ms] [LOG] 🔍 Browser logger active (MCP server detected). Posting to: http://localhost:8000/_boost/browser-logs @ http://localhost:8000/login:50
+[   99910ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8000/login:109
