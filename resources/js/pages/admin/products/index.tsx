@@ -21,6 +21,12 @@ interface Category {
     name: string;
 }
 
+interface ProductImage {
+    id: number;
+    path: string;
+    is_primary: boolean;
+}
+
 interface Product {
     id: number;
     name: string;
@@ -28,6 +34,7 @@ interface Product {
     sku: string | null;
     price: number;
     category: Category | null;
+    images: ProductImage[];
     stock_status: string;
     is_active: boolean;
 }
@@ -101,14 +108,24 @@ export default function ProductIndex({ products, categories, filters }: Props) {
             cell: ({ row }) => {
                 const product = row.original;
                 const colorGrad = catColor[product.category?.name ?? ''] ?? 'linear-gradient(135deg,#5B7FB0,#3A5C8A)';
+                const primaryImage = product.images?.find((img) => img.is_primary) ?? product.images?.[0];
                 return (
                     <div className="flex items-center gap-3">
-                        <div
-                            className="flex size-[46px] shrink-0 items-center justify-center rounded-[10px] text-[15px] font-bold text-white"
-                            style={{ background: colorGrad, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.04)' }}
-                        >
-                            {product.category?.name?.[0] ?? 'P'}
-                        </div>
+                        {primaryImage ? (
+                            <img
+                                src={`/storage/${primaryImage.path}`}
+                                alt={product.name}
+                                className="size-[46px] shrink-0 rounded-[10px] object-cover"
+                                style={{ boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.06)' }}
+                            />
+                        ) : (
+                            <div
+                                className="flex size-[46px] shrink-0 items-center justify-center rounded-[10px] text-[15px] font-bold text-white"
+                                style={{ background: colorGrad, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.04)' }}
+                            >
+                                {product.category?.name?.[0] ?? 'P'}
+                            </div>
+                        )}
                         <div className="min-w-0">
                             <Link
                                 href={`/admin/products/${product.id}`}
@@ -333,6 +350,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
                         data={products.data}
                         className="border-0 rounded-none"
                         emptyMessage="Tidak ada produk"
+                        enablePagination={false}
                     />
 
                     {/* pagination */}

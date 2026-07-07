@@ -186,6 +186,8 @@ export default function ArticleCategoryIndex({ categories }: Props) {
                         data={categories}
                         className="border-0 rounded-none"
                         emptyMessage="Belum ada kategori"
+                        searchKey="name"
+                        searchPlaceholder="Cari nama kategori..."
                     />
                 </div>
             </div>

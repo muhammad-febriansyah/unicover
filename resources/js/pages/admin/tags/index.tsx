@@ -178,6 +178,8 @@ export default function TagIndex({ tags }: Props) {
                         data={tags}
                         className="border-0 rounded-none"
                         emptyMessage="Belum ada tag"
+                        searchKey="name"
+                        searchPlaceholder="Cari nama tag..."
                     />
                 </div>
             </div>

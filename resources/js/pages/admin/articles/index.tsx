@@ -22,6 +22,7 @@ interface Article {
     slug: string;
     author: { name: string } | null;
     articleCategory: { name: string } | null;
+    cover_image_path: string | null;
     created_at: string;
     is_published: boolean;
 }
@@ -65,12 +66,21 @@ export default function ArticleIndex({ articles }: Props) {
                 const article = row.original;
                 return (
                     <div className="flex items-center gap-3">
-                        <div
-                            className="flex size-[44px] shrink-0 items-center justify-center rounded-[10px] text-white"
-                            style={{ background: avaBg(article.title) }}
-                        >
-                            <FileText size={20} strokeWidth={1.8} />
-                        </div>
+                        {article.cover_image_path ? (
+                            <img
+                                src={`/storage/${article.cover_image_path}`}
+                                alt={article.title}
+                                className="size-[44px] shrink-0 rounded-[10px] object-cover"
+                                style={{ boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.06)' }}
+                            />
+                        ) : (
+                            <div
+                                className="flex size-[44px] shrink-0 items-center justify-center rounded-[10px] text-white"
+                                style={{ background: avaBg(article.title) }}
+                            >
+                                <FileText size={20} strokeWidth={1.8} />
+                            </div>
+                        )}
                         <div className="min-w-0">
                             <Link
                                 href={`/admin/articles/${article.id}`}
@@ -231,6 +241,7 @@ export default function ArticleIndex({ articles }: Props) {
                         data={articles.data}
                         className="border-0 rounded-none"
                         emptyMessage="Belum ada artikel"
+                        enablePagination={false}
                     />
 
                     {/* pagination */}
