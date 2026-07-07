@@ -1,5 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { SiteHeader } from '@/components/storefront/site-header';
+import { SiteFooter } from '@/components/storefront/site-footer';
+import { type SiteSettings } from '@/lib/storefront';
 
 interface Tag {
     id: number;
@@ -20,11 +23,6 @@ interface Article {
     tags: Tag[];
 }
 
-interface SiteSettings {
-    brand_name: string;
-    logo_path: string | null;
-}
-
 interface Props {
     settings: SiteSettings | null;
     article: Article;
@@ -39,18 +37,16 @@ export default function ArticleShow({ settings, article }: Props) {
             <Head title={`${article.title} — ${brandName}`} />
 
             <div className="min-h-screen bg-white text-[#1a1a1a]">
-                <header className="border-b border-gray-200 bg-white/85 backdrop-blur-md">
-                    <nav className="mx-auto flex max-w-3xl items-center gap-3 px-6 py-5">
-                        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-[#1a1a1a] hover:text-[#2547F9]">
-                            <ArrowLeft size={16} />
-                            Kembali ke {brandName}
-                        </Link>
-                    </nav>
-                </header>
+                <SiteHeader settings={settings} />
 
-                <article className="mx-auto max-w-3xl px-6 py-12">
+                <article className="mx-auto max-w-3xl px-6 pt-32 pb-16 md:pt-40 md:pb-24">
+                    <Link href="/artikel" className="inline-flex items-center gap-2 text-sm font-medium text-[#64748b] hover:text-[#2547F9]">
+                        <ArrowLeft size={16} />
+                        Kembali ke Artikel
+                    </Link>
+
                     {article.articleCategory && (
-                        <span className="inline-flex rounded-full bg-[#EEF1FF] px-3 py-1 text-xs font-semibold text-[#2547F9]">
+                        <span className="mt-6 inline-flex rounded-full bg-[#EEF1FF] px-3 py-1 text-xs font-semibold text-[#2547F9]">
                             {article.articleCategory.name}
                         </span>
                     )}
@@ -95,6 +91,8 @@ export default function ArticleShow({ settings, article }: Props) {
                         </div>
                     )}
                 </article>
+
+                <SiteFooter settings={settings} />
             </div>
         </>
     );

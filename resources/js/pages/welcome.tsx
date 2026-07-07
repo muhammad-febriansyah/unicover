@@ -1,20 +1,13 @@
 import { Head, Link } from '@inertiajs/react';
-import { useState, type ComponentType } from 'react';
-import {
-    Navbar,
-    NavBody,
-    NavItems,
-    MobileNav,
-    MobileNavHeader,
-    MobileNavToggle,
-    MobileNavMenu,
-    NavbarButton,
-} from '@/components/ui/resizable-navbar';
 import { CardContainer, CardBody, CardItem } from '@/components/ui/3d-card';
 import { Spotlight } from '@/components/ui/spotlight';
 import { Compare } from '@/components/ui/compare';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
 import { WobbleCard } from '@/components/ui/wobble-card';
+import { SiteHeader } from '@/components/storefront/site-header';
+import { SiteFooter } from '@/components/storefront/site-footer';
+import { WhatsAppIcon } from '@/components/storefront/icons';
+import { type SiteSettings, formatRupiah, waLink } from '@/lib/storefront';
 import {
     ArrowRight,
     Star,
@@ -28,25 +21,7 @@ import {
     Phone,
     Mail,
     Clock,
-    Instagram,
-    Facebook,
 } from 'lucide-react';
-
-function WhatsAppIcon({ size = 18 }: { size?: number }) {
-    return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
-            <path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.4 5.1 5.2-1.4A10 10 0 1 0 12 2z" />
-        </svg>
-    );
-}
-
-function TiktokIcon({ size = 18 }: { size?: number }) {
-    return (
-        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
-            <path d="M16.6 5.82c-.9-.98-1.4-2.26-1.4-3.57h-3.15v13.94c0 1.55-1.26 2.81-2.81 2.81a2.81 2.81 0 0 1 0-5.62c.28 0 .55.04.81.12V9.62a6.02 6.02 0 0 0-.81-.06 5.97 5.97 0 1 0 5.97 5.97V9.4a8.16 8.16 0 0 0 4.79 1.53V7.79a4.83 4.83 0 0 1-3.4-1.97z" />
-        </svg>
-    );
-}
 
 interface Category {
     id: number;
@@ -84,22 +59,6 @@ interface Article {
     articleCategory: { name: string } | null;
 }
 
-interface SiteSettings {
-    brand_name: string;
-    logo_path: string | null;
-    wa_number: string;
-    tagline: string | null;
-    hero_heading: string | null;
-    hero_subheading: string | null;
-    address: string | null;
-    email: string | null;
-    instagram: string | null;
-    facebook: string | null;
-    tiktok: string | null;
-    footer_text: string | null;
-    google_maps_embed: string | null;
-}
-
 interface Props {
     settings: SiteSettings | null;
     categories: Category[];
@@ -120,34 +79,10 @@ const features = [
     { icon: CheckCircle2, title: 'Jahitan Presisi', desc: 'Dijahit rapi dengan benang anti putus dan karet elastis di tepi agar tidak mudah lepas.' },
 ];
 
-function formatRupiah(value: string | number) {
-    return 'Rp ' + Number(value).toLocaleString('id-ID');
-}
-
-function waLink(number: string, text: string) {
-    return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
-}
-
 export default function Welcome({ settings, categories, products, articles }: Props) {
-    const [menuOpen, setMenuOpen] = useState(false);
-
     const brandName = settings?.brand_name ?? 'Unicover';
     const waNumber = settings?.wa_number ?? '';
     const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya tentang produk cover mobil.`);
-
-    const navLinks = [
-        { href: '#beranda', label: 'Beranda' },
-        { href: '#katalog', label: 'Katalog' },
-        { href: '#artikel', label: 'Artikel' },
-        { href: '#tentang', label: 'Tentang' },
-        { href: '#kontak', label: 'Kontak' },
-    ];
-
-    const socialLinks = [
-        settings?.instagram ? { icon: Instagram, href: `https://instagram.com/${settings.instagram}` } : null,
-        settings?.facebook ? { icon: Facebook, href: `https://facebook.com/${settings.facebook}` } : null,
-        settings?.tiktok ? { icon: TiktokIcon, href: `https://tiktok.com/@${settings.tiktok}` } : null,
-    ].filter(Boolean) as { icon: ComponentType<{ size?: number }>; href: string }[];
 
     const heroProduct = products.find((p) => p.images.length > 0);
     const heroImage = heroProduct?.images.find((img) => img.is_primary) ?? heroProduct?.images[0];
@@ -159,64 +94,7 @@ export default function Welcome({ settings, categories, products, articles }: Pr
             <Head title={`${brandName} — Cover Mobil Custom Premium`} />
 
             <div className="min-h-screen bg-white text-[#1a1a1a]">
-                {/* NAVBAR */}
-                <Navbar className="fixed inset-x-0 top-0">
-                    <NavBody>
-                        <a href="#beranda" className="relative z-20 flex items-center">
-                            {settings?.logo_path ? (
-                                <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-12 w-auto object-contain" />
-                            ) : (
-                                <span className="flex size-12 items-center justify-center rounded-[14px] bg-[#2547F9] shadow-[0_8px_20px_rgba(37,71,249,.28)]">
-                                    <Truck size={22} className="text-white" />
-                                </span>
-                            )}
-                        </a>
-                        <NavItems items={navLinks.map((l) => ({ name: l.label, link: l.href }))} />
-                        <NavbarButton
-                            href={waGeneral}
-                            variant="primary"
-                            className="relative z-20 flex items-center gap-2 bg-[#2547F9] text-white shadow-[0_8px_22px_rgba(37,71,249,.28)] hover:bg-[#1a35c9]"
-                        >
-                            <WhatsAppIcon size={16} />
-                            Chat WhatsApp
-                        </NavbarButton>
-                    </NavBody>
-
-                    <MobileNav>
-                        <MobileNavHeader>
-                            <a href="#beranda" className="relative z-20 flex items-center">
-                                {settings?.logo_path ? (
-                                    <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-11 w-auto object-contain" />
-                                ) : (
-                                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#2547F9]">
-                                        <Truck size={20} className="text-white" />
-                                    </span>
-                                )}
-                            </a>
-                            <MobileNavToggle isOpen={menuOpen} onClick={() => setMenuOpen((v) => !v)} />
-                        </MobileNavHeader>
-                        <MobileNavMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)}>
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setMenuOpen(false)}
-                                    className="w-full py-2 font-medium text-[#1a1a1a]"
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
-                            <NavbarButton
-                                href={waGeneral}
-                                variant="primary"
-                                className="flex w-full items-center justify-center gap-2 bg-[#2547F9] text-white"
-                            >
-                                <WhatsAppIcon size={16} />
-                                Chat WhatsApp
-                            </NavbarButton>
-                        </MobileNavMenu>
-                    </MobileNav>
-                </Navbar>
+                <SiteHeader settings={settings} />
 
                 {/* HERO */}
                 <section id="beranda" className="relative mx-auto flex max-w-6xl flex-wrap items-center gap-12 overflow-hidden px-6 pt-32 pb-16 md:pt-40 md:pb-24">
@@ -233,13 +111,13 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                             {settings?.hero_subheading ?? 'Cover mobil dijahit presisi mengikuti lekuk kendaraan Anda. Bahan berkualitas, anti air, dan tahan segala cuaca.'}
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3.5">
-                            <a
-                                href="#katalog"
+                            <Link
+                                href="/produk"
                                 className="inline-flex items-center gap-2 rounded-2xl bg-[#2547F9] px-6 py-4 text-[15px] font-semibold text-white shadow-[0_12px_30px_rgba(37,71,249,.3)] hover:bg-[#1a35c9]"
                             >
                                 Lihat Katalog
                                 <ArrowRight size={18} />
-                            </a>
+                            </Link>
                             <a
                                 href={waGeneral}
                                 target="_blank"
@@ -315,9 +193,15 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                             <span className="text-sm font-semibold tracking-wide text-[#2547F9]">KATALOG PRODUK</span>
                             <h2 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight">Produk Unggulan Kami</h2>
                         </div>
-                        <p className="max-w-[360px] text-[15px] text-gray-500">
-                            Semua cover tersedia untuk berbagai tipe mobil. Klik &quot;Pesan&quot; untuk order langsung via WhatsApp.
-                        </p>
+                        <div className="flex flex-col items-start gap-3 sm:items-end">
+                            <p className="max-w-[360px] text-[15px] text-gray-500">
+                                Semua cover tersedia untuk berbagai tipe mobil. Klik &quot;Pesan&quot; untuk order langsung via WhatsApp.
+                            </p>
+                            <Link href="/produk" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2547F9] hover:underline">
+                                Lihat semua produk
+                                <ArrowRight size={15} />
+                            </Link>
+                        </div>
                     </div>
 
                     {products.length === 0 ? (
@@ -340,7 +224,7 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                                 return (
                                     <CardContainer key={product.id} containerClassName="py-0">
                                         <CardBody className="h-auto w-full flex flex-col overflow-hidden rounded-[20px] border border-gray-200 bg-white shadow-[0_10px_30px_rgba(17,24,39,.05)] hover:shadow-[0_20px_44px_rgba(37,71,249,.12)]">
-                                            <CardItem translateZ={60} className="relative aspect-[4/3] w-full bg-[#F9FAFB]">
+                                            <CardItem as={Link} href={`/produk/${product.slug}`} translateZ={60} className="relative block aspect-[4/3] w-full bg-[#F9FAFB]">
                                                 {primaryImage ? (
                                                     <img
                                                         src={`/storage/${primaryImage.path}`}
@@ -374,7 +258,9 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                                                         {product.category.name}
                                                     </span>
                                                 )}
-                                                <h3 className="mt-3 text-base leading-snug font-semibold tracking-tight">{product.name}</h3>
+                                                <Link href={`/produk/${product.slug}`} className="mt-3 block text-base leading-snug font-semibold tracking-tight hover:text-[#2547F9]">
+                                                    {product.name}
+                                                </Link>
                                                 <div className="mt-3 mb-4">
                                                     {product.discount_price ? (
                                                         <div className="flex items-baseline gap-2">
@@ -524,9 +410,15 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                 {/* ARTIKEL */}
                 {articles.length > 0 && (
                     <section id="artikel" className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-                        <div className="mb-10">
-                            <span className="text-sm font-semibold tracking-wide text-[#2547F9]">ARTIKEL &amp; TIPS</span>
-                            <h2 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight">Artikel Terbaru</h2>
+                        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+                            <div>
+                                <span className="text-sm font-semibold tracking-wide text-[#2547F9]">ARTIKEL &amp; TIPS</span>
+                                <h2 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight">Artikel Terbaru</h2>
+                            </div>
+                            <Link href="/artikel" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2547F9] hover:underline">
+                                Lihat semua artikel
+                                <ArrowRight size={15} />
+                            </Link>
                         </div>
                         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
                             {articles.map((article) => (
@@ -654,88 +546,7 @@ export default function Welcome({ settings, categories, products, articles }: Pr
                     </div>
                 </section>
 
-                {/* FOOTER */}
-                <footer className="relative overflow-hidden bg-white text-[#475569]">
-                    <div className="pointer-events-none absolute -top-1/2 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,rgba(37,71,249,.16),transparent_70%)] blur-[60px]" />
-                    <div className="relative mx-auto grid max-w-6xl grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 px-6 pt-14 md:pt-18">
-                        <div className="max-w-[300px]">
-                            <div className="mb-4 flex items-center">
-                                {settings?.logo_path ? (
-                                    <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-14 w-auto object-contain" />
-                                ) : (
-                                    <span className="flex size-14 items-center justify-center rounded-[14px] bg-[#2547F9]">
-                                        <Truck size={26} className="text-white" />
-                                    </span>
-                                )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-[#64748b]">
-                                {settings?.tagline ?? 'Spesialis cover mobil custom presisi untuk semua tipe kendaraan di Indonesia.'}
-                            </p>
-                            {socialLinks.length > 0 && (
-                                <div className="mt-5 flex gap-2.5">
-                                    {socialLinks.map((s, i) => (
-                                        <a
-                                            key={i}
-                                            href={s.href}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="flex size-[38px] items-center justify-center rounded-xl border border-gray-200 bg-white text-[#475569] hover:border-[#2547F9] hover:bg-[#2547F9] hover:text-white"
-                                        >
-                                            <s.icon size={18} />
-                                        </a>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Menu</h4>
-                            <div className="flex flex-col gap-3 text-sm">
-                                {navLinks.map((link) => (
-                                    <a key={link.href} href={link.href} className="text-[#64748b] hover:text-[#2547F9]">
-                                        {link.label}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                        <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Kontak</h4>
-                            <div className="flex flex-col gap-3.5 text-sm leading-relaxed text-[#64748b]">
-                                {settings?.address && (
-                                    <div className="flex gap-2.5">
-                                        <MapPin size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />
-                                        {settings.address}
-                                    </div>
-                                )}
-                                {waNumber && (
-                                    <a href={waGeneral} target="_blank" rel="noreferrer" className="flex gap-2.5 text-[#64748b] hover:text-[#2547F9]">
-                                        <Phone size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />+{waNumber}
-                                    </a>
-                                )}
-                                <div className="flex gap-2.5">
-                                    <Clock size={18} className="mt-0.5 shrink-0 text-[#2547F9]" strokeWidth={1.8} />
-                                    Senin–Sabtu, 08.00–20.00 WIB
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 className="mb-4 text-[15px] font-semibold text-[#1a1a1a]">Pesan Cepat</h4>
-                            <p className="mb-4 text-sm leading-relaxed text-[#64748b]">Chat kami sekarang untuk konsultasi gratis &amp; penawaran terbaik.</p>
-                            <a
-                                href={waGeneral}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-xl bg-[#2547F9] px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(37,71,249,.22)] hover:bg-[#1a35c9]"
-                            >
-                                <WhatsAppIcon size={18} />
-                                WhatsApp Kami
-                            </a>
-                        </div>
-                    </div>
-                    <div className="relative mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-gray-200 px-6 py-7 text-[13px] text-[#94a3b8]">
-                        <span>{settings?.footer_text ?? `© ${new Date().getFullYear()} ${brandName}. Semua hak dilindungi.`}</span>
-                        <span>Dibuat dengan ❤ untuk pecinta otomotif Indonesia</span>
-                    </div>
-                </footer>
+                <SiteFooter settings={settings} />
             </div>
         </>
     );
