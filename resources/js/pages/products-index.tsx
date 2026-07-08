@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { useCallback, useRef, useState } from 'react';
 import { SiteFooter } from '@/components/storefront/site-footer';
 import { SiteHeader } from '@/components/storefront/site-header';
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty';
 import { formatRupiah } from '@/lib/storefront';
 import type { SiteSettings } from '@/lib/storefront';
 
@@ -266,13 +267,15 @@ export default function ProductsIndex({ settings, products, categories, filters 
 
                     {/* Product Grid */}
                     {products.data.length === 0 ? (
-                        <div className="mt-20 flex flex-col items-center justify-center py-24">
-                            <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-gray-100">
-                                <Search size={24} className="text-gray-400" />
-                            </div>
-                            <p className="text-lg font-semibold text-gray-700">Tidak ada produk</p>
-                            <p className="mt-1 text-sm text-gray-400">Coba ubah kata kunci atau filter kategori.</p>
-                        </div>
+                        <Empty className="mt-20">
+                            <EmptyHeader>
+                                <EmptyMedia variant="icon">
+                                    <Search />
+                                </EmptyMedia>
+                                <EmptyTitle>Tidak ada produk</EmptyTitle>
+                                <EmptyDescription>Coba ubah kata kunci atau filter kategori.</EmptyDescription>
+                            </EmptyHeader>
+                        </Empty>
                     ) : (
                         <motion.div
                             variants={containerVariants}

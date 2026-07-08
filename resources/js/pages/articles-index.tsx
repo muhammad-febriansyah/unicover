@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { useCallback } from 'react';
 import { SiteFooter } from '@/components/storefront/site-footer';
 import { SiteHeader } from '@/components/storefront/site-header';
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty';
 import type {SiteSettings} from '@/lib/storefront';
 
 interface ArticleCategory {
@@ -202,13 +203,15 @@ query[k] = v;
 
                     {/* Grid */}
                     {articles.data.length === 0 ? (
-                        <div className="mt-20 flex flex-col items-center justify-center py-24">
-                            <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-gray-100">
-                                <Calendar size={24} className="text-gray-400" />
-                            </div>
-                            <p className="text-lg font-semibold text-gray-700">Belum ada artikel</p>
-                            <p className="mt-1 text-sm text-gray-400">Nantikan update artikel terbaru dari kami.</p>
-                        </div>
+                        <Empty className="mt-20">
+                            <EmptyHeader>
+                                <EmptyMedia variant="icon">
+                                    <Calendar />
+                                </EmptyMedia>
+                                <EmptyTitle>Belum ada artikel</EmptyTitle>
+                                <EmptyDescription>Nantikan update artikel terbaru dari kami.</EmptyDescription>
+                            </EmptyHeader>
+                        </Empty>
                     ) : (
                         <motion.div
                             variants={containerVariants}
