@@ -6,6 +6,7 @@ use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,9 +25,17 @@ class TagController
             'name' => ['required', 'string', 'max:255'],
         ]);
 
+        $slug = Str::slug($validated['name']);
+
+        if (Tag::where('slug', $slug)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama tag sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
         Tag::create([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $slug,
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Tag berhasil ditambahkan.']);
@@ -40,9 +49,17 @@ class TagController
             'name' => ['required', 'string', 'max:255'],
         ]);
 
+        $slug = Str::slug($validated['name']);
+
+        if (Tag::where('slug', $slug)->where('id', '!=', $tag->id)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama tag sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
         $tag->update([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $slug,
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Tag berhasil diperbarui.']);

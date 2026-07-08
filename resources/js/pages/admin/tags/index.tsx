@@ -41,8 +41,8 @@ export default function TagIndex({ tags }: Props) {
     const [showForm, setShowForm] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState<Tag | null>(null);
 
-    const { data, setData, post, processing: saving } = useForm({ name: '' });
-    const { data: editData, setData: setEdit, put, processing: updating } = useForm({ name: '' });
+    const { data, setData, post, processing: saving, errors } = useForm({ name: '' });
+    const { data: editData, setData: setEdit, put, processing: updating, errors: editErrors } = useForm({ name: '' });
     const { delete: destroy } = useForm();
 
     const resetForm = () => {
@@ -204,6 +204,9 @@ export default function TagIndex({ tags }: Props) {
                             placeholder="cth. cover mobil"
                             required
                         />
+                        {(editId ? editErrors.name : errors.name) && (
+                            <p className="text-destructive text-xs">{editId ? editErrors.name : errors.name}</p>
+                        )}
                     </div>
                     <DialogFooter>
                         <Button type="button" variant="outline" onClick={resetForm}>

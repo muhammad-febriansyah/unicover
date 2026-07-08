@@ -8,6 +8,7 @@ use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -50,7 +51,15 @@ class ArticleController
 
         unset($validated['cover_image']);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        $slug = Str::slug($validated['title']);
+
+        if (Article::where('slug', $slug)->exists()) {
+            throw ValidationException::withMessages([
+                'title' => 'Judul artikel sudah dipakai, gunakan judul lain.',
+            ]);
+        }
+
+        $validated['slug'] = $slug;
         $validated['author_id'] = $request->user()->id;
 
         if ($validated['is_published'] ?? false) {
@@ -112,7 +121,15 @@ class ArticleController
 
         unset($validated['cover_image']);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        $slug = Str::slug($validated['title']);
+
+        if (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
+            throw ValidationException::withMessages([
+                'title' => 'Judul artikel sudah dipakai, gunakan judul lain.',
+            ]);
+        }
+
+        $validated['slug'] = $slug;
 
         if (($validated['is_published'] ?? false) && ! $article->published_at) {
             $validated['published_at'] = now();

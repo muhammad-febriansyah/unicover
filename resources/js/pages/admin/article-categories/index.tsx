@@ -42,8 +42,8 @@ export default function ArticleCategoryIndex({ categories }: Props) {
     const [showForm, setShowForm] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
 
-    const { data, setData, post, processing: saving } = useForm({ name: '', description: '' });
-    const { data: editData, setData: setEdit, put, processing: updating } = useForm({ name: '', description: '' });
+    const { data, setData, post, processing: saving, errors } = useForm({ name: '', description: '' });
+    const { data: editData, setData: setEdit, put, processing: updating, errors: editErrors } = useForm({ name: '', description: '' });
     const { delete: destroy } = useForm();
 
     const resetForm = () => {
@@ -213,6 +213,9 @@ export default function ArticleCategoryIndex({ categories }: Props) {
                                 placeholder="cth. Tips & Trik"
                                 required
                             />
+                            {(editId ? editErrors.name : errors.name) && (
+                                <p className="text-destructive text-xs">{editId ? editErrors.name : errors.name}</p>
+                            )}
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="category-description">Deskripsi</Label>

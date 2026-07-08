@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -66,7 +67,15 @@ class ProductController
 
         unset($validated['images']);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $slug = Str::slug($validated['name']);
+
+        if (Product::where('slug', $slug)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama produk sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
+        $validated['slug'] = $slug;
 
         $product = Product::create($validated);
 
@@ -119,7 +128,15 @@ class ProductController
 
         unset($validated['images']);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $slug = Str::slug($validated['name']);
+
+        if (Product::where('slug', $slug)->where('id', '!=', $product->id)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama produk sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
+        $validated['slug'] = $slug;
 
         $product->update($validated);
 

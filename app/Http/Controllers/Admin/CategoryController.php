@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -25,9 +26,17 @@ class CategoryController
             'description' => ['nullable', 'string'],
         ]);
 
+        $slug = Str::slug($validated['name']);
+
+        if (Category::where('slug', $slug)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama kategori sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
         Category::create([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $slug,
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Kategori berhasil ditambahkan.']);
@@ -42,9 +51,17 @@ class CategoryController
             'description' => ['nullable', 'string'],
         ]);
 
+        $slug = Str::slug($validated['name']);
+
+        if (Category::where('slug', $slug)->where('id', '!=', $category->id)->exists()) {
+            throw ValidationException::withMessages([
+                'name' => 'Nama kategori sudah dipakai, gunakan nama lain.',
+            ]);
+        }
+
         $category->update([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $slug,
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Kategori berhasil diperbarui.']);

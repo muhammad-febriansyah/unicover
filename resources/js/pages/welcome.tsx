@@ -224,12 +224,11 @@ export default function Welcome({ settings, categories, products, articles, test
                         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-5 sm:gap-6">
                             {categories.map((cat) => {
                                 const image = cat.products[0]?.images.find((img) => img.is_primary) ?? cat.products[0]?.images[0];
+
                                 return (
-                                    <a
+                                    <Link
                                         key={cat.id}
-                                        href={waLink(waNumber, `Halo ${brandName}, saya ingin bertanya mengenai cover mobil untuk kategori ${cat.name}. Mohon informasinya, terima kasih.`)}
-                                        target="_blank"
-                                        rel="noreferrer"
+                                        href={`/produk?category=${cat.slug}`}
                                         className="group relative flex aspect-[16/10] sm:aspect-[4/3] flex-col justify-end overflow-hidden rounded-[20px] sm:rounded-[24px] border border-gray-200 shadow-[0_10px_30px_rgba(17,24,39,.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(37,71,249,.18)]"
                                     >
                                         {image ? (
@@ -253,7 +252,7 @@ export default function Welcome({ settings, categories, products, articles, test
                                                 <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
                                             </span>
                                         </div>
-                                    </a>
+                                    </Link>
                                 );
                             })}
                         </div>
