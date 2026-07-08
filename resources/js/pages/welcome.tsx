@@ -174,7 +174,9 @@ export default function Welcome({ settings, categories, products, articles, test
                     <div className="relative min-w-[300px] flex-1 basis-[380px]">
                         <div className="pointer-events-none absolute -inset-x-[6%] -top-[8%] -bottom-[6%] rounded-full bg-[radial-gradient(60%_60%_at_70%_30%,rgba(37,71,249,.14),transparent_70%)] blur-[10px]" />
                         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-gray-200 bg-[#F9FAFB] shadow-[0_30px_70px_rgba(37,71,249,.14)]">
-                            {heroImage ? (
+                            {settings?.hero_image_path ? (
+                                <img src={`/storage/${settings.hero_image_path}`} alt={brandName} className="size-full object-cover" />
+                            ) : heroImage ? (
                                 <img src={`/storage/${heroImage.path}`} alt={heroProduct?.name} className="size-full object-cover" />
                             ) : (
                                 <div className="flex size-full items-center justify-center text-sm text-gray-400">Foto produk cover mobil</div>

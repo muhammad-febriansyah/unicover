@@ -5,6 +5,7 @@ export interface SiteSettings {
     tagline: string | null;
     hero_heading: string | null;
     hero_subheading: string | null;
+    hero_image_path: string | null;
     address: string | null;
     email: string | null;
     instagram: string | null;

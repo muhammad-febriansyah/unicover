@@ -13,7 +13,7 @@ interface SiteSetting {
     id: number; brand_name: string; wa_number: string; tagline: string | null; hero_heading: string | null;
     hero_subheading: string | null; address: string | null; google_maps_embed: string | null; email: string | null;
     instagram: string | null; facebook: string | null; tiktok: string | null; footer_text: string | null;
-    logo_path: string | null; favicon_path: string | null;
+    logo_path: string | null; favicon_path: string | null; hero_image_path: string | null;
 }
 
 interface Props { settings: SiteSetting; }
@@ -29,12 +29,14 @@ export default function SettingsIndex({ settings }: Props) {
         google_maps_embed: settings.google_maps_embed ?? '',
         logo: null as File | null,
         favicon: null as File | null,
+        hero_image: null as File | null,
     });
 
     const [activeTab, setActiveTab] = useState('identitas');
 
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [faviconPreview, setFaviconPreview] = useState<string | null>(null);
+    const [heroImagePreview, setHeroImagePreview] = useState<string | null>(null);
 
     const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
@@ -56,6 +58,17 @@ URL.revokeObjectURL(faviconPreview);
 }
 
         setFaviconPreview(file ? URL.createObjectURL(file) : null);
+    };
+
+    const handleHeroImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] ?? null;
+        setData('hero_image', file);
+
+        if (heroImagePreview) {
+URL.revokeObjectURL(heroImagePreview);
+}
+
+        setHeroImagePreview(file ? URL.createObjectURL(file) : null);
     };
 
     const submit = (e: React.FormEvent) => {
@@ -161,6 +174,21 @@ URL.revokeObjectURL(faviconPreview);
                                             onChange={handleFaviconChange}
                                             accept="image/png,image/x-icon,image/svg+xml"
                                         />
+                                    </div>
+                                    {/* hero background */}
+                                    <div style={{ marginTop: 6 }}>
+                                        <SingleImageUpload
+                                            label="Foto Hero"
+                                            hint="Maks 2MB (JPG, PNG, WEBP)"
+                                            error={errors.hero_image}
+                                            existingPath={settings.hero_image_path}
+                                            preview={heroImagePreview}
+                                            onChange={handleHeroImageChange}
+                                            accept="image/png,image/jpeg,image/webp"
+                                        />
+                                        <p style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>
+                                            Ditampilkan di gambar utama halaman beranda. Jika kosong, otomatis pakai foto produk unggulan.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
