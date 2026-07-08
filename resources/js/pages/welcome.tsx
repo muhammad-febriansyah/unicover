@@ -147,7 +147,7 @@ export default function Welcome({ settings, categories, products, compareProduct
                                 href={waGeneral}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-6 py-4 text-[15px] font-semibold text-[#1a1a1a] hover:border-[#2547F9] hover:text-[#2547F9]"
+                                className="inline-flex items-center gap-2 rounded-2xl border border-[#25D366]/25 bg-[#25D366]/10 px-6 py-4 text-[15px] font-semibold text-[#128C7E] shadow-[0_8px_20px_rgba(37,211,102,.16)] transition-colors hover:border-[#25D366]/45 hover:bg-[#25D366]/15"
                             >
                                 <WhatsAppIcon size={18} />
                                 Pesan via WhatsApp

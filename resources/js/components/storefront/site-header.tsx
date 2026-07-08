@@ -50,7 +50,7 @@ export function SiteHeader({ settings }: Props) {
                 <NavbarButton
                     href={waGeneral}
                     variant="primary"
-                    className="relative z-20 flex items-center gap-2 bg-[#2547F9] text-white shadow-[0_8px_22px_rgba(37,71,249,.28)] hover:bg-[#1a35c9]"
+                    className="relative z-20 flex items-center gap-2 rounded-full bg-[#2547F9] text-white shadow-[0_8px_22px_rgba(37,71,249,.28)] hover:bg-[#1a35c9]"
                 >
                     <WhatsAppIcon size={16} />
                     Chat WhatsApp
@@ -87,7 +87,7 @@ export function SiteHeader({ settings }: Props) {
                     <NavbarButton
                         href={waGeneral}
                         variant="primary"
-                        className="flex w-full items-center justify-center gap-2 bg-[#2547F9] text-white"
+                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#2547F9] text-white"
                     >
                         <WhatsAppIcon size={16} />
                         Chat WhatsApp
