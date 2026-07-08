@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $products = $query->orderByDesc('is_featured')
             ->orderBy('sort_order')
-            ->paginate(12)
+            ->paginate(13)
             ->withQueryString();
 
         return Inertia::render('products-index', [

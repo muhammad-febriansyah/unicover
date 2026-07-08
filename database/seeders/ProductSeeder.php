@@ -219,6 +219,16 @@ class ProductSeeder extends Seeder
                 'is_featured' => false,
                 'image' => 'product-20.jpg',
             ],
+            [
+                'name' => 'Cover Ban Mobil Off-Road Rugged',
+                'description' => "Dibuat untuk ban mobil off-road dan SUV dengan bahan tebal tahan gesekan medan berat.\n\nJahitan diperkuat di seluruh tepi agar tidak mudah sobek saat sering dipasang-lepas di kondisi lapangan.",
+                'price' => 115_000,
+                'discount_price' => 99_000,
+                'sku' => 'CB-008',
+                'stock_status' => 'in_stock',
+                'is_featured' => false,
+                'image' => 'product-21.jpg',
+            ],
         ];
 
         foreach ($coverMobilProducts as $i => $data) {
