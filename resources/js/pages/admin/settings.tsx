@@ -14,11 +14,14 @@ interface SiteSetting {
     hero_subheading: string | null; address: string | null; google_maps_embed: string | null; email: string | null;
     instagram: string | null; facebook: string | null; tiktok: string | null; footer_text: string | null;
     logo_path: string | null; favicon_path: string | null; hero_image_path: string | null;
+    compare_product_a_id: number | null; compare_product_b_id: number | null;
 }
 
-interface Props { settings: SiteSetting; }
+interface ProductOption { id: number; name: string; }
 
-export default function SettingsIndex({ settings }: Props) {
+interface Props { settings: SiteSetting; products: ProductOption[]; }
+
+export default function SettingsIndex({ settings, products }: Props) {
     const { data, setData, patch, processing, errors } = useForm({
         brand_name: settings.brand_name, wa_number: settings.wa_number,
         tagline: settings.tagline ?? '', hero_heading: settings.hero_heading ?? '',
@@ -27,6 +30,8 @@ export default function SettingsIndex({ settings }: Props) {
         facebook: settings.facebook ?? '', tiktok: settings.tiktok ?? '',
         footer_text: settings.footer_text ?? '',
         google_maps_embed: settings.google_maps_embed ?? '',
+        compare_product_a_id: settings.compare_product_a_id ? String(settings.compare_product_a_id) : '',
+        compare_product_b_id: settings.compare_product_b_id ? String(settings.compare_product_b_id) : '',
         logo: null as File | null,
         favicon: null as File | null,
         hero_image: null as File | null,
@@ -119,6 +124,7 @@ URL.revokeObjectURL(heroImagePreview);
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                         <TabsList className="mb-5">
                             <TabsTrigger value="identitas">Identitas Toko</TabsTrigger>
+                            <TabsTrigger value="tampilan">Tampilan</TabsTrigger>
                             <TabsTrigger value="whatsapp">WhatsApp</TabsTrigger>
                             <TabsTrigger value="kontak">Kontak</TabsTrigger>
                             <TabsTrigger value="sosial">Sosial Media</TabsTrigger>
@@ -189,6 +195,46 @@ URL.revokeObjectURL(heroImagePreview);
                                         <p style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>
                                             Ditampilkan di gambar utama halaman beranda. Jika kosong, otomatis pakai foto produk unggulan.
                                         </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </TabsContent>
+
+                        {/* Tampilan */}
+                        <TabsContent value="tampilan">
+                            <div style={cardStyle}>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Bandingkan Produk</div>
+                                <div style={{ fontSize: '12.5px', color: '#64748B', marginBottom: 20 }}>
+                                    Pilih 2 produk yang ditampilkan di slider "Geser untuk Bandingkan Produk" pada beranda. Jika kosong, otomatis pakai 2 produk unggulan.
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                                    <div>
+                                        <label style={labelStyle}>Produk 1</label>
+                                        <select
+                                            value={data.compare_product_a_id}
+                                            onChange={(e) => setData('compare_product_a_id', e.target.value)}
+                                            style={inputStyle}
+                                        >
+                                            <option value="">Otomatis</option>
+                                            {products.map((product) => (
+                                                <option key={product.id} value={product.id}>{product.name}</option>
+                                            ))}
+                                        </select>
+                                        {errors.compare_product_a_id && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 6 }}>{errors.compare_product_a_id}</p>}
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>Produk 2</label>
+                                        <select
+                                            value={data.compare_product_b_id}
+                                            onChange={(e) => setData('compare_product_b_id', e.target.value)}
+                                            style={inputStyle}
+                                        >
+                                            <option value="">Otomatis</option>
+                                            {products.map((product) => (
+                                                <option key={product.id} value={product.id}>{product.name}</option>
+                                            ))}
+                                        </select>
+                                        {errors.compare_product_b_id && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 6 }}>{errors.compare_product_b_id}</p>}
                                     </div>
                                 </div>
                             </div>

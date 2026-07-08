@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class SiteSettingController
     {
         return Inertia::render('admin/settings', [
             'settings' => SiteSetting::firstOrFail(),
+            'products' => Product::where('is_active', true)->orderBy('name')->get(['id', 'name']),
         ]);
     }
 
@@ -32,6 +34,10 @@ class SiteSettingController
             'facebook' => ['nullable', 'string', 'max:100'],
             'tiktok' => ['nullable', 'string', 'max:100'],
             'footer_text' => ['nullable', 'string', 'max:500'],
+            'compare_product_a_id' => ['nullable', 'exists:products,id', 'different:compare_product_b_id'],
+            'compare_product_b_id' => ['nullable', 'exists:products,id'],
+        ], [
+            'compare_product_a_id.different' => 'Pilih dua produk yang berbeda untuk dibandingkan.',
         ]);
 
         $settings = SiteSetting::firstOrFail();

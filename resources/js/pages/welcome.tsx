@@ -73,6 +73,7 @@ interface Props {
     settings: SiteSettings | null;
     categories: Category[];
     products: Product[];
+    compareProducts: Product[];
     articles: Article[];
     testimonials: Testimonial[];
 }
@@ -105,15 +106,13 @@ function ReviewCard({ name, rating, message }: Testimonial) {
     );
 }
 
-export default function Welcome({ settings, categories, products, articles, testimonials }: Props) {
+export default function Welcome({ settings, categories, products, compareProducts, articles, testimonials }: Props) {
     const brandName = settings?.brand_name ?? 'Unicover';
     const waNumber = settings?.wa_number ?? '';
     const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya mengenai produk cover mobil yang tersedia. Mohon informasinya, terima kasih.`);
 
     const heroProduct = products.find((p) => p.images.length > 0);
     const heroImage = heroProduct?.images.find((img) => img.is_primary) ?? heroProduct?.images[0];
-
-    const compareProducts = products.filter((p) => p.images.length > 0).slice(0, 2);
 
     return (
         <>
