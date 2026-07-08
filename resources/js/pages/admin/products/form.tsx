@@ -51,6 +51,8 @@ export default function ProductForm({ product, categories }: Props) {
         }
     };
 
+    const imagesError = Object.entries(errors).find(([key]) => key.startsWith('images'))?.[1];
+
     return (
         <>
             <Head title={isEditing ? 'Edit Produk' : 'Tambah Produk'} />
@@ -109,7 +111,8 @@ export default function ProductForm({ product, categories }: Props) {
 
                         <div className="cm-card" style={cardStyle}>
                             <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Foto Produk</div>
-                            <div style={{ fontSize: '12.5px', color: '#64748B', marginBottom: 16 }}>Unggah hingga 6 foto. Foto pertama jadi thumbnail utama.</div>
+                            <div style={{ fontSize: '12.5px', color: '#64748B', marginBottom: 4 }}>Unggah hingga 6 foto. Foto pertama jadi thumbnail utama.</div>
+                            <div style={{ fontSize: 11, color: '#94A3B8', marginBottom: 16 }}>Maks 2MB per foto. Format JPG, PNG, atau WEBP.</div>
                             <ImageUpload
                                 files={data.images}
                                 onChange={(files) => setData('images', files)}
@@ -117,6 +120,7 @@ export default function ProductForm({ product, categories }: Props) {
                                 onDeleteImage={(id) => setData('delete_images', [...data.delete_images, id])}
                                 max={6}
                             />
+                            {imagesError && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 8 }}>{imagesError}</p>}
                         </div>
                     </div>
 

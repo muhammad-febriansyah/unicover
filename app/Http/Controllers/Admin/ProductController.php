@@ -55,7 +55,16 @@ class ProductController
             'stock_status' => ['required', 'in:in_stock,out_of_stock,preorder'],
             'is_featured' => ['boolean'],
             'is_active' => ['boolean'],
+            'images' => ['nullable', 'array', 'max:6'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ], [
+            'images.max' => 'Maksimal 6 foto produk.',
+            'images.*.image' => 'File harus berupa gambar.',
+            'images.*.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+            'images.*.max' => 'Ukuran setiap gambar maksimal 2MB.',
         ]);
+
+        unset($validated['images']);
 
         $validated['slug'] = Str::slug($validated['name']);
 
@@ -99,7 +108,16 @@ class ProductController
             'stock_status' => ['required', 'in:in_stock,out_of_stock,preorder'],
             'is_featured' => ['boolean'],
             'is_active' => ['boolean'],
+            'images' => ['nullable', 'array', 'max:6'],
+            'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ], [
+            'images.max' => 'Maksimal 6 foto produk.',
+            'images.*.image' => 'File harus berupa gambar.',
+            'images.*.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+            'images.*.max' => 'Ukuran setiap gambar maksimal 2MB.',
         ]);
+
+        unset($validated['images']);
 
         $validated['slug'] = Str::slug($validated['name']);
 

@@ -118,6 +118,11 @@ class ArticleSeeder extends Seeder
                 'body' => "Kunci dan mekanisme pintu mobil sering luput dari perhatian dalam perawatan rutin, padahal komponen ini juga rentan aus.\n\nBeri pelumas ringan secara berkala pada engsel dan mekanisme kunci untuk mencegah bunyi berdecit atau macet saat dibuka-tutup.\n\nJika kunci mulai terasa berat atau tidak responsif, segera periksa ke bengkel sebelum masalah bertambah parah.",
                 'image' => 'article-20.jpg',
             ],
+            [
+                'title' => 'Cara Merawat Wiper agar Tidak Bergaret',
+                'body' => "Wiper yang getas justru bisa menggores kaca depan alih-alih membersihkannya, terutama saat musim hujan tiba.\n\nBersihkan karet wiper secara rutin dengan lap microfiber basah untuk mengangkat debu dan pasir halus yang menempel. Hindari menyalakan wiper saat kaca dalam kondisi kering agar karet tidak cepat aus.\n\nGanti wiper setiap 6-12 bulan sekali, atau lebih cepat jika sudah mulai meninggalkan bercak air saat menyapu kaca.",
+                'image' => 'article-21.jpg',
+            ],
         ];
 
         foreach ($articles as $i => $data) {

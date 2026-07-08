@@ -129,8 +129,7 @@ URL.revokeObjectURL(coverPreview);
                                 <Field label="Ringkasan" hint={`${data.excerpt.length}/500`}>
                                     <textarea value={data.excerpt} onChange={(e) => setData('excerpt', e.target.value)} placeholder="Ringkasan singkat artikel (2-3 kalimat)..." maxLength={500} style={{ ...inputStyle, minHeight: 72, padding: '12px 14px', resize: 'vertical' as const }} rows={3} />
                                 </Field>
-                                <div>
-                                    <label style={labelStyle}>Gambar Sampul</label>
+                                <Field label="Gambar Sampul" hint="Maks 2MB (JPG, PNG, WEBP)" error={errors.cover_image}>
                                     <div
                                         style={{
                                             border: '1px solid #E8EAF1',
@@ -177,7 +176,7 @@ URL.revokeObjectURL(coverPreview);
                                         </button>
                                         <input ref={coverInputRef} type="file" accept="image/*" onChange={handleCoverChange} style={{ display: 'none' }} />
                                     </div>
-                                </div>
+                                </Field>
                                 <Field label="Isi Artikel" required error={errors.body}>
                                     <RichTextEditor value={data.body} onChange={(v) => setData('body', v)} placeholder="Tulis isi artikel di sini..." minHeight={280} />
                                 </Field>

@@ -41,7 +41,14 @@ class ArticleController
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['nullable', 'string'],
             'is_published' => ['boolean'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ], [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
+
+        unset($validated['cover_image']);
 
         $validated['slug'] = Str::slug($validated['title']);
         $validated['author_id'] = $request->user()->id;
@@ -96,7 +103,14 @@ class ArticleController
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['nullable', 'string'],
             'is_published' => ['boolean'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ], [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
+
+        unset($validated['cover_image']);
 
         $validated['slug'] = Str::slug($validated['title']);
 

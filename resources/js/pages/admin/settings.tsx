@@ -19,7 +19,7 @@ interface SiteSetting {
 interface Props { settings: SiteSetting; }
 
 export default function SettingsIndex({ settings }: Props) {
-    const { data, setData, patch, processing } = useForm({
+    const { data, setData, patch, processing, errors } = useForm({
         brand_name: settings.brand_name, wa_number: settings.wa_number,
         tagline: settings.tagline ?? '', hero_heading: settings.hero_heading ?? '',
         hero_subheading: settings.hero_subheading ?? '', address: settings.address ?? '',
@@ -145,6 +145,8 @@ URL.revokeObjectURL(faviconPreview);
                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 6 }}>
                                         <SingleImageUpload
                                             label="Logo Toko"
+                                            hint="Maks 2MB (JPG, PNG, SVG, WEBP)"
+                                            error={errors.logo}
                                             existingPath={settings.logo_path}
                                             preview={logoPreview}
                                             onChange={handleLogoChange}
@@ -152,6 +154,8 @@ URL.revokeObjectURL(faviconPreview);
                                         />
                                         <SingleImageUpload
                                             label="Favicon"
+                                            hint="Maks 512KB (PNG, ICO, SVG)"
+                                            error={errors.favicon}
                                             existingPath={settings.favicon_path}
                                             preview={faviconPreview}
                                             onChange={handleFaviconChange}
@@ -249,8 +253,10 @@ URL.revokeObjectURL(faviconPreview);
 }
 
 /* ─── single image upload helper ─── */
-function SingleImageUpload({ label, existingPath, preview, onChange, accept }: {
+function SingleImageUpload({ label, hint, error, existingPath, preview, onChange, accept }: {
     label: string;
+    hint?: string;
+    error?: string;
     existingPath: string | null;
     preview: string | null;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -261,7 +267,10 @@ function SingleImageUpload({ label, existingPath, preview, onChange, accept }: {
 
     return (
         <div>
-            <label style={labelStyle}>{label}</label>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <label style={labelStyle}>{label}</label>
+                {hint && <span style={{ fontSize: 11, color: '#94A3B8' }}>{hint}</span>}
+            </div>
             <div
                 style={{
                     border: '1px solid #E8EAF1',
@@ -315,6 +324,7 @@ function SingleImageUpload({ label, existingPath, preview, onChange, accept }: {
                 </button>
                 <input ref={inputRef} type="file" accept={accept} onChange={onChange} style={{ display: 'none' }} />
             </div>
+            {error && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 6 }}>{error}</p>}
         </div>
     );
 }

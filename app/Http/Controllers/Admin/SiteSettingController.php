@@ -37,17 +37,29 @@ class SiteSettingController
         $settings = SiteSetting::firstOrFail();
 
         if ($request->hasFile('logo')) {
-            $request->validate(['logo' => ['image', 'mimes:jpg,jpeg,png,svg,webp', 'max:2048']]);
+            $request->validate(['logo' => ['image', 'mimes:jpg,jpeg,png,svg,webp', 'max:2048']], [
+                'logo.image' => 'File harus berupa gambar.',
+                'logo.mimes' => 'Format logo harus JPG, JPEG, PNG, SVG, atau WEBP.',
+                'logo.max' => 'Ukuran logo maksimal 2MB.',
+            ]);
             $validated['logo_path'] = $request->file('logo')->store('site', 'public');
         }
 
         if ($request->hasFile('hero_image')) {
-            $request->validate(['hero_image' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048']]);
+            $request->validate(['hero_image' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048']], [
+                'hero_image.image' => 'File harus berupa gambar.',
+                'hero_image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+                'hero_image.max' => 'Ukuran gambar maksimal 2MB.',
+            ]);
             $validated['hero_image_path'] = $request->file('hero_image')->store('site', 'public');
         }
 
         if ($request->hasFile('favicon')) {
-            $request->validate(['favicon' => ['image', 'mimes:png,ico,svg', 'max:512']]);
+            $request->validate(['favicon' => ['image', 'mimes:png,ico,svg', 'max:512']], [
+                'favicon.image' => 'File harus berupa gambar.',
+                'favicon.mimes' => 'Format favicon harus PNG, ICO, atau SVG.',
+                'favicon.max' => 'Ukuran favicon maksimal 512KB.',
+            ]);
             $validated['favicon_path'] = $request->file('favicon')->store('site', 'public');
         }
 

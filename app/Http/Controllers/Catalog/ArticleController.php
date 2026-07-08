@@ -21,7 +21,7 @@ class ArticleController extends Controller
         }
 
         $articles = $query->orderByDesc('published_at')
-            ->paginate(9)
+            ->paginate(10)
             ->withQueryString();
 
         return Inertia::render('articles-index', [
