@@ -213,8 +213,7 @@ query[k] = v;
                         <motion.div
                             variants={containerVariants}
                             initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, margin: '-60px' }}
+                            animate="show"
                             className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3"
                         >
                             {(filters.category || articles.current_page > 1 ? articles.data : rest).map((article) => (

@@ -277,8 +277,7 @@ export default function ProductsIndex({ settings, products, categories, filters 
                         <motion.div
                             variants={containerVariants}
                             initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, margin: '-60px' }}
+                            animate="show"
                             className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
                         >
                             {(filters.search || filters.category || products.current_page > 1 ? products.data : gridProducts).map((product) => {
