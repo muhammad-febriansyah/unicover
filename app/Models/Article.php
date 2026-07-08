@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Database\Factories\ArticleFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-#[Fillable(['author_id', 'article_category_id', 'title', 'slug', 'excerpt', 'body', 'cover_image_path', 'is_published', 'published_at'])]
+#[Fillable(['author_id', 'article_category_id', 'title', 'slug', 'excerpt', 'body', 'cover_image_path', 'is_published', 'published_at', 'views'])]
 class Article extends Model
 {
-    /** @use HasFactory<\Database\Factories\ArticleFactory> */
+    /** @use HasFactory<ArticleFactory> */
     use HasFactory;
 
     public function author(): BelongsTo

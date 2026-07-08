@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SiteSetting;
+use App\Models\Testimonial;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,7 +17,16 @@ class HomeController extends Controller
     {
         return Inertia::render('welcome', [
             'settings' => SiteSetting::first(),
-            'categories' => Category::where('is_active', true)->orderBy('sort_order')->get(),
+            'categories' => Category::where('is_active', true)
+                ->withCount(['products' => fn ($q) => $q->where('is_active', true)])
+                ->with(['products' => fn ($q) => $q->where('is_active', true)
+                    ->with('images')
+                    ->orderByDesc('is_featured')
+                    ->orderBy('sort_order')
+                    ->limit(1),
+                ])
+                ->orderBy('sort_order')
+                ->get(),
             'products' => Product::where('is_active', true)
                 ->with(['category', 'images'])
                 ->orderByDesc('is_featured')
@@ -28,6 +38,7 @@ class HomeController extends Controller
                 ->orderByDesc('published_at')
                 ->take(3)
                 ->get(),
+            'testimonials' => Testimonial::where('is_active', true)->orderBy('sort_order')->get(),
         ]);
     }
 }

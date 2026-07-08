@@ -1,6 +1,4 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { PageHeader } from '@/components/page-header';
 import {
     Pencil,
     Trash2,
@@ -14,6 +12,8 @@ import {
     Star,
     ExternalLink,
 } from 'lucide-react';
+import { useState } from 'react';
+import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -53,7 +53,7 @@ interface Article {
     is_published: boolean;
     published_at: string | null;
     author: UserModel | null;
-    articleCategory: ArticleCategory | null;
+    article_category: ArticleCategory | null;
     tags: TagModel[];
     created_at: string;
     updated_at: string;
@@ -344,7 +344,7 @@ export default function ArticleShow({ article }: Props) {
                                 </div>
                                 <span style={{ fontSize: 12.5, fontWeight: 600, color: '#64748B' }}>Kategori</span>
                             </div>
-                            {article.articleCategory ? (
+                            {article.article_category ? (
                                 <span
                                     style={{
                                         display: 'inline-flex',
@@ -358,7 +358,7 @@ export default function ArticleShow({ article }: Props) {
                                         borderRadius: 8,
                                     }}
                                 >
-                                    {article.articleCategory.name}
+                                    {article.article_category.name}
                                 </span>
                             ) : (
                                 <span style={{ fontSize: 13, color: '#94A3B8' }}>Tanpa kategori</span>

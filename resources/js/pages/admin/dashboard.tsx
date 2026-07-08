@@ -15,8 +15,8 @@ import {
     Clock,
     Eye,
 } from 'lucide-react';
-import { useTypedPage } from '@/hooks/use-typed-page';
 import { PageHeader } from '@/components/page-header';
+import { useTypedPage } from '@/hooks/use-typed-page';
 
 /* ─── types ─── */
 interface Stat {
@@ -107,6 +107,7 @@ const stockBadge = (status: string) => {
         pre_order: { bg: '#FFFBEB', color: '#D97706', border: '#FDE68A', label: 'Pre-order' },
     };
     const s = map[status] || map.in_stock;
+
     return (
         <span
             style={{

@@ -10,7 +10,7 @@ interface Props {
 export function SiteFooter({ settings }: Props) {
     const brandName = settings?.brand_name ?? 'Unicover';
     const waNumber = settings?.wa_number ?? '';
-    const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya tentang produk cover mobil.`);
+    const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya mengenai produk cover mobil yang tersedia. Mohon informasinya, terima kasih.`);
 
     const socialLinks = [
         settings?.instagram ? { icon: Instagram, href: `https://instagram.com/${settings.instagram}` } : null,
@@ -21,7 +21,7 @@ export function SiteFooter({ settings }: Props) {
     return (
         <footer className="relative overflow-hidden bg-white text-[#475569]">
             <div className="pointer-events-none absolute -top-1/2 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,rgba(37,71,249,.16),transparent_70%)] blur-[60px]" />
-            <div className="relative mx-auto grid max-w-6xl grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 px-6 pt-14 md:pt-18">
+            <div className="relative mx-auto grid max-w-7xl grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 px-6 pt-14 md:pt-18">
                 <div className="max-w-[300px]">
                     <div className="mb-4 flex items-center">
                         {settings?.logo_path ? (
@@ -95,7 +95,7 @@ export function SiteFooter({ settings }: Props) {
                     </a>
                 </div>
             </div>
-            <div className="relative mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-gray-200 px-6 py-7 text-[13px] text-[#94a3b8]">
+            <div className="relative mx-auto mt-10 flex max-w-7xl flex-wrap justify-between gap-3 border-t border-gray-200 px-6 py-7 text-[13px] text-[#94a3b8]">
                 <span>{settings?.footer_text ?? `© ${new Date().getFullYear()} ${brandName}. Semua hak dilindungi.`}</span>
                 <span>Dibuat dengan ❤ untuk pecinta otomotif Indonesia</span>
             </div>

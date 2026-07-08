@@ -30,6 +30,7 @@ class ArticleFactory extends Factory
             'cover_image_path' => fake()->optional(0.6)->regexify('articles/[a-f0-9]{8}\.jpg'),
             'is_published' => fake()->boolean(80),
             'published_at' => fn (array $attributes) => $attributes['is_published'] ? fake()->dateTimeBetween('-3 months', 'now') : null,
+            'views' => fake()->numberBetween(0, 5000),
         ];
     }
 

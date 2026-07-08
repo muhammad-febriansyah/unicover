@@ -1,8 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Save } from 'lucide-react';
-import { PageHeader } from '@/components/page-header';
 import CurrencyInput from '@/components/currency-input';
 import ImageUpload from '@/components/image-upload';
+import { PageHeader } from '@/components/page-header';
 import RichTextEditor from '@/components/rich-text-editor';
 import {
     Select,
@@ -43,6 +43,7 @@ export default function ProductForm({ product, categories }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (isEditing) {
             put(`/admin/products/${product!.id}`);
         } else {

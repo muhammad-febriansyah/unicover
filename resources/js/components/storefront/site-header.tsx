@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 import { Truck } from 'lucide-react';
+import { useState } from 'react';
+import { WhatsAppIcon } from '@/components/storefront/icons';
 import {
     Navbar,
     NavBody,
@@ -10,8 +12,9 @@ import {
     MobileNavMenu,
     NavbarButton,
 } from '@/components/ui/resizable-navbar';
-import { WhatsAppIcon } from '@/components/storefront/icons';
-import { type SiteSettings, waLink, storefrontNavLinks } from '@/lib/storefront';
+import {  waLink, storefrontNavLinks } from '@/lib/storefront';
+import type {SiteSettings} from '@/lib/storefront';
+import { cn } from '@/lib/utils';
 
 interface Props {
     settings: SiteSettings | null;
@@ -19,15 +22,22 @@ interface Props {
 
 export function SiteHeader({ settings }: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { url } = usePage();
+    const pathname = url.split(/[?#]/)[0];
 
     const brandName = settings?.brand_name ?? 'Unicover';
     const waNumber = settings?.wa_number ?? '';
-    const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya tentang produk cover mobil.`);
+    const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya mengenai produk cover mobil yang tersedia. Mohon informasinya, terima kasih.`);
+
+    const navLinksWithActive = storefrontNavLinks.map((link) => ({
+        ...link,
+        active: link.href === '/' ? pathname === '/' : pathname.startsWith(link.href),
+    }));
 
     return (
         <Navbar className="fixed inset-x-0 top-0">
             <NavBody>
-                <a href="/#beranda" className="relative z-20 flex items-center">
+                <a href="/" className="relative z-20 flex items-center">
                     {settings?.logo_path ? (
                         <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-12 w-auto object-contain" />
                     ) : (
@@ -36,7 +46,7 @@ export function SiteHeader({ settings }: Props) {
                         </span>
                     )}
                 </a>
-                <NavItems items={storefrontNavLinks.map((l) => ({ name: l.label, link: l.href }))} />
+                <NavItems items={navLinksWithActive.map((l) => ({ name: l.label, link: l.href, active: l.active }))} />
                 <NavbarButton
                     href={waGeneral}
                     variant="primary"
@@ -49,7 +59,7 @@ export function SiteHeader({ settings }: Props) {
 
             <MobileNav>
                 <MobileNavHeader>
-                    <a href="/#beranda" className="relative z-20 flex items-center">
+                    <a href="/" className="relative z-20 flex items-center">
                         {settings?.logo_path ? (
                             <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-11 w-auto object-contain" />
                         ) : (
@@ -61,12 +71,15 @@ export function SiteHeader({ settings }: Props) {
                     <MobileNavToggle isOpen={menuOpen} onClick={() => setMenuOpen((v) => !v)} />
                 </MobileNavHeader>
                 <MobileNavMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)}>
-                    {storefrontNavLinks.map((link) => (
+                    {navLinksWithActive.map((link) => (
                         <a
                             key={link.href}
                             href={link.href}
                             onClick={() => setMenuOpen(false)}
-                            className="w-full py-2 font-medium text-[#1a1a1a]"
+                            className={cn(
+                                'w-full rounded-full px-3 py-2 font-medium',
+                                link.active ? 'bg-[#EEF1FF] text-[#2547F9]' : 'text-[#1a1a1a]',
+                            )}
                         >
                             {link.label}
                         </a>

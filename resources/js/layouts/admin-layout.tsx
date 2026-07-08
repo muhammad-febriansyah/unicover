@@ -1,13 +1,28 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { useState, useRef, useEffect, type ReactNode } from 'react';
 import { useTypedPage } from '@/hooks/use-typed-page';
-import { Menu, X, User, Settings as SettingsIcon, LogOut } from 'lucide-react';
+import { Menu, X, User, Settings as SettingsIcon, LogOut, Package, FileText } from 'lucide-react';
+import { edit as editProduct } from '@/actions/App/Http/Controllers/Admin/ProductController';
+import { edit as editArticle } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import { index as searchIndex } from '@/actions/App/Http/Controllers/Admin/SearchController';
 
 interface NavItem {
     title: string;
     href: string;
     active: boolean;
     svgPath: string;
+}
+
+interface SearchResultItem {
+    id: number;
+    name?: string;
+    title?: string;
+    slug: string;
+}
+
+interface SearchResults {
+    products: SearchResultItem[];
+    articles: SearchResultItem[];
 }
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -17,7 +32,70 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
+    const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const searchAbortRef = useRef<AbortController | null>(null);
+
     const isActive = (path: string) => url.startsWith(path);
+
+    const onSearchChange = (value: string) => {
+        setSearchQuery(value);
+
+        if (searchDebounceRef.current) {
+            clearTimeout(searchDebounceRef.current);
+        }
+
+        if (value.trim().length < 2) {
+            setSearchResults(null);
+            setSearchLoading(false);
+            return;
+        }
+
+        setSearchLoading(true);
+
+        searchDebounceRef.current = setTimeout(async () => {
+            searchAbortRef.current?.abort();
+            const controller = new AbortController();
+            searchAbortRef.current = controller;
+
+            try {
+                const response = await fetch(searchIndex.url({ query: { q: value } }), {
+                    headers: { Accept: 'application/json' },
+                    signal: controller.signal,
+                });
+                const data: SearchResults = await response.json();
+                setSearchResults(data);
+            } catch {
+                // ignore aborted/failed requests
+            } finally {
+                setSearchLoading(false);
+            }
+        }, 300);
+    };
+
+    const goToResult = (type: 'product' | 'article', item: SearchResultItem) => {
+        setSearchOpen(false);
+        setSearchQuery('');
+        setSearchResults(null);
+        router.visit(type === 'product' ? editProduct.url(item.id) : editArticle.url(item.id));
+    };
+
+    useEffect(() => {
+        const onClickOutside = (e: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+                setSearchOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', onClickOutside);
+        return () => document.removeEventListener('mousedown', onClickOutside);
+    }, []);
+
+    const hasSearchResults = Boolean(searchResults && (searchResults.products.length > 0 || searchResults.articles.length > 0));
 
     const navGroups: { label: string | null; items: NavItem[] }[] = [
         {
@@ -68,6 +146,23 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     href: '/admin/tags',
                     active: isActive('/admin/tags'),
                     svgPath: '<path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/>',
+                },
+            ],
+        },
+        {
+            label: 'Lainnya',
+            items: [
+                {
+                    title: 'FAQ',
+                    href: '/admin/faqs',
+                    active: isActive('/admin/faqs'),
+                    svgPath: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+                },
+                {
+                    title: 'Testimoni',
+                    href: '/admin/testimonials',
+                    active: isActive('/admin/testimonials'),
+                    svgPath: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
                 },
             ],
         },
@@ -276,7 +371,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
                     </button>
 
-                    <div style={{ flex: 1, maxWidth: 420, position: 'relative' }}>
+                    <div ref={searchRef} style={{ flex: 1, maxWidth: 420, position: 'relative' }}>
                         <svg
                             style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)' }}
                             width="17"
@@ -291,6 +386,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
                         <input
+                            value={searchQuery}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            onFocus={() => setSearchOpen(true)}
                             placeholder="Cari produk, artikel..."
                             style={{
                                 width: '100%',
@@ -303,6 +401,97 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 color: '#0F172A',
                             }}
                         />
+
+                        {searchOpen && searchQuery.trim().length >= 2 && (
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 'calc(100% + 8px)',
+                                    left: 0,
+                                    right: 0,
+                                    background: '#fff',
+                                    border: '1px solid #ECEDF1',
+                                    borderRadius: 12,
+                                    boxShadow: '0 12px 32px rgba(15,23,42,.1)',
+                                    maxHeight: 360,
+                                    overflowY: 'auto',
+                                    zIndex: 30,
+                                }}
+                            >
+                                {searchLoading ? (
+                                    <div style={{ padding: '16px', fontSize: 13, color: '#94A3B8' }}>Mencari...</div>
+                                ) : !hasSearchResults ? (
+                                    <div style={{ padding: '16px', fontSize: 13, color: '#94A3B8' }}>Tidak ada hasil untuk &quot;{searchQuery}&quot;</div>
+                                ) : (
+                                    <>
+                                        {searchResults!.products.length > 0 && (
+                                            <div style={{ padding: '10px 8px 4px' }}>
+                                                <div style={{ padding: '0 10px 6px', fontSize: 11, fontWeight: 600, letterSpacing: '.05em', color: '#94A3B8' }}>
+                                                    PRODUK
+                                                </div>
+                                                {searchResults!.products.map((p) => (
+                                                    <button
+                                                        key={`product-${p.id}`}
+                                                        onClick={() => goToResult('product', p)}
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 10,
+                                                            width: '100%',
+                                                            padding: '9px 10px',
+                                                            border: 'none',
+                                                            background: 'transparent',
+                                                            borderRadius: 8,
+                                                            fontSize: 13.5,
+                                                            color: '#0F172A',
+                                                            cursor: 'pointer',
+                                                            textAlign: 'left',
+                                                        }}
+                                                        onMouseEnter={(e) => (e.currentTarget.style.background = '#F8FAFC')}
+                                                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                                                    >
+                                                        <Package size={15} color="#94A3B8" />
+                                                        {p.name}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                        {searchResults!.articles.length > 0 && (
+                                            <div style={{ padding: '4px 8px 10px' }}>
+                                                <div style={{ padding: '0 10px 6px', fontSize: 11, fontWeight: 600, letterSpacing: '.05em', color: '#94A3B8' }}>
+                                                    ARTIKEL
+                                                </div>
+                                                {searchResults!.articles.map((a) => (
+                                                    <button
+                                                        key={`article-${a.id}`}
+                                                        onClick={() => goToResult('article', a)}
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 10,
+                                                            width: '100%',
+                                                            padding: '9px 10px',
+                                                            border: 'none',
+                                                            background: 'transparent',
+                                                            borderRadius: 8,
+                                                            fontSize: 13.5,
+                                                            color: '#0F172A',
+                                                            cursor: 'pointer',
+                                                            textAlign: 'left',
+                                                        }}
+                                                        onMouseEnter={(e) => (e.currentTarget.style.background = '#F8FAFC')}
+                                                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                                                    >
+                                                        <FileText size={15} color="#94A3B8" />
+                                                        {a.title}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        )}
                     </div>
                     <div style={{ flex: 1 }} />
                     <div style={{ width: 1, height: 28, background: '#ECEDF1' }} />

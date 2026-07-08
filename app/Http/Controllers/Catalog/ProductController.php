@@ -52,10 +52,13 @@ class ProductController extends Controller
             ->take(4)
             ->get();
 
+        $primaryImage = $product->images->firstWhere('is_primary', true) ?? $product->images->first();
+
         return Inertia::render('product-show', [
             'settings' => SiteSetting::first(),
             'product' => $product,
             'relatedProducts' => $relatedProducts,
+            'ogImage' => $primaryImage ? asset('storage/'.$primaryImage->path) : null,
         ]);
     }
 }

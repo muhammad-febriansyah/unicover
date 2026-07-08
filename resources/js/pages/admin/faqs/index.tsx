@@ -24,78 +24,124 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 
-interface Item {
+interface Faq {
     id: number;
-    name: string;
-    slug: string;
-    description: string | null;
+    question: string;
+    answer: string;
+    is_active: boolean;
+    sort_order: number;
 }
 
 interface Props {
-    categories: Item[];
+    faqs: Faq[];
 }
 
-export default function CategoryIndex({ categories }: Props) {
+export default function FaqIndex({ faqs }: Props) {
     const [editId, setEditId] = useState<number | null>(null);
     const [showForm, setShowForm] = useState(false);
-    const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
+    const [deleteTarget, setDeleteTarget] = useState<Faq | null>(null);
 
-    const { data, setData, post, processing: saving } = useForm({ name: '', description: '' });
-    const { data: editData, setData: setEdit, put, processing: updating } = useForm({ name: '', description: '' });
+    const { data, setData, post, processing: saving } = useForm({
+        question: '',
+        answer: '',
+        is_active: true,
+        sort_order: 0,
+    });
+    const { data: editData, setData: setEdit, put, processing: updating } = useForm({
+        question: '',
+        answer: '',
+        is_active: true,
+        sort_order: 0,
+    });
     const { delete: destroy } = useForm();
 
     const resetForm = () => {
         setShowForm(false);
         setEditId(null);
-        setData({ name: '', description: '' });
-        setEdit({ name: '', description: '' });
+        setData({ question: '', answer: '', is_active: true, sort_order: 0 });
+        setEdit({ question: '', answer: '', is_active: true, sort_order: 0 });
     };
 
-    const startEdit = (item: Item) => {
-        setEditId(item.id);
+    const startEdit = (faq: Faq) => {
+        setEditId(faq.id);
         setShowForm(true);
-        setEdit({ name: item.name, description: item.description ?? '' });
+        setEdit({
+            question: faq.question,
+            answer: faq.answer,
+            is_active: faq.is_active,
+            sort_order: faq.sort_order,
+        });
     };
 
     const handleSave = () => {
-        post('/admin/categories', { onSuccess: () => resetForm() });
+        post('/admin/faqs', { onSuccess: () => resetForm() });
     };
 
     const handleUpdate = () => {
         if (editId) {
-            put(`/admin/categories/${editId}`, { onSuccess: () => resetForm() });
+            put(`/admin/faqs/${editId}`, { onSuccess: () => resetForm() });
         }
     };
 
-    const columns: ColumnDef<Item>[] = [
+    const activeCount = faqs.filter(f => f.is_active).length;
+
+    const columns: ColumnDef<Faq>[] = [
         {
-            accessorKey: 'name',
+            accessorKey: 'question',
             header: ({ column }) => (
                 <button
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]"
                 >
-                    Nama <ArrowUpDown size={12} />
+                    Pertanyaan <ArrowUpDown size={12} />
                 </button>
             ),
             cell: ({ row }) => (
-                <span className="text-[13.5px] font-semibold text-[#0F172A]">{row.original.name}</span>
+                <span className="line-clamp-2 block max-w-xs text-[13.5px] font-semibold text-[#0F172A]">{row.original.question}</span>
             ),
         },
         {
-            accessorKey: 'slug',
-            header: () => <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Slug</span>,
+            accessorKey: 'answer',
+            header: () => (
+                <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Jawaban</span>
+            ),
             cell: ({ row }) => (
-                <code className="text-[12.5px] text-[#94A3B8] font-mono">{row.original.slug}</code>
+                <span className="line-clamp-2 block max-w-sm text-[13px] text-[#64748B]">{row.original.answer}</span>
             ),
         },
         {
-            accessorKey: 'description',
-            header: () => <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Deskripsi</span>,
+            accessorKey: 'is_active',
+            header: () => (
+                <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Status</span>
+            ),
             cell: ({ row }) => (
-                <span className="text-[13px] text-[#475569]">{row.original.description ?? '-'}</span>
+                <span
+                    className={cn(
+                        'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold',
+                        row.original.is_active
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-gray-100 text-gray-800'
+                    )}
+                >
+                    {row.original.is_active ? 'Aktif' : 'Nonaktif'}
+                </span>
+            ),
+        },
+        {
+            accessorKey: 'sort_order',
+            header: ({ column }) => (
+                <button
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]"
+                >
+                    Urutan <ArrowUpDown size={12} />
+                </button>
+            ),
+            cell: ({ row }) => (
+                <span className="text-[13px] text-[#64748B]">{row.original.sort_order}</span>
             ),
         },
         {
@@ -106,12 +152,12 @@ export default function CategoryIndex({ categories }: Props) {
                 </span>
             ),
             cell: ({ row }) => {
-                const item = row.original;
+                const faq = row.original;
 
                 return (
                     <div className="flex items-center justify-end gap-2">
                         <button
-                            onClick={() => startEdit(item)}
+                            onClick={() => startEdit(faq)}
                             className={cn(
                                 "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-white transition-colors",
                                 "bg-[#16A34A] hover:bg-[#15803D]"
@@ -121,7 +167,7 @@ export default function CategoryIndex({ categories }: Props) {
                             Edit
                         </button>
                         <button
-                            onClick={() => setDeleteTarget(item)}
+                            onClick={() => setDeleteTarget(faq)}
                             className={cn(
                                 "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-white transition-colors",
                                 "bg-[#DC2626] hover:bg-[#B91C1C]"
@@ -138,15 +184,15 @@ export default function CategoryIndex({ categories }: Props) {
 
     return (
         <>
-            <Head title="Kategori Produk" />
+            <Head title="FAQ" />
             <div style={{ animation: 'cm-fade .3s ease' }}>
                 <PageHeader
                     breadcrumbs={[
                         { label: 'Dashboard', href: '/admin' },
-                        { label: 'Kategori Produk' },
+                        { label: 'FAQ' },
                     ]}
-                    title="Kategori Produk"
-                    description={`${categories.length} kategori`}
+                    title="FAQ"
+                    description={`${activeCount} aktif dari ${faqs.length} FAQ`}
                 >
                     <button
                         onClick={() => {
@@ -170,11 +216,10 @@ export default function CategoryIndex({ categories }: Props) {
                         }}
                     >
                         <Plus size={17} />
-                        Tambah Kategori
+                        Tambah FAQ
                     </button>
                 </PageHeader>
 
-                {/* data table */}
                 <div
                     style={{
                         background: '#fff',
@@ -186,42 +231,72 @@ export default function CategoryIndex({ categories }: Props) {
                 >
                     <DataTable
                         columns={columns}
-                        data={categories}
+                        data={faqs}
                         className="border-0 rounded-none"
-                        emptyMessage="Belum ada kategori"
-                        searchKey="name"
-                        searchPlaceholder="Cari nama kategori..."
+                        emptyMessage="Belum ada FAQ"
+                        searchKey="question"
+                        searchPlaceholder="Cari pertanyaan..."
                     />
                 </div>
             </div>
 
-            {/* add / edit form */}
             <Dialog open={showForm} onOpenChange={(open) => !open && resetForm()}>
-                <DialogContent>
+                <DialogContent className="max-w-2xl">
                     <DialogHeader>
-                        <DialogTitle>{editId ? 'Edit Kategori' : 'Tambah Kategori'}</DialogTitle>
+                        <DialogTitle>{editId ? 'Edit FAQ' : 'Tambah FAQ'}</DialogTitle>
                     </DialogHeader>
                     <div className="grid gap-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="category-name">
-                                Nama Kategori<span className="text-destructive ml-0.5">*</span>
+                            <Label htmlFor="faq-question">
+                                Pertanyaan<span className="text-destructive ml-0.5">*</span>
                             </Label>
                             <Input
-                                id="category-name"
-                                value={editId ? editData.name : data.name}
-                                onChange={(e) => editId ? setEdit('name', e.target.value) : setData('name', e.target.value)}
-                                placeholder="cth. Cover Mobil"
+                                id="faq-question"
+                                value={editId ? editData.question : data.question}
+                                onChange={(e) => editId ? setEdit('question', e.target.value) : setData('question', e.target.value)}
+                                placeholder="cth. Bagaimana cara mendaftar?"
                                 required
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="category-description">Deskripsi</Label>
-                            <Input
-                                id="category-description"
-                                value={editId ? editData.description : data.description}
-                                onChange={(e) => editId ? setEdit('description', e.target.value) : setData('description', e.target.value)}
-                                placeholder="Deskripsi singkat kategori..."
+                            <Label htmlFor="faq-answer">
+                                Jawaban<span className="text-destructive ml-0.5">*</span>
+                            </Label>
+                            <Textarea
+                                id="faq-answer"
+                                value={editId ? editData.answer : data.answer}
+                                onChange={(e) => editId ? setEdit('answer', e.target.value) : setData('answer', e.target.value)}
+                                placeholder="cth. Untuk mendaftar, kunjungi halaman registrasi..."
+                                rows={4}
+                                required
                             />
+                        </div>
+                        <div className="flex gap-4">
+                            <div className="grid gap-2 w-32">
+                                <Label htmlFor="faq-sort">Urutan</Label>
+                                <Input
+                                    id="faq-sort"
+                                    type="number"
+                                    min={0}
+                                    value={editId ? editData.sort_order : data.sort_order}
+                                    onChange={(e) => editId ? setEdit('sort_order', parseInt(e.target.value) || 0) : setData('sort_order', parseInt(e.target.value) || 0)}
+                                />
+                            </div>
+                            <div className="grid gap-2 flex-1">
+                                <Label htmlFor="faq-active">Status</Label>
+                                <div className="flex items-center gap-2 h-10">
+                                    <input
+                                        id="faq-active"
+                                        type="checkbox"
+                                        checked={editId ? editData.is_active : data.is_active}
+                                        onChange={(e) => editId ? setEdit('is_active', e.target.checked) : setData('is_active', e.target.checked)}
+                                        className="w-4 h-4 rounded border-gray-300"
+                                    />
+                                    <span className="text-sm text-gray-700">
+                                        {editId ? (editData.is_active ? 'Aktif' : 'Nonaktif') : (data.is_active ? 'Aktif' : 'Nonaktif')}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <DialogFooter>
@@ -235,13 +310,12 @@ export default function CategoryIndex({ categories }: Props) {
                 </DialogContent>
             </Dialog>
 
-            {/* delete confirmation */}
             <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Hapus Kategori?</AlertDialogTitle>
+                        <AlertDialogTitle>Hapus FAQ?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Kategori <strong>{deleteTarget?.name}</strong> akan dihapus secara permanen. Produk yang menggunakan kategori ini mungkin terpengaruh.
+                            FAQ <strong>&quot;{deleteTarget?.question}&quot;</strong> akan dihapus secara permanen.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -249,7 +323,7 @@ export default function CategoryIndex({ categories }: Props) {
                         <AlertDialogAction
                             onClick={() => {
                                 if (deleteTarget) {
-                                    destroy(`/admin/categories/${deleteTarget.id}`);
+                                    destroy(`/admin/faqs/${deleteTarget.id}`);
                                     setDeleteTarget(null);
                                 }
                             }}

@@ -1,8 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { type ColumnDef } from '@tanstack/react-table';
+import type {ColumnDef} from '@tanstack/react-table';
 import { Plus, Pencil, Trash2, ArrowUpDown, Eye, FileText } from 'lucide-react';
-import { DataTable } from '@/components/ui/data-table';
+import { useState } from 'react';
 import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
@@ -14,6 +13,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { DataTable } from '@/components/ui/data-table';
 import { cn } from '@/lib/utils';
 
 interface Article {
@@ -21,10 +21,11 @@ interface Article {
     title: string;
     slug: string;
     author: { name: string } | null;
-    articleCategory: { name: string } | null;
+    article_category: { name: string } | null;
     cover_image_path: string | null;
     created_at: string;
     is_published: boolean;
+    views: number;
 }
 
 interface Props {
@@ -34,9 +35,11 @@ interface Props {
 const avaColor = ['#2547F9', '#4B8DB0', '#6B7F9E', '#3D8A6B', '#B08A4B', '#8A5BAF'];
 const avaBg = (s: string) => {
     let h = 0;
+
     for (const ch of s) {
         h = (h + ch.charCodeAt(0)) % avaColor.length;
     }
+
     return avaColor[h];
 };
 
@@ -64,6 +67,7 @@ export default function ArticleIndex({ articles }: Props) {
             ),
             cell: ({ row }) => {
                 const article = row.original;
+
                 return (
                     <div className="flex items-center gap-3">
                         {article.cover_image_path ? (
@@ -101,10 +105,11 @@ export default function ArticleIndex({ articles }: Props) {
             ),
         },
         {
-            accessorKey: 'articleCategory',
+            accessorKey: 'article_category',
             header: () => <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Kategori</span>,
             cell: ({ row }) => {
-                const name = row.original.articleCategory?.name ?? '-';
+                const name = row.original.article_category?.name ?? '-';
+
                 return (
                     <span className="inline-flex items-center rounded-md bg-[#F1F5F9] px-2.5 py-1 text-xs font-medium text-[#475569]">
                         {name}
@@ -133,6 +138,7 @@ export default function ArticleIndex({ articles }: Props) {
                 const st = published
                     ? { c: '#15803D', b: '#F0FDF4', bc: '#BBF7D0' }
                     : { c: '#64748B', b: '#F1F5F9', bc: '#E2E8F0' };
+
                 return (
                     <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-semibold"
@@ -153,6 +159,7 @@ export default function ArticleIndex({ articles }: Props) {
             ),
             cell: ({ row }) => {
                 const article = row.original;
+
                 return (
                     <div className="flex items-center justify-end gap-2">
                         <Link

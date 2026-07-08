@@ -1,13 +1,13 @@
 import { Head, useForm } from '@inertiajs/react';
-import React, { useState } from 'react';
 import { Save, Upload } from 'lucide-react';
+import React, { useState } from 'react';
+import { PageHeader } from '@/components/page-header';
 import {
     Tabs,
     TabsList,
     TabsTrigger,
     TabsContent,
 } from '@/components/ui/tabs';
-import { PageHeader } from '@/components/page-header';
 
 interface SiteSetting {
     id: number; brand_name: string; wa_number: string; tagline: string | null; hero_heading: string | null;
@@ -39,14 +39,22 @@ export default function SettingsIndex({ settings }: Props) {
     const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
         setData('logo', file);
-        if (logoPreview) URL.revokeObjectURL(logoPreview);
+
+        if (logoPreview) {
+URL.revokeObjectURL(logoPreview);
+}
+
         setLogoPreview(file ? URL.createObjectURL(file) : null);
     };
 
     const handleFaviconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
         setData('favicon', file);
-        if (faviconPreview) URL.revokeObjectURL(faviconPreview);
+
+        if (faviconPreview) {
+URL.revokeObjectURL(faviconPreview);
+}
+
         setFaviconPreview(file ? URL.createObjectURL(file) : null);
     };
 

@@ -26,6 +26,7 @@ interface NavItemsProps {
   items: {
     name: string;
     link: string;
+    active?: boolean;
   }[];
   className?: string;
   onItemClick?: () => void;
@@ -51,10 +52,7 @@ interface MobileNavMenuProps {
 
 export const Navbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { scrollY } = useScroll();
   const [visible, setVisible] = useState<boolean>(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -128,15 +126,25 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+          className={cn(
+            "relative rounded-full px-4 py-2",
+            item.active ? "font-semibold text-[#2547F9]" : "text-neutral-600 dark:text-neutral-300",
+          )}
           key={`link-${idx}`}
           href={item.link}
         >
-          {hovered === idx && (
+          {item.active ? (
             <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+              layoutId="active"
+              className="absolute inset-0 h-full w-full rounded-full bg-[#EEF1FF]"
             />
+          ) : (
+            hovered === idx && (
+              <motion.div
+                layoutId="hovered"
+                className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+              />
+            )
           )}
           <span className="relative z-20">{item.name}</span>
         </a>

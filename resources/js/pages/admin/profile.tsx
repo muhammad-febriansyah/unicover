@@ -1,6 +1,6 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
+import type {ColumnDef} from '@tanstack/react-table';
 import { Save, ArrowUpDown } from 'lucide-react';
-import { type ColumnDef } from '@tanstack/react-table';
 import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 

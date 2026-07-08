@@ -1,8 +1,8 @@
 import { Head, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { type ColumnDef } from '@tanstack/react-table';
+import type {ColumnDef} from '@tanstack/react-table';
 import { Plus, Pencil, Trash2, Save, ArrowUpDown } from 'lucide-react';
-import { DataTable } from '@/components/ui/data-table';
+import { useState } from 'react';
+import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -13,6 +13,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { DataTable } from '@/components/ui/data-table';
 import {
     Dialog,
     DialogContent,
@@ -20,11 +22,9 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { PageHeader } from '@/components/page-header';
 
 interface Tag {
     id: number;
@@ -99,6 +99,7 @@ export default function TagIndex({ tags }: Props) {
             ),
             cell: ({ row }) => {
                 const tag = row.original;
+
                 return (
                     <div className="flex items-center justify-end gap-2">
                         <button
@@ -140,7 +141,9 @@ export default function TagIndex({ tags }: Props) {
                     description={`${tags.length} tag`}
                 >
                     <button
-                        onClick={() => { resetForm(); setShowForm(true); }}
+                        onClick={() => {
+ resetForm(); setShowForm(true); 
+}}
                         style={{
                             display: 'inline-flex',
                             alignItems: 'center',
@@ -206,7 +209,7 @@ export default function TagIndex({ tags }: Props) {
                         <Button type="button" variant="outline" onClick={resetForm}>
                             Batal
                         </Button>
-                        <Button type="button" onClick={editId ? handleUpdate : handleSave} disabled={saving || updating}>
+                        <Button type="button" className="bg-[#2547F9] text-white hover:bg-[#1e3ce0]" onClick={editId ? handleUpdate : handleSave} disabled={saving || updating}>
                             <Save size={15} /> Simpan
                         </Button>
                     </DialogFooter>

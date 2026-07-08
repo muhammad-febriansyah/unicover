@@ -23,7 +23,7 @@ export function waLink(number: string, text: string) {
 }
 
 export const storefrontNavLinks = [
-    { href: '/#beranda', label: 'Beranda' },
+    { href: '/', label: 'Beranda' },
     { href: '/produk', label: 'Katalog' },
     { href: '/artikel', label: 'Artikel' },
     { href: '/#tentang', label: 'Tentang' },

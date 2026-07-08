@@ -53,12 +53,17 @@ export default function ArticleForm({ article, categories, tags, selectedTags }:
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
         setData('cover_image', file);
-        if (coverPreview) URL.revokeObjectURL(coverPreview);
+
+        if (coverPreview) {
+URL.revokeObjectURL(coverPreview);
+}
+
         setCoverPreview(file ? URL.createObjectURL(file) : null);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (isEditing) {
             put(`/admin/articles/${article!.id}`);
         } else {
@@ -218,6 +223,7 @@ export default function ArticleForm({ article, categories, tags, selectedTags }:
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                 {tags.map((tag) => {
                                     const selected = data.tags.includes(tag.id);
+
                                     return (
                                         <button
                                             key={tag.id}

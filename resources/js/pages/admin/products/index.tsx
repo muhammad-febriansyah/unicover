@@ -1,8 +1,7 @@
 import { Head, Link, useForm, router } from '@inertiajs/react';
-import { useState, useRef, useCallback } from 'react';
-import { type ColumnDef } from '@tanstack/react-table';
+import type {ColumnDef} from '@tanstack/react-table';
 import { Plus, Search, Pencil, Trash2, ArrowUpDown, Eye } from 'lucide-react';
-import { DataTable } from '@/components/ui/data-table';
+import { useState, useRef, useCallback } from 'react';
 import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
@@ -14,6 +13,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { DataTable } from '@/components/ui/data-table';
 import { cn } from '@/lib/utils';
 
 interface Category {
@@ -75,9 +75,13 @@ export default function ProductIndex({ products, categories, filters }: Props) {
 
     const visitFilters = useCallback((params: Record<string, string>) => {
         const query: Record<string, string> = {};
+
         for (const [k, v] of Object.entries(params)) {
-            if (v && v !== 'all') query[k] = v;
+            if (v && v !== 'all') {
+query[k] = v;
+}
         }
+
         router.visit('/admin/products', {
             data: query,
             preserveState: true,
@@ -88,7 +92,11 @@ export default function ProductIndex({ products, categories, filters }: Props) {
 
     const onSearchChange = (value: string) => {
         setSearchValue(value);
-        if (debounceRef.current) clearTimeout(debounceRef.current);
+
+        if (debounceRef.current) {
+clearTimeout(debounceRef.current);
+}
+
         debounceRef.current = setTimeout(() => {
             visitFilters({ search: value, category: filters.category ?? '' });
         }, 400);
@@ -109,6 +117,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
                 const product = row.original;
                 const colorGrad = catColor[product.category?.name ?? ''] ?? 'linear-gradient(135deg,#5B7FB0,#3A5C8A)';
                 const primaryImage = product.images?.find((img) => img.is_primary) ?? product.images?.[0];
+
                 return (
                     <div className="flex items-center gap-3">
                         {primaryImage ? (
@@ -146,6 +155,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
             header: () => <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Kategori</span>,
             cell: ({ row }) => {
                 const name = row.original.category?.name ?? '-';
+
                 return (
                     <span className="inline-flex items-center rounded-md bg-[#F1F5F9] px-2.5 py-1 text-xs font-medium text-[#475569]">
                         {name}
@@ -176,6 +186,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
             cell: ({ row }) => {
                 const s = row.original.stock_status;
                 const sc = s === 'in_stock' ? '#334155' : s === 'preorder' ? '#B45309' : '#DC2626';
+
                 return (
                     <div className="text-center text-[13px] font-semibold" style={{ color: sc }}>
                         {stockLabel[s]}
@@ -193,6 +204,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
                 const st = active
                     ? { c: '#15803D', b: '#F0FDF4', bc: '#BBF7D0' }
                     : { c: '#64748B', b: '#F1F5F9', bc: '#E2E8F0' };
+
                 return (
                     <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-semibold"
@@ -213,6 +225,7 @@ export default function ProductIndex({ products, categories, filters }: Props) {
             ),
             cell: ({ row }) => {
                 const product = row.original;
+
                 return (
                     <div className="flex items-center justify-end gap-2">
                         <Link

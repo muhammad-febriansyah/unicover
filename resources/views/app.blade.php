@@ -7,6 +7,9 @@ try {
 }
 $brandName = $siteSettings?->brand_name ?? config('app.name', 'Laravel');
 $favicon = $siteSettings?->favicon_path;
+$logo = $siteSettings?->logo_path;
+$tagline = $siteSettings?->tagline ?? 'Custom Automotive Covers';
+$ogImage = $logo ? asset('storage/' . $logo) : ($favicon ? asset('storage/' . $favicon) : null);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
@@ -20,8 +23,23 @@ $favicon = $siteSettings?->favicon_path;
 
         @if ($favicon)
             <link rel="icon" href="{{ asset('storage/' . $favicon) }}" sizes="any">
-        @else
-            <link rel="icon" href="/favicon.ico" sizes="any">
+            <link rel="apple-touch-icon" href="{{ asset('storage/' . $favicon) }}">
+        @endif
+
+        <meta name="description" head-key="description" content="{{ $tagline }}">
+        <meta property="og:site_name" head-key="og:site_name" content="{{ $brandName }}">
+        <meta property="og:type" head-key="og:type" content="website">
+        <meta property="og:title" head-key="og:title" content="{{ $brandName }}">
+        <meta property="og:description" head-key="og:description" content="{{ $tagline }}">
+        <meta property="og:url" head-key="og:url" content="{{ url()->current() }}">
+        @if ($ogImage)
+            <meta property="og:image" head-key="og:image" content="{{ $ogImage }}">
+        @endif
+        <meta name="twitter:card" head-key="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" head-key="twitter:title" content="{{ $brandName }}">
+        <meta name="twitter:description" head-key="twitter:description" content="{{ $tagline }}">
+        @if ($ogImage)
+            <meta name="twitter:image" head-key="twitter:image" content="{{ $ogImage }}">
         @endif
 
         @fonts

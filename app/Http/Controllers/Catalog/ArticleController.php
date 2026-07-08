@@ -39,9 +39,12 @@ class ArticleController extends Controller
             ->with(['author', 'articleCategory', 'tags'])
             ->firstOrFail();
 
+        $article->increment('views');
+
         return Inertia::render('article-show', [
             'settings' => SiteSetting::first(),
             'article' => $article,
+            'ogImage' => $article->cover_image_path ? asset('storage/'.$article->cover_image_path) : null,
         ]);
     }
 }
