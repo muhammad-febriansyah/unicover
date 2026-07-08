@@ -36,11 +36,20 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->hasFile('avatar')) {
+            $request->validate(['avatar' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048']], [
+                'avatar.image' => 'File harus berupa gambar.',
+                'avatar.mimes' => 'Format foto harus JPG, JPEG, PNG, atau WEBP.',
+                'avatar.max' => 'Ukuran foto maksimal 2MB.',
+            ]);
+            $request->user()->avatar_path = $request->file('avatar')->store('avatars', 'public');
+        }
+
         $request->user()->save();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile updated.')]);
 
-        return to_route('profile.edit');
+        return back();
     }
 
     /**

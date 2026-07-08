@@ -35,6 +35,7 @@ interface Category {
     name: string;
     slug: string;
     description: string | null;
+    image_path: string | null;
     products_count: number;
     products: { images: ProductImage[] }[];
 }
@@ -222,7 +223,8 @@ export default function Welcome({ settings, categories, products, compareProduct
                         </div>
                         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-5 sm:gap-6">
                             {categories.map((cat) => {
-                                const image = cat.products[0]?.images.find((img) => img.is_primary) ?? cat.products[0]?.images[0];
+                                const fallbackImage = cat.products[0]?.images.find((img) => img.is_primary) ?? cat.products[0]?.images[0];
+                                const imageSrc = cat.image_path ? `/storage/${cat.image_path}` : fallbackImage ? `/storage/${fallbackImage.path}` : null;
 
                                 return (
                                     <Link
@@ -230,9 +232,9 @@ export default function Welcome({ settings, categories, products, compareProduct
                                         href={`/produk?category=${cat.slug}`}
                                         className="group relative flex aspect-[16/10] sm:aspect-[4/3] flex-col justify-end overflow-hidden rounded-[20px] sm:rounded-[24px] border border-gray-200 shadow-[0_10px_30px_rgba(17,24,39,.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(37,71,249,.18)]"
                                     >
-                                        {image ? (
+                                        {imageSrc ? (
                                             <img
-                                                src={`/storage/${image.path}`}
+                                                src={imageSrc}
                                                 alt={cat.name}
                                                 className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
                                             />

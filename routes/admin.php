@@ -36,7 +36,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         return Inertia::render('admin/profile', [
             'mustVerifyEmail' => request()->user() instanceof MustVerifyEmail,
             'status' => request()->session()->get('status'),
-            'users' => User::orderByDesc('created_at')->get(['id', 'name', 'email', 'is_admin', 'created_at']),
+            'users' => User::orderByDesc('created_at')->get(['id', 'name', 'email', 'avatar_path', 'is_admin', 'created_at']),
         ]);
     })->name('profile.edit');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');

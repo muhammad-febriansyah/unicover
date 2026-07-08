@@ -34,6 +34,15 @@ class CategoryController
             ]);
         }
 
+        if ($request->hasFile('image')) {
+            $request->validate(['image' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048']], [
+                'image.image' => 'File harus berupa gambar.',
+                'image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+                'image.max' => 'Ukuran gambar maksimal 2MB.',
+            ]);
+            $validated['image_path'] = $request->file('image')->store('categories', 'public');
+        }
+
         Category::create([
             ...$validated,
             'slug' => $slug,
@@ -57,6 +66,15 @@ class CategoryController
             throw ValidationException::withMessages([
                 'name' => 'Nama kategori sudah dipakai, gunakan nama lain.',
             ]);
+        }
+
+        if ($request->hasFile('image')) {
+            $request->validate(['image' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048']], [
+                'image.image' => 'File harus berupa gambar.',
+                'image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+                'image.max' => 'Ukuran gambar maksimal 2MB.',
+            ]);
+            $validated['image_path'] = $request->file('image')->store('categories', 'public');
         }
 
         $category->update([

@@ -1,7 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
 import type {ColumnDef} from '@tanstack/react-table';
-import { Plus, Pencil, Trash2, Save, ArrowUpDown } from 'lucide-react';
-import { useState } from 'react';
+import { Plus, Pencil, Trash2, Save, ArrowUpDown, Upload, ImageOff } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
@@ -31,6 +31,7 @@ interface Item {
     name: string;
     slug: string;
     description: string | null;
+    image_path: string | null;
 }
 
 interface Props {
@@ -41,22 +42,45 @@ export default function CategoryIndex({ categories }: Props) {
     const [editId, setEditId] = useState<number | null>(null);
     const [showForm, setShowForm] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [editImagePath, setEditImagePath] = useState<string | null>(null);
+    const imageInputRef = useRef<HTMLInputElement>(null);
 
-    const { data, setData, post, processing: saving, errors } = useForm({ name: '', description: '' });
-    const { data: editData, setData: setEdit, put, processing: updating, errors: editErrors } = useForm({ name: '', description: '' });
+    const { data, setData, post, processing: saving, errors } = useForm<{ name: string; description: string; image: File | null }>({ name: '', description: '', image: null });
+    const { data: editData, setData: setEdit, put, processing: updating, errors: editErrors } = useForm<{ name: string; description: string; image: File | null }>({ name: '', description: '', image: null });
     const { delete: destroy } = useForm();
 
     const resetForm = () => {
         setShowForm(false);
         setEditId(null);
-        setData({ name: '', description: '' });
-        setEdit({ name: '', description: '' });
+        setImagePreview(null);
+        setEditImagePath(null);
+        setData({ name: '', description: '', image: null });
+        setEdit({ name: '', description: '', image: null });
     };
 
     const startEdit = (item: Item) => {
         setEditId(item.id);
         setShowForm(true);
-        setEdit({ name: item.name, description: item.description ?? '' });
+        setImagePreview(null);
+        setEditImagePath(item.image_path);
+        setEdit({ name: item.name, description: item.description ?? '', image: null });
+    };
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (editId) {
+            setEdit('image', file);
+        } else {
+            setData('image', file);
+        }
+
+        setImagePreview(URL.createObjectURL(file));
     };
 
     const handleSave = () => {
@@ -70,6 +94,23 @@ export default function CategoryIndex({ categories }: Props) {
     };
 
     const columns: ColumnDef<Item>[] = [
+        {
+            id: 'thumbnail',
+            header: () => <span className="font-semibold text-[11px] uppercase tracking-wide text-[#94A3B8]">Gambar</span>,
+            cell: ({ row }) => (
+                row.original.image_path ? (
+                    <img
+                        src={`/storage/${row.original.image_path}`}
+                        alt={row.original.name}
+                        className="h-10 w-10 rounded-lg object-cover border border-[#ECEDF1]"
+                    />
+                ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-dashed border-[#E2E8F0] text-[#CBD5E1]">
+                        <ImageOff size={16} />
+                    </div>
+                )
+            ),
+        },
         {
             accessorKey: 'name',
             header: ({ column }) => (
@@ -225,6 +266,42 @@ export default function CategoryIndex({ categories }: Props) {
                                 onChange={(e) => editId ? setEdit('description', e.target.value) : setData('description', e.target.value)}
                                 placeholder="Deskripsi singkat kategori..."
                             />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label>Gambar Thumbnail</Label>
+                            <div className="flex items-center gap-3 rounded-lg border border-input bg-muted/30 p-3">
+                                {imagePreview ?? editImagePath ? (
+                                    <img
+                                        src={imagePreview ?? `/storage/${editImagePath}`}
+                                        alt="Preview"
+                                        className="h-16 w-16 rounded-md object-cover border border-[#ECEDF1]"
+                                    />
+                                ) : (
+                                    <div className="flex h-16 w-16 items-center justify-center rounded-md border border-dashed border-[#E2E8F0] text-[#CBD5E1]">
+                                        <ImageOff size={20} />
+                                    </div>
+                                )}
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => imageInputRef.current?.click()}
+                                >
+                                    <Upload size={14} />
+                                    {imagePreview ?? editImagePath ? 'Ganti' : 'Unggah'}
+                                </Button>
+                                <input
+                                    ref={imageInputRef}
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/webp"
+                                    onChange={handleImageChange}
+                                    className="hidden"
+                                />
+                            </div>
+                            <p className="text-[11px] text-muted-foreground">Maks 2MB (JPG, PNG, WEBP). Dipakai sebagai thumbnail kategori di landing page.</p>
+                            {(editId ? editErrors.image : errors.image) && (
+                                <p className="text-destructive text-xs">{editId ? editErrors.image : errors.image}</p>
+                            )}
                         </div>
                     </div>
                     <DialogFooter>

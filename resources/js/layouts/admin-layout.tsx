@@ -512,23 +512,31 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 fontFamily: 'inherit',
                             }}
                         >
-                            <div
-                                style={{
-                                    width: 38,
-                                    height: 38,
-                                    borderRadius: 10,
-                                    background: 'linear-gradient(135deg,#4E6BFF,#2547F9)',
-                                    color: '#fff',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontWeight: 600,
-                                    fontSize: 14,
-                                    flex: 'none',
-                                }}
-                            >
-                                {user?.name?.split(' ').slice(0, 2).map((n) => n[0]).join('').toUpperCase() ?? 'AD'}
-                            </div>
+                            {user?.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt={user.name}
+                                    style={{ width: 38, height: 38, borderRadius: 10, objectFit: 'cover', flex: 'none' }}
+                                />
+                            ) : (
+                                <div
+                                    style={{
+                                        width: 38,
+                                        height: 38,
+                                        borderRadius: 10,
+                                        background: 'linear-gradient(135deg,#4E6BFF,#2547F9)',
+                                        color: '#fff',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontWeight: 600,
+                                        fontSize: 14,
+                                        flex: 'none',
+                                    }}
+                                >
+                                    {user?.name?.split(' ').slice(0, 2).map((n) => n[0]).join('').toUpperCase() ?? 'AD'}
+                                </div>
+                            )}
                             <div style={{ lineHeight: 1.2, textAlign: 'left' }}>
                                 <div style={{ fontSize: 13, fontWeight: 600, color: '#0F172A' }}>
                                     {user?.name ?? 'Admin'}

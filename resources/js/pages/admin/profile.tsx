@@ -1,6 +1,8 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import type {ColumnDef} from '@tanstack/react-table';
-import { Save, ArrowUpDown } from 'lucide-react';
+import { Save, ArrowUpDown, Eye, EyeOff, Upload } from 'lucide-react';
+import { useRef, useState } from 'react';
+import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 
@@ -19,16 +21,56 @@ interface Props {
 }
 
 export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
-    const user = usePage().props.auth?.user as { id: number; name: string; email: string; email_verified_at?: string | null };
+    const user = usePage().props.auth?.user as { id: number; name: string; email: string; email_verified_at?: string | null; avatar?: string | null };
 
-    const { data, setData, patch, processing, errors } = useForm({
+    const { data, setData, patch, processing, errors } = useForm<{ name: string; email: string; avatar: File | null }>({
         name: user?.name ?? '',
         email: user?.email ?? '',
+        avatar: null,
     });
+
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const avatarInputRef = useRef<HTMLInputElement>(null);
+
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (!file) {
+            return;
+        }
+
+        setData('avatar', file);
+        setAvatarPreview(URL.createObjectURL(file));
+    };
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         patch('/admin/profile');
+    };
+
+    const {
+        data: passwordData,
+        setData: setPasswordData,
+        put: putPassword,
+        processing: passwordProcessing,
+        errors: passwordErrors,
+        reset: resetPassword,
+    } = useForm({
+        current_password: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const [showCurrent, setShowCurrent] = useState(false);
+    const [showNew, setShowNew] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
+
+    const submitPassword = (e: React.FormEvent) => {
+        e.preventDefault();
+        putPassword(SecurityController.update.url(), {
+            preserveScroll: true,
+            onSuccess: () => resetPassword(),
+        });
     };
 
     const userColumns: ColumnDef<UserModel>[] = [
@@ -125,6 +167,27 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
         color: '#0F172A',
     };
 
+    const passwordInputStyle: React.CSSProperties = {
+        ...inputStyle,
+        paddingRight: 42,
+    };
+
+    const passwordToggleStyle: React.CSSProperties = {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        height: 42,
+        width: 42,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        color: '#94A3B8',
+        fontFamily: 'inherit',
+    };
+
     return (
         <>
             <Head title="Profil" />
@@ -169,6 +232,65 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                         <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Informasi Profil</div>
                         <div style={{ fontSize: '12.5px', color: '#64748B', marginBottom: 18 }}>Perbarui nama dan email akun.</div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                                {avatarPreview ?? user?.avatar ? (
+                                    <img
+                                        src={avatarPreview ?? user.avatar ?? undefined}
+                                        alt={user?.name}
+                                        style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover', flex: 'none' }}
+                                    />
+                                ) : (
+                                    <div
+                                        style={{
+                                            width: 64,
+                                            height: 64,
+                                            borderRadius: '50%',
+                                            background: 'linear-gradient(135deg,#4E6BFF,#2547F9)',
+                                            color: '#fff',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontWeight: 600,
+                                            fontSize: 20,
+                                            flex: 'none',
+                                        }}
+                                    >
+                                        {user?.name?.split(' ').slice(0, 2).map((n) => n[0]).join('').toUpperCase() ?? 'AD'}
+                                    </div>
+                                )}
+                                <div>
+                                    <button
+                                        type="button"
+                                        onClick={() => avatarInputRef.current?.click()}
+                                        style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: 6,
+                                            padding: '7px 14px',
+                                            borderRadius: 8,
+                                            border: '1px solid #E8EAF1',
+                                            background: '#fff',
+                                            fontSize: 12.5,
+                                            fontWeight: 600,
+                                            color: '#334155',
+                                            cursor: 'pointer',
+                                            fontFamily: 'inherit',
+                                        }}
+                                    >
+                                        <Upload size={14} />
+                                        Ganti Foto
+                                    </button>
+                                    <input
+                                        ref={avatarInputRef}
+                                        type="file"
+                                        accept="image/jpeg,image/png,image/webp"
+                                        onChange={handleAvatarChange}
+                                        style={{ display: 'none' }}
+                                    />
+                                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>JPG, PNG, atau WEBP. Maks 2MB.</div>
+                                    {errors.avatar && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{errors.avatar}</p>}
+                                </div>
+                            </div>
                             <div>
                                 <label style={labelStyle}>Nama <span style={{ color: '#DC2626' }}>*</span></label>
                                 <input
@@ -204,6 +326,104 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                     </div>
 
 
+                </form>
+
+                <form onSubmit={submitPassword} style={{ marginTop: 20 }}>
+                    <div style={cardStyle}>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Ubah Password</div>
+                        <div style={{ fontSize: '12.5px', color: '#64748B', marginBottom: 18 }}>Pastikan akun Anda menggunakan password yang panjang dan acak.</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                            <div>
+                                <label style={labelStyle}>Password Saat Ini</label>
+                                <div style={{ position: 'relative' }}>
+                                    <input
+                                        type={showCurrent ? 'text' : 'password'}
+                                        value={passwordData.current_password}
+                                        onChange={(e) => setPasswordData('current_password', e.target.value)}
+                                        autoComplete="current-password"
+                                        style={passwordInputStyle}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowCurrent((v) => !v)}
+                                        aria-label={showCurrent ? 'Sembunyikan password' : 'Tampilkan password'}
+                                        style={passwordToggleStyle}
+                                    >
+                                        {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                                {passwordErrors.current_password && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{passwordErrors.current_password}</p>}
+                            </div>
+                            <div>
+                                <label style={labelStyle}>Password Baru</label>
+                                <div style={{ position: 'relative' }}>
+                                    <input
+                                        type={showNew ? 'text' : 'password'}
+                                        value={passwordData.password}
+                                        onChange={(e) => setPasswordData('password', e.target.value)}
+                                        autoComplete="new-password"
+                                        style={passwordInputStyle}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowNew((v) => !v)}
+                                        aria-label={showNew ? 'Sembunyikan password' : 'Tampilkan password'}
+                                        style={passwordToggleStyle}
+                                    >
+                                        {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                                {passwordErrors.password && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{passwordErrors.password}</p>}
+                            </div>
+                            <div>
+                                <label style={labelStyle}>Konfirmasi Password Baru</label>
+                                <div style={{ position: 'relative' }}>
+                                    <input
+                                        type={showConfirm ? 'text' : 'password'}
+                                        value={passwordData.password_confirmation}
+                                        onChange={(e) => setPasswordData('password_confirmation', e.target.value)}
+                                        autoComplete="new-password"
+                                        style={passwordInputStyle}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirm((v) => !v)}
+                                        aria-label={showConfirm ? 'Sembunyikan password' : 'Tampilkan password'}
+                                        style={passwordToggleStyle}
+                                    >
+                                        {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                                {passwordErrors.password_confirmation && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{passwordErrors.password_confirmation}</p>}
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    disabled={passwordProcessing}
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: 8,
+                                        height: 42,
+                                        padding: '0 20px',
+                                        background: '#2547F9',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: 10,
+                                        fontSize: '13.5px',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        boxShadow: '0 2px 6px -1px rgba(37,71,249,.24)',
+                                        fontFamily: 'inherit',
+                                        opacity: passwordProcessing ? 0.6 : 1,
+                                    }}
+                                >
+                                    <Save size={16} />
+                                    Simpan Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
 
