@@ -1,4 +1,5 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 import {
     ArrowRight,
     Star,
@@ -12,6 +13,8 @@ import {
     Phone,
     Mail,
     Clock,
+    Send,
+    ChevronDown,
 } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/storefront/icons';
 import { SiteFooter } from '@/components/storefront/site-footer';
@@ -70,6 +73,12 @@ interface Testimonial {
     message: string;
 }
 
+interface Faq {
+    id: number;
+    question: string;
+    answer: string;
+}
+
 interface Props {
     settings: SiteSettings | null;
     categories: Category[];
@@ -77,6 +86,7 @@ interface Props {
     compareProducts: Product[];
     articles: Article[];
     testimonials: Testimonial[];
+    faqs: Faq[];
 }
 
 const features = [
@@ -107,7 +117,130 @@ function ReviewCard({ name, rating, message }: Testimonial) {
     );
 }
 
-export default function Welcome({ settings, categories, products, compareProducts, articles, testimonials }: Props) {
+function ContactForm() {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+    });
+
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        post('/kontak', {
+            preserveScroll: true,
+            onSuccess: () => reset(),
+        });
+    };
+
+    const inputClass =
+        'w-full rounded-xl border border-gray-200 bg-[#F9FAFB] px-4 py-3.5 text-[14px] text-[#1a1a1a] outline-none transition-colors placeholder:text-gray-400 focus:border-[#2547F9] focus:bg-white focus:ring-2 focus:ring-[#2547F9]/15';
+
+    return (
+        <form
+            onSubmit={submit}
+            className="flex flex-col gap-4 rounded-[24px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.05)] sm:p-8"
+        >
+            <div>
+                <input
+                    className={inputClass}
+                    placeholder="Nama"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                />
+                {errors.name && <p className="mt-1.5 text-xs text-red-600">{errors.name}</p>}
+            </div>
+            <div>
+                <input
+                    type="email"
+                    className={inputClass}
+                    placeholder="Alamat Email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                />
+                {errors.email && <p className="mt-1.5 text-xs text-red-600">{errors.email}</p>}
+            </div>
+            <div>
+                <input
+                    type="tel"
+                    className={inputClass}
+                    placeholder="Nomor Telepon (opsional)"
+                    value={data.phone}
+                    onChange={(e) => setData('phone', e.target.value)}
+                />
+                {errors.phone && <p className="mt-1.5 text-xs text-red-600">{errors.phone}</p>}
+            </div>
+            <div>
+                <textarea
+                    className={`${inputClass} min-h-[130px] resize-y`}
+                    placeholder="Pesan"
+                    value={data.message}
+                    onChange={(e) => setData('message', e.target.value)}
+                />
+                {errors.message && <p className="mt-1.5 text-xs text-red-600">{errors.message}</p>}
+            </div>
+            <button
+                type="submit"
+                disabled={processing}
+                className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#2547F9] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_12px_30px_rgba(37,71,249,.3)] transition-colors hover:bg-[#1a35c9] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+                {processing ? 'Mengirim...' : 'Kirim Pesan'}
+                {!processing && <Send size={17} />}
+            </button>
+        </form>
+    );
+}
+
+function FaqSection({ faqs }: { faqs: Faq[] }) {
+    const [openId, setOpenId] = useState<number | null>(faqs[0]?.id ?? null);
+
+    return (
+        <section id="faq" className="border-t border-gray-200 bg-white">
+            <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
+                <div className="mb-11 text-center">
+                    <span className="text-sm font-semibold tracking-wide text-[#2547F9]">FAQ</span>
+                    <h2 className="mt-2 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight">Pertanyaan yang Sering Diajukan</h2>
+                    <p className="mt-3 text-[15px] text-gray-500">
+                        Belum menemukan jawaban? Hubungi kami langsung via WhatsApp.
+                    </p>
+                </div>
+                <div className="flex flex-col gap-3">
+                    {faqs.map((faq) => {
+                        const open = openId === faq.id;
+
+                        return (
+                            <div
+                                key={faq.id}
+                                className="overflow-hidden rounded-[16px] border border-gray-200 bg-white shadow-[0_6px_20px_rgba(17,24,39,.03)]"
+                            >
+                                <button
+                                    type="button"
+                                    onClick={() => setOpenId(open ? null : faq.id)}
+                                    aria-expanded={open}
+                                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                                >
+                                    <span className="text-[15px] font-semibold text-[#0f172a]">{faq.question}</span>
+                                    <ChevronDown
+                                        size={19}
+                                        className={`shrink-0 text-[#2547F9] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+                                    />
+                                </button>
+                                {open && (
+                                    <div className="px-5 pb-5 text-[14.5px] leading-relaxed text-gray-600">
+                                        {faq.answer}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+export default function Welcome({ settings, categories, products, compareProducts, articles, testimonials, faqs }: Props) {
     const brandName = settings?.brand_name ?? 'Unicover';
     const waNumber = settings?.wa_number ?? '';
     const waGeneral = waLink(waNumber, `Halo ${brandName}, saya ingin bertanya mengenai produk cover mobil yang tersedia. Mohon informasinya, terima kasih.`);
@@ -378,9 +511,9 @@ export default function Welcome({ settings, categories, products, compareProduct
                                     href={`/artikel/${article.slug}`}
                                     className="flex flex-col overflow-hidden rounded-[20px] border border-gray-200 bg-white text-[#1a1a1a] shadow-[0_10px_30px_rgba(17,24,39,.05)] transition-transform hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(37,71,249,.1)]"
                                 >
-                                    <div className="aspect-[16/10] bg-[#F9FAFB]">
+                                    <div className="relative aspect-[16/10] overflow-hidden bg-[#F9FAFB]">
                                         {article.cover_image_path ? (
-                                            <img src={`/storage/${article.cover_image_path}`} alt={article.title} className="size-full object-cover" />
+                                            <img src={`/storage/${article.cover_image_path}`} alt={article.title} className="absolute inset-0 size-full object-cover" />
                                         ) : (
                                             <div className="flex size-full items-center justify-center text-xs text-gray-400">Foto artikel</div>
                                         )}
@@ -430,6 +563,9 @@ export default function Welcome({ settings, categories, products, compareProduct
                     </div>
                 </section>
 
+                {/* FAQ */}
+                {faqs.length > 0 && <FaqSection faqs={faqs} />}
+
                 {/* KONTAK */}
                 <section id="kontak" className="mx-auto max-w-7xl px-6 py-16 md:py-24">
                     <div className="mx-auto mb-11 max-w-[600px] text-center">
@@ -440,16 +576,7 @@ export default function Welcome({ settings, categories, products, compareProduct
                         </p>
                     </div>
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_1fr]">
-                        {settings?.google_maps_embed ? (
-                            <div
-                                className="aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-gray-200 shadow-[0_10px_30px_rgba(17,24,39,.05)] [&_iframe]:size-full"
-                                dangerouslySetInnerHTML={{ __html: settings.google_maps_embed }}
-                            />
-                        ) : (
-                            <div className="flex aspect-[4/3] w-full items-center justify-center rounded-[24px] border border-gray-200 bg-[#F9FAFB] text-sm text-gray-400">
-                                Peta lokasi belum diatur
-                            </div>
-                        )}
+                        <ContactForm />
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             {settings?.address && (
                                 <div className="rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_10px_30px_rgba(17,24,39,.04)]">

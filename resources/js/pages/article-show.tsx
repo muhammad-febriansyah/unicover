@@ -121,7 +121,6 @@ function ShareButtons({ title }: { title: string }) {
 
 export default function ArticleShow({ settings, article, ogImage }: Props) {
     const brandName = settings?.brand_name ?? 'Unicover';
-    const paragraphs = article.body ? article.body.split('\n\n') : [];
 
     const shareTitle = `${article.title} — ${brandName}`;
     const shareDescription = article.excerpt ?? `${article.title} — ${brandName}`;
@@ -215,14 +214,10 @@ export default function ArticleShow({ settings, article, ogImage }: Props) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                        className="mt-10 flex flex-col gap-6 text-[16.5px] leading-[1.75] text-[#334155]"
+                        className="mt-10 text-[16.5px] leading-[1.75] text-[#334155]"
                     >
-                        {paragraphs.length > 0 ? (
-                            paragraphs.map((p, i) => (
-                                <p key={i} className={p.startsWith('>') ? 'border-l-4 border-[#2547F9] pl-5 italic text-gray-600' : ''}>
-                                    {p.startsWith('>') ? p.slice(1).trim() : p}
-                                </p>
-                            ))
+                        {article.body ? (
+                            <div className="rich-text" dangerouslySetInnerHTML={{ __html: article.body }} />
                         ) : (
                             <p className="text-gray-400">Belum ada konten.</p>
                         )}

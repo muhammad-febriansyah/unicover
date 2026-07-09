@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalog;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Faq;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use App\Models\Testimonial;
@@ -45,6 +46,7 @@ class HomeController extends Controller
                 ->take(3)
                 ->get(),
             'testimonials' => Testimonial::where('is_active', true)->orderBy('sort_order')->get(),
+            'faqs' => Faq::where('is_active', true)->orderBy('sort_order')->get(['id', 'question', 'answer']),
         ]);
     }
 

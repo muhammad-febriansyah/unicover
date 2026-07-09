@@ -11,6 +11,7 @@ interface NavItem {
     href: string;
     active: boolean;
     svgPath: string;
+    badge?: number;
 }
 
 interface SearchResultItem {
@@ -97,6 +98,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
     const hasSearchResults = Boolean(searchResults && (searchResults.products.length > 0 || searchResults.articles.length > 0));
 
+    const unreadMessages = ((page.props as any).unreadMessages as number) ?? 0;
+
     const navGroups: { label: string | null; items: NavItem[] }[] = [
         {
             label: null,
@@ -122,7 +125,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     title: 'Kategori Produk',
                     href: '/admin/categories',
                     active: isActive('/admin/categories'),
-                    svgPath: '<path d="M4 20h16"/><path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+                    svgPath: '<path d="M7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
                 },
             ],
         },
@@ -163,6 +166,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     href: '/admin/testimonials',
                     active: isActive('/admin/testimonials'),
                     svgPath: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+                },
+                {
+                    title: 'Pesan Masuk',
+                    href: '/admin/messages',
+                    active: isActive('/admin/messages'),
+                    svgPath: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+                    badge: unreadMessages,
                 },
             ],
         },
@@ -307,7 +317,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    style={navStyle(item.active)}
+                                    style={{ ...navStyle(item.active), position: 'relative' }}
                                     className="cm-nav"
                                     title={!sidebarOpen ? item.title : undefined}
                                 >
@@ -323,7 +333,42 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         dangerouslySetInnerHTML={{ __html: item.svgPath }}
                                         style={{ flexShrink: 0 }}
                                     />
-                                    {sidebarOpen && <span style={{ whiteSpace: 'nowrap' }}>{item.title}</span>}
+                                    {sidebarOpen && <span style={{ whiteSpace: 'nowrap', flex: 1 }}>{item.title}</span>}
+                                    {item.badge ? (
+                                        sidebarOpen ? (
+                                            <span
+                                                style={{
+                                                    flex: 'none',
+                                                    minWidth: 18,
+                                                    height: 18,
+                                                    padding: '0 5px',
+                                                    borderRadius: 9,
+                                                    background: item.active ? 'rgba(255,255,255,.28)' : '#EF4444',
+                                                    color: '#fff',
+                                                    fontSize: 11,
+                                                    fontWeight: 700,
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                }}
+                                            >
+                                                {item.badge > 99 ? '99+' : item.badge}
+                                            </span>
+                                        ) : (
+                                            <span
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: 7,
+                                                    right: 12,
+                                                    width: 8,
+                                                    height: 8,
+                                                    borderRadius: '50%',
+                                                    background: '#EF4444',
+                                                    border: '1.5px solid #fff',
+                                                }}
+                                            />
+                                        )
+                                    ) : null}
                                 </Link>
                             ))}
                         </div>

@@ -27,6 +27,7 @@ export const storefrontNavLinks = [
     { href: '/', label: 'Beranda' },
     { href: '/produk', label: 'Katalog' },
     { href: '/artikel', label: 'Artikel' },
+    { href: '/#faq', label: 'FAQ' },
     { href: '/#tentang', label: 'Tentang' },
     { href: '/#kontak', label: 'Kontak' },
 ];

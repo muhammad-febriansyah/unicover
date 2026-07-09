@@ -1,6 +1,6 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import type {ColumnDef} from '@tanstack/react-table';
-import { Save, ArrowUpDown, Eye, EyeOff, Upload } from 'lucide-react';
+import { Save, ArrowUpDown, Eye, EyeOff, Upload, Trash2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import { PageHeader } from '@/components/page-header';
@@ -41,6 +41,23 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
 
         setData('avatar', file);
         setAvatarPreview(URL.createObjectURL(file));
+    };
+
+    const removeAvatar = () => {
+        if (avatarPreview) {
+            setAvatarPreview(null);
+            setData('avatar', null);
+
+            if (avatarInputRef.current) {
+                avatarInputRef.current.value = '';
+            }
+
+            return;
+        }
+
+        if (user?.avatar) {
+            router.delete('/admin/profile/avatar', { preserveScroll: true });
+        }
     };
 
     const submit = (e: React.FormEvent) => {
@@ -259,27 +276,52 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                                     </div>
                                 )}
                                 <div>
-                                    <button
-                                        type="button"
-                                        onClick={() => avatarInputRef.current?.click()}
-                                        style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            gap: 6,
-                                            padding: '7px 14px',
-                                            borderRadius: 8,
-                                            border: '1px solid #E8EAF1',
-                                            background: '#fff',
-                                            fontSize: 12.5,
-                                            fontWeight: 600,
-                                            color: '#334155',
-                                            cursor: 'pointer',
-                                            fontFamily: 'inherit',
-                                        }}
-                                    >
-                                        <Upload size={14} />
-                                        Ganti Foto
-                                    </button>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <button
+                                            type="button"
+                                            onClick={() => avatarInputRef.current?.click()}
+                                            style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 6,
+                                                padding: '7px 14px',
+                                                borderRadius: 8,
+                                                border: '1px solid #E8EAF1',
+                                                background: '#fff',
+                                                fontSize: 12.5,
+                                                fontWeight: 600,
+                                                color: '#334155',
+                                                cursor: 'pointer',
+                                                fontFamily: 'inherit',
+                                            }}
+                                        >
+                                            <Upload size={14} />
+                                            Ganti Foto
+                                        </button>
+                                        {(avatarPreview ?? user?.avatar) && (
+                                            <button
+                                                type="button"
+                                                onClick={removeAvatar}
+                                                style={{
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    gap: 6,
+                                                    padding: '7px 14px',
+                                                    borderRadius: 8,
+                                                    border: '1px solid #FECACA',
+                                                    background: '#fff',
+                                                    fontSize: 12.5,
+                                                    fontWeight: 600,
+                                                    color: '#DC2626',
+                                                    cursor: 'pointer',
+                                                    fontFamily: 'inherit',
+                                                }}
+                                            >
+                                                <Trash2 size={14} />
+                                                {avatarPreview ? 'Batal' : 'Hapus Foto'}
+                                            </button>
+                                        )}
+                                    </div>
                                     <input
                                         ref={avatarInputRef}
                                         type="file"
@@ -311,6 +353,7 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                                     style={inputStyle}
                                 />
                                 {errors.email && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{errors.email}</p>}
+                                <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>Email ini juga dipakai sebagai username untuk login. Ubah di sini lalu klik Simpan.</div>
                             </div>
                             {mustVerifyEmail && !user.email_verified_at && (
                                 <div style={{ fontSize: 12, color: '#D97706', background: '#FFFBEB', padding: '8px 12px', borderRadius: 8, border: '1px solid #FDE68A' }}>
@@ -374,6 +417,7 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                                     </button>
                                 </div>
                                 {passwordErrors.password && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{passwordErrors.password}</p>}
+                                <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>Minimal 8 karakter. Isi Password Saat Ini dengan benar agar bisa disimpan.</div>
                             </div>
                             <div>
                                 <label style={labelStyle}>Konfirmasi Password Baru</label>

@@ -71,7 +71,6 @@ export default function ProductShow({ settings, product, relatedProducts, ogImag
         `Halo ${brandName}, saya tertarik dengan ${product.name} (${formatRupiah(product.discount_price ?? product.price)}). Apakah produk ini masih tersedia? Mohon informasinya, terima kasih.`
     );
 
-    const paragraphs = product.description ? product.description.split('\n\n') : [];
 
     const shareTitle = `${product.name} — ${brandName}`;
     const shareDescription = product.description
@@ -181,9 +180,9 @@ export default function ProductShow({ settings, product, relatedProducts, ogImag
                                 )}
                             </div>
 
-                            <div className="mt-6 flex flex-col gap-4 text-[15px] leading-relaxed text-gray-600">
-                                {paragraphs.length > 0 ? (
-                                    paragraphs.map((p, i) => <p key={i}>{p}</p>)
+                            <div className="mt-6 text-[15px] leading-relaxed text-gray-600">
+                                {product.description ? (
+                                    <div className="rich-text" dangerouslySetInnerHTML={{ __html: product.description }} />
                                 ) : (
                                     <p className="text-gray-400">Belum ada deskripsi.</p>
                                 )}

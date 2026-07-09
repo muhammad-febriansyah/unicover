@@ -12,7 +12,7 @@ $tagline = $siteSettings?->tagline ?? 'Custom Automotive Covers';
 $ogImage = $logo ? asset('storage/' . $logo) : ($favicon ? asset('storage/' . $favicon) : null);
 @endphp
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

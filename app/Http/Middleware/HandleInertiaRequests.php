@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\ContactMessage;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Middleware;
@@ -46,15 +48,25 @@ class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'siteSettings' => $settings,
+            'unreadMessages' => $this->unreadMessages($request),
         ];
     }
 
-    private function siteSettings(): ?\App\Models\SiteSetting
+    private function unreadMessages(Request $request): int
+    {
+        if (! $request->user()?->is_admin || ! Schema::hasTable('contact_messages')) {
+            return 0;
+        }
+
+        return ContactMessage::where('is_read', false)->count();
+    }
+
+    private function siteSettings(): ?SiteSetting
     {
         if (! Schema::hasTable('site_settings')) {
             return null;
         }
 
-        return \App\Models\SiteSetting::first();
+        return SiteSetting::first();
     }
 }

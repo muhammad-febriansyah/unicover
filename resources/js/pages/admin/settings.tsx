@@ -266,31 +266,6 @@ URL.revokeObjectURL(heroImagePreview);
                                         <textarea value={data.address} onChange={(e) => setData('address', e.target.value)} placeholder="Alamat toko..." style={{ ...inputStyle, minHeight: 72, padding: '12px 14px', resize: 'vertical' as const }} />
                                     </div>
                                     <div>
-                                        <label style={labelStyle}>Google Maps Embed</label>
-                                        <textarea
-                                            value={data.google_maps_embed}
-                                            onChange={(e) => setData('google_maps_embed', e.target.value)}
-                                            placeholder='<iframe src="https://www.google.com/maps/embed?pb=..." width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'
-                                            style={{ ...inputStyle, minHeight: 100, padding: '12px 14px', resize: 'vertical' as const, fontFamily: 'monospace', fontSize: 12 }}
-                                            rows={4}
-                                        />
-                                        <p style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>Tempel kode iframe embed dari Google Maps. Masuk ke Google Maps → Bagikan → Sematkan peta → Salin HTML.</p>
-                                    </div>
-                                    {data.google_maps_embed && (
-                                        <div>
-                                            <label style={labelStyle}>Pratinjau Peta</label>
-                                            <div
-                                                style={{
-                                                    border: '1px solid #E8EAF1',
-                                                    borderRadius: 11,
-                                                    overflow: 'hidden',
-                                                    background: '#F8FAFC',
-                                                }}
-                                                dangerouslySetInnerHTML={{ __html: data.google_maps_embed }}
-                                            />
-                                        </div>
-                                    )}
-                                    <div>
                                         <label style={labelStyle}>Email</label>
                                         <input value={data.email} onChange={(e) => setData('email', e.target.value)} placeholder="toko@email.com" type="email" style={inputStyle} />
                                     </div>
