@@ -417,7 +417,7 @@ export default function ProfilePage({ mustVerifyEmail, status, users }: Props) {
                                     </button>
                                 </div>
                                 {passwordErrors.password && <p style={{ color: '#DC2626', fontSize: 12, marginTop: 4 }}>{passwordErrors.password}</p>}
-                                <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>Minimal 8 karakter. Isi Password Saat Ini dengan benar agar bisa disimpan.</div>
+                                <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 6 }}>Minimal 8 karakter, mengandung huruf dan angka. Isi Password Saat Ini dengan benar agar bisa disimpan.</div>
                             </div>
                             <div>
                                 <label style={labelStyle}>Konfirmasi Password Baru</label>

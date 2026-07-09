@@ -35,6 +35,8 @@ class PasswordUpdateRequest extends FormRequest
             'current_password.current_password' => 'Password saat ini salah.',
             'password.required' => 'Password baru wajib diisi.',
             'password.min' => 'Password baru minimal 8 karakter.',
+            'password.letters' => 'Password baru harus mengandung huruf.',
+            'password.numbers' => 'Password baru harus mengandung angka.',
             'password.confirmed' => 'Konfirmasi password baru tidak cocok.',
         ];
     }
