@@ -14,14 +14,23 @@ use Inertia\Response;
 
 class ArticleController
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $articles = Article::with(['author', 'articleCategory', 'tags'])
-            ->orderByDesc('created_at')
-            ->paginate(15);
+        $query = Article::with(['author', 'articleCategory', 'tags']);
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhereHas('author', fn ($a) => $a->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('articleCategory', fn ($c) => $c->where('name', 'like', "%{$search}%"));
+            });
+        }
+
+        $articles = $query->orderByDesc('created_at')->paginate(15)->withQueryString();
 
         return Inertia::render('admin/articles/index', [
             'articles' => $articles,
+            'filters' => $request->only(['search']),
         ]);
     }
 

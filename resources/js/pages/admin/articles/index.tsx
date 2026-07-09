@@ -1,7 +1,7 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import type {ColumnDef} from '@tanstack/react-table';
-import { Plus, Pencil, Trash2, ArrowUpDown, Eye, FileText } from 'lucide-react';
-import { useState } from 'react';
+import { Plus, Pencil, Trash2, ArrowUpDown, Eye, FileText, Search } from 'lucide-react';
+import { useState, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import {
     AlertDialog,
@@ -30,6 +30,7 @@ interface Article {
 
 interface Props {
     articles: { data: Article[]; current_page: number; last_page: number; from: number; to: number; total: number };
+    filters: { search?: string };
 }
 
 const avaColor = ['#2547F9', '#4B8DB0', '#6B7F9E', '#3D8A6B', '#B08A4B', '#8A5BAF'];
@@ -43,9 +44,28 @@ const avaBg = (s: string) => {
     return avaColor[h];
 };
 
-export default function ArticleIndex({ articles }: Props) {
+export default function ArticleIndex({ articles, filters }: Props) {
     const { delete: destroy } = useForm();
     const [deleteTarget, setDeleteTarget] = useState<Article | null>(null);
+    const [searchValue, setSearchValue] = useState(filters.search ?? '');
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const onSearchChange = (value: string) => {
+        setSearchValue(value);
+
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+
+        debounceRef.current = setTimeout(() => {
+            router.visit('/admin/articles', {
+                data: value ? { search: value } : {},
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+            });
+        }, 400);
+    };
 
     const confirmDelete = () => {
         if (deleteTarget) {
@@ -243,6 +263,28 @@ export default function ArticleIndex({ articles }: Props) {
                         overflow: 'hidden',
                     }}
                 >
+                    {/* filters */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid #EEF1F4', flexWrap: 'wrap' }}>
+                        <div style={{ flex: 1, minWidth: 220, position: 'relative' }}>
+                            <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+                            <input
+                                value={searchValue}
+                                placeholder="Cari judul, penulis, atau kategori..."
+                                onChange={(e) => onSearchChange(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    height: 40,
+                                    padding: '0 14px 0 36px',
+                                    border: '1px solid #E8EAF1',
+                                    borderRadius: 9,
+                                    background: '#F8FAFC',
+                                    fontSize: 13,
+                                    fontFamily: 'inherit',
+                                }}
+                            />
+                        </div>
+                    </div>
+
                     <DataTable
                         columns={columns}
                         data={articles.data}

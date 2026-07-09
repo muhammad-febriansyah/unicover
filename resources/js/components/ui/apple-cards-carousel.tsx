@@ -218,9 +218,16 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                                     </div>
                                 )}
                             </div>
-                            <p className="mt-4 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400">
-                                {selectedProduct.description || "Belum ada deskripsi."}
-                            </p>
+                            {selectedProduct.description ? (
+                                <div
+                                    className="rich-text mt-4 max-h-[240px] overflow-y-auto pr-1 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400"
+                                    dangerouslySetInnerHTML={{ __html: selectedProduct.description }}
+                                />
+                            ) : (
+                                <p className="mt-4 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400">
+                                    Belum ada deskripsi.
+                                </p>
+                            )}
                             <Link
                                 href={`/produk/${selectedProduct.slug}`}
                                 className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2547F9] py-3 text-[14px] font-semibold text-white shadow-lg shadow-[#2547F9]/20 transition-all hover:bg-[#1e3ce0]"

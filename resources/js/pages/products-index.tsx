@@ -135,7 +135,7 @@ export default function ProductsIndex({ settings, products, categories, filters 
                     >
                         <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">Katalog Produk</span>
                         <h1 className="mt-3 max-w-2xl text-[clamp(30px,4vw,48px)] leading-[1.1] font-bold tracking-tight text-[#0f172a]">
-                            Temukan Perlindungan Terbaik yang Sesuai dengan Kendaraan Anda
+                            Temukan Perlindungan Terbaik untuk Kendaraan Anda
                         </h1>
                         <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-gray-500">
                             {products.total} produk berkualitas. Pilih, lihat detail, dan pesan langsung via WhatsApp.
