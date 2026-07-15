@@ -172,7 +172,7 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                        className="relative z-10 w-full max-w-lg overflow-hidden rounded-[24px] bg-white shadow-2xl dark:bg-[#141414]"
+                        className="relative z-10 flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-[24px] bg-white shadow-2xl md:max-w-4xl md:flex-row dark:bg-[#141414]"
                     >
                         <button
                             onClick={() => setSelectedProduct(null)}
@@ -185,7 +185,7 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                             const img = selectedProduct.images.find((i) => i.is_primary) ?? selectedProduct.images[0];
 
                             return img ? (
-                                <div className="aspect-[4/3] w-full overflow-hidden bg-gray-100">
+                                <div className="aspect-[4/3] w-full shrink-0 overflow-hidden bg-gray-100 md:aspect-auto md:w-[45%]">
                                     <img
                                         src={`/storage/${img.path}`}
                                         alt={selectedProduct.name}
@@ -197,48 +197,52 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                             ) : null;
                         })()}
 
-                        <div className="p-6">
-                            {selectedProduct.category && (
-                                <span className="mb-2 inline-flex rounded-full bg-[#eef1ff] px-2.5 py-0.5 text-[11px] font-semibold text-[#2547F9]">
-                                    {selectedProduct.category.name}
-                                </span>
-                            )}
-                            <h3 className="text-xl font-bold tracking-tight text-[#0f172a] dark:text-white">
-                                {selectedProduct.name}
-                            </h3>
-                            <div className="mt-3">
-                                {selectedProduct.discount_price ? (
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-2xl font-extrabold text-[#0f172a] dark:text-white">
-                                            {formatRupiah(selectedProduct.discount_price)}
-                                        </span>
-                                        <span className="text-base text-gray-400 line-through">
+                        <div className="flex min-h-0 flex-1 flex-col">
+                            <div className="min-h-0 flex-1 overflow-y-auto p-6 md:p-8">
+                                {selectedProduct.category && (
+                                    <span className="mb-2 inline-flex rounded-full bg-[#eef1ff] px-2.5 py-0.5 text-[11px] font-semibold text-[#2547F9]">
+                                        {selectedProduct.category.name}
+                                    </span>
+                                )}
+                                <h3 className="text-xl font-bold tracking-tight text-[#0f172a] md:pr-8 dark:text-white">
+                                    {selectedProduct.name}
+                                </h3>
+                                <div className="mt-3">
+                                    {selectedProduct.discount_price ? (
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-2xl font-extrabold text-[#0f172a] dark:text-white">
+                                                {formatRupiah(selectedProduct.discount_price)}
+                                            </span>
+                                            <span className="text-base text-gray-400 line-through">
+                                                {formatRupiah(selectedProduct.price)}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className="text-2xl font-extrabold text-[#0f172a] dark:text-white">
                                             {formatRupiah(selectedProduct.price)}
-                                        </span>
-                                    </div>
+                                        </div>
+                                    )}
+                                </div>
+                                {selectedProduct.description ? (
+                                    <div
+                                        className="rich-text mt-4 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400"
+                                        dangerouslySetInnerHTML={{ __html: selectedProduct.description }}
+                                    />
                                 ) : (
-                                    <div className="text-2xl font-extrabold text-[#0f172a] dark:text-white">
-                                        {formatRupiah(selectedProduct.price)}
-                                    </div>
+                                    <p className="mt-4 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400">
+                                        Belum ada deskripsi.
+                                    </p>
                                 )}
                             </div>
-                            {selectedProduct.description ? (
-                                <div
-                                    className="rich-text mt-4 max-h-[240px] overflow-y-auto pr-1 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400"
-                                    dangerouslySetInnerHTML={{ __html: selectedProduct.description }}
-                                />
-                            ) : (
-                                <p className="mt-4 text-[14px] leading-relaxed text-gray-600 dark:text-gray-400">
-                                    Belum ada deskripsi.
-                                </p>
-                            )}
-                            <Link
-                                href={`/produk/${selectedProduct.slug}`}
-                                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#2547F9] py-3 text-[14px] font-semibold text-white shadow-lg shadow-[#2547F9]/20 transition-all hover:bg-[#1e3ce0]"
-                            >
-                                <Eye size={17} />
-                                Lihat Halaman Produk
-                            </Link>
+                            <div className="shrink-0 border-t border-gray-100 p-6 md:px-8 dark:border-white/10">
+                                <Link
+                                    href={`/produk/${selectedProduct.slug}`}
+                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2547F9] py-3 text-[14px] font-semibold text-white shadow-lg shadow-[#2547F9]/20 transition-all hover:bg-[#1e3ce0]"
+                                >
+                                    <Eye size={17} />
+                                    Lihat Halaman Produk
+                                </Link>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
