@@ -45,12 +45,28 @@ test('users with two factor enabled are redirected to two factor challenge', fun
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $this->post(route('login.store'), [
+    $response = $this->post(route('login.store'), [
         'email' => $user->email,
         'password' => 'wrong-password',
     ]);
 
     $this->assertGuest();
+    $response->assertSessionHasErrors([
+        'email' => 'Email atau kata sandi yang Anda masukkan salah.',
+    ]);
+});
+
+test('validation errors are translated instead of showing raw keys', function () {
+    $response = $this->post(route('login.store'), [
+        'email' => '',
+        'password' => '',
+    ]);
+
+    $this->assertGuest();
+    $response->assertSessionHasErrors([
+        'email' => 'Kolom email wajib diisi.',
+        'password' => 'Kolom kata sandi wajib diisi.',
+    ]);
 });
 
 test('users can logout', function () {
