@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\OptimizeImage;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Tag;
@@ -14,6 +15,8 @@ use Inertia\Response;
 
 class ArticleController
 {
+    public function __construct(private OptimizeImage $images) {}
+
     public function index(Request $request): Response
     {
         $query = Article::with(['author', 'articleCategory', 'tags']);
@@ -79,7 +82,9 @@ class ArticleController
 
         if ($request->hasFile('cover_image')) {
             $article->update([
-                'cover_image_path' => $request->file('cover_image')->store('articles', 'public'),
+                'cover_image_path' => $this->images->fromUpload(
+                    $request->file('cover_image'), 'articles', config('images.max_widths.article')
+                ),
             ]);
         }
 
@@ -148,7 +153,9 @@ class ArticleController
 
         if ($request->hasFile('cover_image')) {
             $article->update([
-                'cover_image_path' => $request->file('cover_image')->store('articles', 'public'),
+                'cover_image_path' => $this->images->fromUpload(
+                    $request->file('cover_image'), 'articles', config('images.max_widths.article')
+                ),
             ]);
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Actions\OptimizeImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
@@ -15,6 +16,8 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    public function __construct(private OptimizeImage $images) {}
+
     /**
      * Show the user's profile settings page.
      */
@@ -45,7 +48,9 @@ class ProfileController extends Controller
             ]);
 
             $oldAvatar = $request->user()->avatar_path;
-            $request->user()->avatar_path = $request->file('avatar')->store('avatars', 'public');
+            $request->user()->avatar_path = $this->images->fromUpload(
+                $request->file('avatar'), 'avatars', config('images.max_widths.avatar')
+            );
 
             if ($oldAvatar) {
                 Storage::disk('public')->delete($oldAvatar);

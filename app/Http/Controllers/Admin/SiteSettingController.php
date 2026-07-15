@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\OptimizeImage;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\RedirectResponse;
@@ -11,6 +12,8 @@ use Inertia\Response;
 
 class SiteSettingController
 {
+    public function __construct(private OptimizeImage $images) {}
+
     public function edit(): Response
     {
         return Inertia::render('admin/settings', [
@@ -48,7 +51,9 @@ class SiteSettingController
                 'logo.mimes' => 'Format logo harus JPG, JPEG, PNG, SVG, atau WEBP.',
                 'logo.max' => 'Ukuran logo maksimal 2MB.',
             ]);
-            $validated['logo_path'] = $request->file('logo')->store('site', 'public');
+            $validated['logo_path'] = $this->images->fromUpload(
+                $request->file('logo'), 'site', config('images.max_widths.logo')
+            );
         }
 
         if ($request->hasFile('hero_image')) {
@@ -57,9 +62,13 @@ class SiteSettingController
                 'hero_image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
                 'hero_image.max' => 'Ukuran gambar maksimal 2MB.',
             ]);
-            $validated['hero_image_path'] = $request->file('hero_image')->store('site', 'public');
+            $validated['hero_image_path'] = $this->images->fromUpload(
+                $request->file('hero_image'), 'site', config('images.max_widths.hero')
+            );
         }
 
+        // The favicon is stored as uploaded: it is already tiny, and browsers are
+        // particular about the formats they accept for a rel="icon" link.
         if ($request->hasFile('favicon')) {
             $request->validate(['favicon' => ['image', 'mimes:png,ico,svg', 'max:512']], [
                 'favicon.image' => 'File harus berupa gambar.',

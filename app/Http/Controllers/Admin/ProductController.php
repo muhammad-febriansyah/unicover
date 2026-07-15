@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\OptimizeImage;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -15,6 +16,8 @@ use Inertia\Response;
 
 class ProductController
 {
+    public function __construct(private OptimizeImage $images) {}
+
     public function index(Request $request): Response
     {
         $query = Product::query()->with(['category', 'images']);
@@ -161,7 +164,7 @@ class ProductController
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $file) {
                 if ($file instanceof UploadedFile) {
-                    $path = $file->store('products', 'public');
+                    $path = $this->images->fromUpload($file, 'products', config('images.max_widths.product'));
 
                     ProductImage::create([
                         'product_id' => $product->id,

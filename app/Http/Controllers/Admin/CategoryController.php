@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\OptimizeImage;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Inertia\Response;
 
 class CategoryController
 {
+    public function __construct(private OptimizeImage $images) {}
+
     public function index(): Response
     {
         return Inertia::render('admin/categories/index', [
@@ -40,7 +43,9 @@ class CategoryController
                 'image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
                 'image.max' => 'Ukuran gambar maksimal 2MB.',
             ]);
-            $validated['image_path'] = $request->file('image')->store('categories', 'public');
+            $validated['image_path'] = $this->images->fromUpload(
+                $request->file('image'), 'categories', config('images.max_widths.category')
+            );
         }
 
         Category::create([
@@ -74,7 +79,9 @@ class CategoryController
                 'image.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
                 'image.max' => 'Ukuran gambar maksimal 2MB.',
             ]);
-            $validated['image_path'] = $request->file('image')->store('categories', 'public');
+            $validated['image_path'] = $this->images->fromUpload(
+                $request->file('image'), 'categories', config('images.max_widths.category')
+            );
         }
 
         $category->update([
