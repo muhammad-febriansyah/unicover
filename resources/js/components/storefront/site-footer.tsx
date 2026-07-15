@@ -27,7 +27,13 @@ export function SiteFooter({ settings }: Props) {
                 <div className="max-w-[300px]">
                     <div className="mb-4 flex items-center">
                         {settings?.logo_path ? (
-                            <img src={`/storage/${settings.logo_path}`} alt={brandName} className="h-14 w-auto object-contain" />
+                            <img
+                                src={`/storage/${settings.logo_path}`}
+                                alt={brandName}
+                                className="h-14 w-auto object-contain"
+                                loading="lazy"
+                                decoding="async"
+                            />
                         ) : (
                             <span className="flex size-14 items-center justify-center rounded-[14px] bg-[#2547F9]">
                                 <Truck size={26} className="text-white" />

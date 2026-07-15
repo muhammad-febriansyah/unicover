@@ -308,9 +308,23 @@ export default function Welcome({ settings, categories, products, compareProduct
                         <div className="pointer-events-none absolute -inset-x-[6%] -top-[8%] -bottom-[6%] rounded-full bg-[radial-gradient(60%_60%_at_70%_30%,rgba(37,71,249,.14),transparent_70%)] blur-[10px]" />
                         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-gray-200 bg-[#F9FAFB] shadow-[0_30px_70px_rgba(37,71,249,.14)]">
                             {settings?.hero_image_path ? (
-                                <img src={`/storage/${settings.hero_image_path}`} alt={brandName} className="size-full object-cover" />
+                                <img
+                                    src={`/storage/${settings.hero_image_path}`}
+                                    alt={brandName}
+                                    className="size-full object-cover"
+                                    loading="eager"
+                                    fetchPriority="high"
+                                    decoding="async"
+                                />
                             ) : heroImage ? (
-                                <img src={`/storage/${heroImage.path}`} alt={heroProduct?.name} className="size-full object-cover" />
+                                <img
+                                    src={`/storage/${heroImage.path}`}
+                                    alt={heroProduct?.name}
+                                    className="size-full object-cover"
+                                    loading="eager"
+                                    fetchPriority="high"
+                                    decoding="async"
+                                />
                             ) : (
                                 <div className="flex size-full items-center justify-center text-sm text-gray-400">Foto produk cover mobil</div>
                             )}
@@ -370,6 +384,8 @@ export default function Welcome({ settings, categories, products, compareProduct
                                                 src={imageSrc}
                                                 alt={cat.name}
                                                 className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         ) : (
                                             <div className="absolute inset-0 bg-[linear-gradient(135deg,#5B7FB0,#3A5C8A)]" />
@@ -513,7 +529,13 @@ export default function Welcome({ settings, categories, products, compareProduct
                                 >
                                     <div className="relative aspect-[16/10] overflow-hidden bg-[#F9FAFB]">
                                         {article.cover_image_path ? (
-                                            <img src={`/storage/${article.cover_image_path}`} alt={article.title} className="absolute inset-0 size-full object-cover" />
+                                            <img
+                                                src={`/storage/${article.cover_image_path}`}
+                                                alt={article.title}
+                                                className="absolute inset-0 size-full object-cover"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
                                         ) : (
                                             <div className="flex size-full items-center justify-center text-xs text-gray-400">Foto artikel</div>
                                         )}

@@ -232,6 +232,9 @@ export default function ProductsIndex({ settings, products, categories, filters 
                                                 src={`/storage/${img.path}`}
                                                 alt={featured.name}
                                                 className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                                loading="eager"
+                                                fetchPriority="high"
+                                                decoding="async"
                                             />
                                         ) : (
                                             <div className="flex size-full items-center justify-center text-sm text-gray-400">Foto produk</div>
@@ -300,6 +303,8 @@ export default function ProductsIndex({ settings, products, categories, filters 
                                                         src={`/storage/${primaryImage.path}`}
                                                         alt={product.name}
                                                         className={`size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${isOutOfStock ? 'grayscale' : ''}`}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                     />
                                                 ) : (
                                                     <div className="flex size-full items-center justify-center text-xs text-gray-400">Foto produk</div>

@@ -164,6 +164,9 @@ query[k] = v;
                                             src={`/storage/${featured.cover_image_path}`}
                                             alt={featured.title}
                                             className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                            loading="eager"
+                                            fetchPriority="high"
+                                            decoding="async"
                                         />
                                     ) : (
                                         <div className="flex size-full items-center justify-center text-sm text-gray-400">Foto artikel</div>
@@ -231,6 +234,8 @@ query[k] = v;
                                                     src={`/storage/${article.cover_image_path}`}
                                                     alt={article.title}
                                                     className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                                    loading="lazy"
+                                                    decoding="async"
                                                 />
                                             ) : (
                                                 <div className="flex size-full items-center justify-center text-xs text-gray-400">Foto artikel</div>

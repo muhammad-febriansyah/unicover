@@ -122,6 +122,9 @@ export default function ProductShow({ settings, product, relatedProducts, ogImag
                                         src={`/storage/${activeImage.path}`}
                                         alt={product.name}
                                         className={`size-full object-cover ${isOutOfStock ? 'grayscale' : ''}`}
+                                        loading="eager"
+                                        fetchPriority="high"
+                                        decoding="async"
                                     />
                                 ) : (
                                     <div className="flex size-full items-center justify-center text-sm text-gray-400">Foto produk</div>
@@ -139,7 +142,7 @@ export default function ProductShow({ settings, product, relatedProducts, ogImag
                                                     : 'border-transparent opacity-60 hover:opacity-100'
                                             }`}
                                         >
-                                            <img src={`/storage/${img.path}`} alt="" className="size-full object-cover" />
+                                            <img src={`/storage/${img.path}`} alt="" className="size-full object-cover" loading="lazy" decoding="async" />
                                         </button>
                                     ))}
                                 </div>
@@ -233,6 +236,8 @@ export default function ProductShow({ settings, product, relatedProducts, ogImag
                                                         src={`/storage/${rpImage.path}`}
                                                         alt={rp.name}
                                                         className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                                        loading="lazy"
+                                                        decoding="async"
                                                     />
                                                 ) : (
                                                     <div className="flex size-full items-center justify-center text-xs text-gray-400">Foto produk</div>

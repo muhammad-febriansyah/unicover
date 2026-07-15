@@ -100,6 +100,8 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                                                 src={`/storage/${img.path}`}
                                                 alt={product.name}
                                                 className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 ${isOutOfStock ? "grayscale" : ""}`}
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         ) : (
                                             <div className="flex h-full w-full items-center justify-center bg-gray-100 text-sm text-gray-400">
@@ -188,6 +190,8 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                                         src={`/storage/${img.path}`}
                                         alt={selectedProduct.name}
                                         className="h-full w-full object-cover"
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                 </div>
                             ) : null;

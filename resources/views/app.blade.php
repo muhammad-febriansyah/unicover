@@ -42,6 +42,14 @@ $ogImage = $logo ? asset('storage/' . $logo) : ($favicon ? asset('storage/' . $f
             <meta name="twitter:image" head-key="twitter:image" content="{{ $ogImage }}">
         @endif
 
+        @php
+            $fontsUrl = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap';
+        @endphp
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preload" as="style" href="{{ $fontsUrl }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ $fontsUrl }}"></noscript>
+
         @fonts
 
         @viteReactRefresh

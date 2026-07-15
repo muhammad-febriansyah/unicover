@@ -205,6 +205,9 @@ export default function ArticleShow({ settings, article, ogImage }: Props) {
                                 src={`/storage/${article.cover_image_path}`}
                                 alt={article.title}
                                 className="aspect-[16/9] w-full object-cover"
+                                loading="eager"
+                                fetchPriority="high"
+                                decoding="async"
                             />
                         </motion.div>
                     )}
