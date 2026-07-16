@@ -161,3 +161,23 @@ test('unreadable bytes raise a runtime exception', function () {
 
     $this->action->fromStoredPath('categories/broken.jpg', 800);
 })->throws(RuntimeException::class);
+
+/**
+ * A missing config/images.php, or a stale config cache built before it
+ * existed, makes config() return null and the width arrive as 0. That must
+ * fail loudly rather than quietly resize every image down to a single pixel.
+ */
+test('a width of zero is refused instead of producing a one pixel image', function (int $maxWidth) {
+    $this->action->fromUpload(UploadedFile::fake()->image('cover.jpg', 2400, 1800), 'articles', $maxWidth);
+})->with([0, -1])->throws(InvalidArgumentException::class);
+
+test('a stored file is not destroyed when the width is zero', function () {
+    Storage::disk('public')->put('categories/keep.jpg', UploadedFile::fake()->image('x.jpg', 2000, 1500)->get());
+    $before = Storage::disk('public')->get('categories/keep.jpg');
+
+    expect(fn () => $this->action->fromStoredPath('categories/keep.jpg', 0))
+        ->toThrow(InvalidArgumentException::class);
+
+    expect(Storage::disk('public')->get('categories/keep.jpg'))->toBe($before);
+    Storage::disk('public')->assertMissing('categories/keep.webp');
+});

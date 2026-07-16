@@ -125,6 +125,40 @@ test('a corrupt file is reported and does not stop the run', function () {
         ->and($healthy->refresh()->image_path)->toEndWith('.webp');
 });
 
+/**
+ * A stale config cache built before config/images.php existed leaves every
+ * width at zero, which once resized the whole library down to a single pixel.
+ */
+test('the run aborts before touching a file when the widths are missing', function () {
+    config(['images.max_widths' => []]);
+
+    $category = Category::factory()->create([
+        'image_path' => legacyUpload('categories', 'old.jpg', 2400, 1800),
+    ]);
+    $before = Storage::disk('public')->get($category->image_path);
+
+    $this->artisan('images:optimize')
+        ->expectsOutputToContain('config/images.php did not load')
+        ->assertFailed();
+
+    expect($category->refresh()->image_path)->toEndWith('.jpg')
+        ->and(Storage::disk('public')->get($category->image_path))->toBe($before);
+
+    Storage::disk('local')->assertDirectoryEmpty('/');
+});
+
+test('a single missing width is enough to abort the run', function () {
+    config(['images.max_widths.category' => null]);
+
+    $category = Category::factory()->create([
+        'image_path' => legacyUpload('categories', 'old.jpg', 2400, 1800),
+    ]);
+
+    $this->artisan('images:optimize')->assertFailed();
+
+    expect($category->refresh()->image_path)->toEndWith('.jpg');
+});
+
 test('a row pointing at a missing file is left alone', function () {
     $category = Category::factory()->create(['image_path' => 'categories/gone.jpg']);
 

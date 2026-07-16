@@ -6,6 +6,7 @@ use GdImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use RuntimeException;
 
 /**
@@ -31,6 +32,8 @@ class OptimizeImage
      */
     public function fromUpload(UploadedFile $file, string $directory, int $maxWidth): string
     {
+        $maxWidth = $this->usableWidth($maxWidth);
+
         $extension = $this->extensionOf($file);
 
         if (in_array($extension, self::PASSTHROUGH_EXTENSIONS, true)) {
@@ -64,6 +67,8 @@ class OptimizeImage
      */
     public function fromStoredPath(string $path, int $maxWidth): ?string
     {
+        $maxWidth = $this->usableWidth($maxWidth);
+
         $public = Storage::disk('public');
 
         if (! $public->exists($path)) {
@@ -100,6 +105,8 @@ class OptimizeImage
 
     /**
      * Rasterise, orient, downscale, and encode to WebP.
+     *
+     * @param  int<1, max>  $maxWidth
      */
     private function encode(string $contents, int $maxWidth): string
     {
@@ -129,6 +136,9 @@ class OptimizeImage
         return $encoded;
     }
 
+    /**
+     * @param  int<1, max>  $maxWidth
+     */
     private function downscale(GdImage $image, int $maxWidth): GdImage
     {
         $width = imagesx($image);
@@ -138,7 +148,7 @@ class OptimizeImage
             return $image;
         }
 
-        $targetWidth = max(1, $maxWidth);
+        $targetWidth = $maxWidth;
         $targetHeight = max(1, (int) round($height * ($maxWidth / $width)));
 
         $resized = imagecreatetruecolor($targetWidth, $targetHeight);
@@ -205,6 +215,25 @@ class OptimizeImage
         $size = @getimagesizefromstring($contents);
 
         return $size !== false && $size[0] <= $maxWidth;
+    }
+
+    /**
+     * A width of zero means config/images.php never loaded, usually a config
+     * cache built before it existed. Resizing to it would silently reduce
+     * every image to a single pixel, so refuse the work instead.
+     *
+     * @return int<1, max>
+     */
+    private function usableWidth(int $maxWidth): int
+    {
+        if ($maxWidth < 1) {
+            throw new InvalidArgumentException(
+                "Refusing to resize to [{$maxWidth}px]. Check that config/images.php is present and, "
+                .'if the config is cached, run `php artisan config:clear`.'
+            );
+        }
+
+        return $maxWidth;
     }
 
     private function extensionOf(UploadedFile $file): string

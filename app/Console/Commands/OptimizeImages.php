@@ -31,6 +31,10 @@ class OptimizeImages extends Command
 
     public function handle(OptimizeImage $images): int
     {
+        if (! $this->widthsAreLoaded()) {
+            return self::FAILURE;
+        }
+
         $dryRun = (bool) $this->option('dry-run');
 
         $this->components->info($dryRun
@@ -131,6 +135,34 @@ class OptimizeImages extends Command
                 ? sprintf('%s, %dpx wide → %dpx webp', $this->format($sizeBefore), $width, $maxWidth)
                 : sprintf('%s, %dpx wide → webp', $this->format($sizeBefore), $width)
         );
+    }
+
+    /**
+     * Abort before touching a single file if config/images.php did not load,
+     * which leaves every width at zero. Without this the run would resize the
+     * whole library down to one pixel and only then report success.
+     */
+    private function widthsAreLoaded(): bool
+    {
+        $missing = [];
+
+        foreach ($this->targets() as [, , $widthKey]) {
+            if ((int) config("images.max_widths.{$widthKey}") < 1) {
+                $missing[] = $widthKey;
+            }
+        }
+
+        if ($missing === []) {
+            return true;
+        }
+
+        $this->components->error('config/images.php did not load, so these widths are missing: '.implode(', ', array_unique($missing)).'.');
+        $this->components->bulletList([
+            'Confirm the file exists: config/images.php',
+            'If the config is cached, run: php artisan config:clear',
+        ]);
+
+        return false;
     }
 
     /**
