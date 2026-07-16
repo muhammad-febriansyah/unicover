@@ -185,7 +185,7 @@ export const Carousel = ({ products, initialScroll = 0 }: Props) => {
                             const img = selectedProduct.images.find((i) => i.is_primary) ?? selectedProduct.images[0];
 
                             return img ? (
-                                <div className="aspect-[4/3] w-full shrink-0 overflow-hidden bg-gray-100 md:aspect-auto md:w-[45%]">
+                                <div className="aspect-[4/3] max-h-[40vh] w-full shrink-0 overflow-hidden bg-gray-100 md:aspect-auto md:max-h-none md:w-[45%]">
                                     <img
                                         src={`/storage/${img.path}`}
                                         alt={selectedProduct.name}
